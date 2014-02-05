@@ -1,0 +1,9 @@
+*~
+.DS_Store
+*.old
+*.bak
+node_modules
+*.off
+*-off
+.DS_Store
+npm-debug.log
