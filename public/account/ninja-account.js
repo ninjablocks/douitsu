@@ -5,8 +5,8 @@
   var account_module = angular.module('account',['ngRoute','cookiesModule','senecaSettingsModule']).
         config(['$routeProvider', function($routeProvider) {
           $routeProvider.
-            when('/Projects', {
-              tab:'Projects'
+            when('/Applications', {
+              tab:'Applications'
             }).
             when('/Settings', {
               tab:'Settings'
@@ -23,7 +23,8 @@
     'user-exists-nick': 'A user with that username already exists.',
     'password-updated': 'Your password has been updated.',
     'org-updated': 'Your organisations details have been updated.',
-    'project-updated': 'Project updated.',
+    'application-updated': 'Application updated.',
+    'application-deleted': 'Application deleted.',
   }
 
 
@@ -86,16 +87,18 @@
 
   account_module.service('api', function($http,$window) {
     return {
-      // GET if no data
-      call: function(path,data,win,fail){
-        if( _.isFunction(data) ) {
-          win = data
-          fail = win
-          data = void 0
-        }
-
+      get: function(path,win,fail){
+        this.call('GET',path,null,null,win,fail)
+      },
+      post: function(path,data,win,fail){
+        this.call('POST',path,data,null,win,fail)
+      },
+      del: function(path,win,fail){
+        this.call('DELETE',path,null,null,win,fail)
+      },
+      call: function(method,path,data,meta,win,fail){
         var params = {
-          method:data?'POST':'GET', 
+          method:method,
           url: path, 
           data:data, 
           cache:false}
@@ -253,7 +256,7 @@
 
 
   account_module.controller('TabView', function($scope, $route, $location, pubsub) {
-    var views = ['Dashboard','Projects','Settings','Account']
+    var views = ['Dashboard','Applications','Settings','Account']
 
     $scope.views = _.filter(views,function(n){return n!='Account'})
 
@@ -282,74 +285,82 @@
   })
 
 
-  account_module.controller('Projects', function($scope, api, pubsub) {
-    $scope.projects = []
+  account_module.controller('Applications', function($scope, api, pubsub) {
+    $scope.applications = []
 
-    $scope.show_projects_list   = true
-    $scope.show_project_details = false
+    $scope.show_applications_list   = true
+    $scope.show_application_details = false
 
 
-    function load_projects() {
-      api.call('/project/user_projects',function(out){
-        $scope.projects = out.projects
+    function load_applications() {
+      api.get('/api/rest/application',function(out){
+        $scope.applications = out
       })
     }
 
 
-    $scope.new_project = function(){ $scope.open_project() }
+    $scope.new_application = function(){ $scope.open_application() }
 
-    $scope.open_project = function( projectid ) {
-      if( void 0 != projectid ) {
-        api.call( '/project/load/'+projectid, function( out ){
-          if( out.project ) {
-            $scope.show_project(out.project)
-          }
+    $scope.open_application = function( applicationid ) {
+      if( void 0 != applicationid ) {
+        api.get( '/api/rest/application/'+applicationid, function( out ){
+          $scope.show_application(out)
         }) 
       }
-      else $scope.show_project()
+      else $scope.show_application()
     }
 
-    $scope.show_project = function( project ) {
-      $scope.project = (project = project || {})
+    $scope.show_application = function( application ) {
+      $scope.application = (application = application || {})
 
-      $scope.field_name = project.name
-      $scope.field_code = project.code
+      $scope.field_name = application.name
+      $scope.field_code = application.code
 
-      $scope.show_projects_list   = false
-      $scope.show_project_details = true
+      $scope.show_applications_list   = false
+      $scope.show_application_details = true
 
-      $scope.project_msg = null
+      $scope.application_msg = null
     }
 
-    $scope.close_project = function() {
-      $scope.show_projects_list   = true
-      $scope.show_project_details = false
+    $scope.close_application = function() {
+      $scope.show_applications_list   = true
+      $scope.show_application_details = false
     }
 
-    function read_project() {
+    function read_application() {
       return {
         name: $scope.field_name,
         code: $scope.field_code
       }
     }
 
-    $scope.save_project = function() {
-      $scope.project = _.extend($scope.project,read_project())
+    $scope.save_application = function() {
+      $scope.application = _.extend($scope.application,read_application())
 
-      api.call( '/project/save', $scope.project, function( out ){
-        if( out.project ) {
-          $scope.show_project(out.project)
-          $scope.project_msg = msgmap['project-updated']
-          pubsub.publish('project.added',[out.project])
-        }
+      api.post( '/api/rest/application', $scope.application, function( out ){
+        $scope.show_application(out)
+        $scope.application_msg = msgmap['application-updated']
+        pubsub.publish('application.change',[out])
       }, function( out ){
-        $scope.project_msg = msgmap[out.why] || msgmap.unknown          
+        $scope.application_msg = msgmap[out.why] || msgmap.unknown          
       })   
     }
 
-    load_projects()
 
-    pubsub.subscribe('project.added',load_projects)
+    $scope.delete_application = function( applicationid ) {
+      if( confirm('Are you sure?') ) {
+        api.del( '/api/rest/application/'+applicationid, function(){
+          $scope.application_msg = msgmap['application-deleted']
+          pubsub.publish('application.change',[])
+        }, function( out ){
+          $scope.application_msg = msgmap[out.why] || msgmap.unknown          
+        })   
+      }
+    }
+
+    load_applications()
+
+    pubsub.subscribe('application.change',load_applications)
   })
 
 })();

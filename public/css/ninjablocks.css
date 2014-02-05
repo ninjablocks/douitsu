@@ -4,6 +4,8 @@ html,
 body {
   height: 100%;
   /* The html and body elements cannot have any padding or margin. */
+
+  font-family: "Raleway", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 /* Wrapper for page content to push down footer */
@@ -214,4 +216,36 @@ a.forgot-password {
     font-family: "Raleway", "Helvetica Neue", Helvetica, Arial, sans-serif;
     clear:both;float:right;margin-top:10px;
     color:#ccc;
+}
+
+
+.nav-tabs > li > a {
+  margin-right: 2px;
+  line-height: 1.42857143;
+  border: 1px solid transparent;
+  border-radius: 0;
+}
+
+
+.application_item {
+    border-radius: 0px;
+    border: 2px solid black !important;
+    font-family: Helvetica, Arial, sans-serif;
+    font-weight: normal !important;
+    font-size: 20px;
+    height: 60px;
+}
+
+.application_item a.application_name {
+    width: 80%;
+    height: 100%;
+    color: #080808;
+}
+
+
+a.btn-item-action {
+    width:19%;
+    border-radius:0px !important;
+    height: 50px;
+    margin: 3px;
 }

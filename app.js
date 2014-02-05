@@ -25,10 +25,21 @@ seneca.use('user',{confirm:true})
 seneca.use('mail')
 seneca.use('auth')
 seneca.use('account')
-seneca.use('project')
+seneca.use('project',{web:false})
 seneca.use('settings')
 seneca.use('data-editor')
 seneca.use('admin')
+
+
+seneca.use('jsonrest-api',{
+  prefix:'/api/rest/',
+  meta:false,
+  canonalias: {
+    'application':'sys_project'
+  }
+})
+
+seneca.use('./douitsu')
 
 
 

@@ -1,0 +1,47 @@
+
+<div ng-controller="Applications">
+
+  <h3 ng-show="show_applications_list">Y O U R&nbsp;&nbsp;&nbsp;A P P L I C A T I O N S</h3>
+  
+
+  <div ng-show="show_applications_list">
+    <br>
+    <ul class="selection-list nav nav-stacked nav-pills">
+      <li ng-repeat="application in applications" class="application_item">
+        <a ng-click="open_application(application.id)" class="application_name" style="float:left">{{application.name}}</a>
+        <a ng-click="delete_application(application.id)" class="btn btn-primary btn-item-action" style="float:right">D E L E T E</a>
+      </li>
+    </ul>
+  </div>
+
+  <div ng-show="show_applications_list">
+    <br>
+    <a class="btn btn-primary" ng-click="new_application()">C R E A T E&nbsp;&nbsp;&nbsp;A P P L I C A T I O N</a>
+  </div>
+
+
+  <h3 ng-show="show_application_details">Application Details</h3>
+
+  <form role="form" ng-show="show_application_details">
+    <br>
+
+    <div class="form-group">
+      <label for="field_name">Name</label>
+      <input type="text" class="form-control half-width" id="field_name" ng-model="field_name">
+    </div>
+    <div class="form-group">
+      <label for="field_code">Code</label>
+      <input type="text" class="form-control half-width" id="field_code" ng-model="field_code">
+    </div>
+
+    <button type="submit" class="btn btn-primary" ng-click="close_application()">Close &raquo;</button>
+    <button type="submit" class="btn btn-primary" ng-click="save_application()">Save &raquo;</button>
+
+    <p class="account_msg">
+      {{application_msg}}
+    </p>
+  </form>
+
+
+</div>
+
