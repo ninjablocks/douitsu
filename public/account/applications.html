@@ -20,24 +20,42 @@
   </div>
 
 
-  <h3 ng-show="show_application_details">Application Details</h3>
+  <h3 ng-show="show_application_details">A P P L I C A T I O N&nbsp;&nbsp;&nbsp;D E T A I L S</h3>
 
   <form role="form" ng-show="show_application_details">
     <br>
 
-    <div class="form-group">
-      <label for="field_name">Name</label>
-      <input type="text" class="form-control half-width" id="field_name" ng-model="field_name">
-    </div>
-    <div class="form-group">
-      <label for="field_code">Code</label>
-      <input type="text" class="form-control half-width" id="field_code" ng-model="field_code">
+    <div class="form-group" style="width:45%;float:right;text-align:right">
+      <div class="form-control" style="width:200px;height:200px;float:right">&nbsp;</div>
+      <div style="margin-left:200px;width:200px;text-align:center;float:right"><label>A P P&nbsp;&nbsp;&nbsp;P H O T O<label></div>
     </div>
 
-    <button type="submit" class="btn btn-primary" ng-click="close_application()">Close &raquo;</button>
-    <button type="submit" class="btn btn-primary" ng-click="save_application()">Save &raquo;</button>
+    <div class="form-group">
+      <input type="text" class="form-control half-width" id="field_name" ng-model="field_name" placeholder="Application Name">
+      <label>Something that users will trust<label>
+    </div>
 
-    <p class="account_msg">
+    <div class="form-group">
+      <input type="text" class="form-control half-width" id="field_homeurl" ng-model="field_homeurl" placeholder="Homepage URL">
+      <label>The full URL to your application homepage<label>
+    </div>
+
+    <div class="form-group">
+      <input type="text" class="form-control half-width" id="field_callback" ng-model="field_callback" placeholder="Authorization Callback URL">
+      <label>Your application’s callback URL; Read our OAuth documentation for more info.<label>
+    </div>
+
+    <div class="form-group">
+      <textarea class="form-control" id="field_desc" ng-model="field_desc" placeholder="Application Description"></textarea>
+      <label>This text is displayed to all potential users of your application<label>
+    </div>
+
+
+    <a type="submit" class="btn btn-primary" style="float:left;width:45%" ng-click="save_application()">S A V E</a>
+    <a type="submit" class="btn btn-primary" style="float:right;width:45%" ng-click="close_application()">C L O S E</a>
+
+
+    <p class="account_msg" style="clear:both;padding-top:50px">
       {{application_msg}}
     </p>
   </form>

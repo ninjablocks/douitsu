@@ -215,7 +215,7 @@
       auth.update_user( 
         data, 
         function( out ){
-          $scope.account_msg = msgmap['user-updated']
+          $scope.details_msg = msgmap['user-updated']
           pubsub.publish('user',[out.user])
         },
         function( out ){
@@ -330,7 +330,7 @@
     function read_application() {
       return {
         name: $scope.field_name,
-        code: $scope.field_code
+        homeurl: $scope.field_homeurl
       }
     }
 

@@ -212,12 +212,29 @@ a.btn-primary {
     padding: 20px;
 }
 
+button.btn-primary {
+    border-radius: 0px;
+    border: 0px;
+    background-color: #080808;
+    width: 100%;
+    font-family: "Raleway", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-weight: bold;
+    font-size: 20px;
+    height: 60px;
+    padding: 20px;
+}
+
 a.forgot-password {
     font-family: "Raleway", "Helvetica Neue", Helvetica, Arial, sans-serif;
     clear:both;float:right;margin-top:10px;
     color:#ccc;
 }
 
+label {
+    font-family: Helvetica, Arial, sans-serif;
+    color:#ccc;
+    font-size: 0.8em;
+}
 
 .nav-tabs > li > a {
   margin-right: 2px;
@@ -228,6 +245,7 @@ a.forgot-password {
 
 
 .application_item {
+    margin-top:20px !important;
     border-radius: 0px;
     border: 2px solid black !important;
     font-family: Helvetica, Arial, sans-serif;

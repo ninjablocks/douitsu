@@ -78,9 +78,7 @@
 
       <div class="row" ng-show="show_view_Account" ng-controller="Account">
         <div class="col-lg-12">
-          <h2>Account</h2>
-
-          <h2>Your Details</h2>
+          <h2>Y O U R&nbsp;&nbsp;&nbsp;D E T A I L S</h2>
           <form role="form">
             <div class="form-group">
               <label for="field_name">Name</label>
@@ -91,14 +89,14 @@
               <input type="text" class="form-control half-width" id="field_email" ng-model="field_email">
             </div>
 
-            <button type="submit" class="btn btn-primary" ng-click="update_user()">Update &raquo;</button>
+            <button type="submit" class="btn btn-primary" style="width:50%" ng-click="update_user()">U P D A T E</button>
 
             <p class="account_msg">
               {{details_msg}}
             </p>
           </form>
 
-          <h2>Change Your Password</h2>
+          <h2>C H A N G E&nbsp;&nbsp;&nbsp;Y O U R&nbsp;&nbsp;&nbsp;P A S S W O R D</h2>
           <form role="form">
             <div class="form-group">
               <label for="field_password">Password</label>
@@ -109,33 +107,12 @@
               <input type="text" class="form-control half-width" id="field_repeat" ng-model="field_repeat">
             </div>
 
-            <button type="submit" class="btn btn-primary" ng-click="change_pass()">Change &raquo;</button>
+            <button type="submit" class="btn btn-primary" style="width:50%" ng-click="change_pass()">C H A N G E</button>
 
             <p class="account_msg">
               {{password_msg}}
             </p>
           </form>
-
-
-          <h2>Your Organisation</h2>
-          <form role="form">
-            <div class="form-group">
-              <label for="field_org_name">Name</label>
-              <input type="text" class="form-control half-width" id="field_org_name" ng-model="field_org_name">
-            </div>
-            <div class="form-group">
-              <label for="field_org_web">Website</label>
-              <input type="text" class="form-control half-width" id="field_org_web" ng-model="field_org_web">
-            </div>
-
-            <button type="submit" class="btn btn-primary" ng-click="update_org()">Update &raquo;</button>
-
-            <p class="account_msg">
-              {{org_msg}}
-            </p>
-          </form>
-
-
         </div>
       </div>
 
