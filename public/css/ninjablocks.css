@@ -120,6 +120,16 @@ p.account_msg {
     height: 60px;
 }
 
+span.not-your-acc {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-weight: 200;    
+    font-size: 24px;
+}
+
+span.not-your-acc a {
+    font-weight: bold;
+    color: #000;
+}
 
 ul.selection-list li {
     border-bottom: 1px solid #ccc;
@@ -228,6 +238,11 @@ a.forgot-password {
     font-family: "Raleway", "Helvetica Neue", Helvetica, Arial, sans-serif;
     clear:both;float:right;margin-top:10px;
     color:#ccc;
+}
+
+a.inline {
+    width: 350px;
+    margin: 20px;
 }
 
 label {
