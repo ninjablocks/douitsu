@@ -28,7 +28,8 @@ gulp.task('ninja-public-script', function () {
 });
 
 gulp.task('clean', function () {
-    return gulp.src(['./dist'], {read: false}).pipe($.clean());
+	// Clean up build directories, eg: 
+    // return gulp.src(['./dist'], {read: false}).pipe($.clean());
 });
 
 // Build
