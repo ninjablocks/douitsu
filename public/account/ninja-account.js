@@ -314,7 +314,9 @@
       $scope.application = (application = application || {})
 
       $scope.field_name = application.name
-      $scope.field_code = application.code
+      $scope.field_homeurl = application.homeurl
+      $scope.field_callback = application.callback
+      $scope.field_desc = application.desc
 
       $scope.show_applications_list   = false
       $scope.show_application_details = true
@@ -330,7 +332,9 @@
     function read_application() {
       return {
         name: $scope.field_name,
-        homeurl: $scope.field_homeurl
+        homeurl: $scope.field_homeurl,
+        callback: $scope.field_callback,
+        desc: $scope.field_desc,
       }
     }
 
