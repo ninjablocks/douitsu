@@ -293,7 +293,7 @@
 
 
     function load_applications() {
-      api.get('/api/rest/application',function(out){
+      api.get('/api/rest/application?user='+$scope.user.id,function(out){
         $scope.applications = out
       })
     }
@@ -331,6 +331,7 @@
 
     function read_application() {
       return {
+        user: $scope.user.id,
         name: $scope.field_name,
         homeurl: $scope.field_homeurl,
         callback: $scope.field_callback,
