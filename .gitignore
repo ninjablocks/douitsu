@@ -7,3 +7,4 @@ node_modules
 *-off
 .DS_Store
 npm-debug.log
+options.mine.js
