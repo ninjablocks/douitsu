@@ -128,6 +128,41 @@ seneca.ready(function(err){
     });
   })
 
+  app.get('/api/user/token', function(req,res,next){
+    if ( req.seneca && req.seneca.user ) {
+      accesstokenent.list$({userID:req.seneca.user.id},function(err, tokens){
+        if(err) return next(err);
+        res.send(tokens);
+      })
+    } else {
+      res.send({});
+    }
+  })
+
+  app.delete('/api/user/token', function(req,res,next){
+    if ( req.seneca && req.seneca.user ) {
+      var access_token = req.query.access_token
+      
+      if( access_token ) {
+        accesstokenent.load$(access_token,function(err,at){
+          if(err) return next(err);
+
+          if (at.userID == req.seneca.user.id) {
+            accesstokenent.remove$(at.id, function(err){
+              if(err) return next(err);
+              res.send({id:at.id})
+            })
+          } else {
+            res.send({id:null})  
+          }
+        })
+      }
+      else res.send({id:null})
+    } else {
+      res.send({id:null});
+    }
+  })
+
   app.use( function( req, res, next ){
     if( 0 == req.url.indexOf('/reset') ||
         0 == req.url.indexOf('/confirm') ) 
@@ -157,6 +192,7 @@ seneca.ready(function(err){
 function dev_fixtures() {
   var u = seneca.pin({role:'user',cmd:'*'})
   var projectpin = seneca.pin({role:'project',cmd:'*'})
+  var accesstokenent = seneca.make('accesstoken')
 
   u.register({nick:'u1',name:'nu1',email:'u1@example.com',password:'u1',active:true}, function(err,out){
     projectpin.save( {
@@ -168,6 +204,9 @@ function dev_fixtures() {
       callback: 'http://example.com/oauth',
       desc: 'example app'
     })
+    
+    accesstokenent.make$({id$:'i1afk49ulwybf46j4cwkhe7ejt121m3no1r0d3eg', userID:out.user.id, clientID:'123', clientName: 'app1'}).save$();
+
     seneca.act('role:settings, cmd:save, kind:user, settings:{a:"aaa"}, ref:"'+out.user.id+'"')
   })
   u.register({nick:'u2',name:'nu2',email:'u2@example.com',password:'u2',active:true})

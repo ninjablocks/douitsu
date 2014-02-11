@@ -58,7 +58,7 @@ function init( options ) {
   server.grant(oauth2orize.grant.code(function(client, redirectURI, user, ares, done) {
     var code = nid(16)
     
-    authcodeent.make$({code:code, clientID:client.id, redirectURI:redirectURI, user:user.id}).save$(function(err) {
+    authcodeent.make$({code:code, clientID:client.id, redirectURI:redirectURI, userID:user.user.id}).save$(function(err) {
       if (err) { return done(err); }
       done(null, code);
     });
@@ -71,9 +71,9 @@ function init( options ) {
   // values.
 
   server.grant(oauth2orize.grant.token(function(client, user, ares, done) {
-    var token = nid(256);
+    var token = nid(40);
 
-    accesstokenent.make$({id$:token, userID:user.id, clientID:client.appid}).save$(function(err) {
+    accesstokenent.make$({id$:token, userID:user.id, clientID:client.appid, clientName:client.name}).save$(function(err) {
       if (err) { return done(err); }
       done(null, token);
     });
@@ -91,8 +91,8 @@ function init( options ) {
       if (client.id !== authCode.clientID) { return done(null, false); }
       if (redirectURI !== authCode.redirectURI) { return done(null, false); }
       
-      var token = nid(256)
-      accesstokenent.make$({id$:token, userID:authCode.userID, clientID:authCode.clientID}).save$(function(err) {
+      var token = nid(40)
+      accesstokenent.make$({id$:token, userID:authCode.userID, clientID:authCode.clientID, clientName:client.name}).save$(function(err) {
         if (err) { return done(err); }
         done(null, token);
       });
@@ -125,8 +125,8 @@ function init( options ) {
           return done(null, false);
         }
         //Everything validated, return the token
-        var token = nid(256);
-        accesstokenent.make$({id$:token, userID:user.id, clietnID:client.appid}).save$(function(err) {
+        var token = nid(40);
+        accesstokenent.make$({id$:token, userID:user.id, clietnID:client.appid, clientName:client.name}).save$(function(err) {
           if (err) { return done(err); }
           done(null, token);
         });
@@ -150,9 +150,9 @@ function init( options ) {
       if(localClient.secret !== client.secret) {
         return done(null, false);
       }
-      var token = nid(256);
+      var token = nid(40);
       //Pass in a null for user id since there is no user with this grant type
-      accesstokenent.make$({id$:token, userID:null, clientID:client.appid}).save$( function(err) {
+      accesstokenent.make$({id$:token, userID:null, clientID:client.appid, clientName:client.name}).save$( function(err) {
         if (err) { return done(err); }
         done(null, token);
       });

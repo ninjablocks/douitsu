@@ -25,6 +25,7 @@
     'org-updated': 'Your organisations details have been updated.',
     'application-updated': 'Application updated.',
     'application-deleted': 'Application deleted.',
+    'token-deleted': "Token deleted."
   }
 
 
@@ -291,6 +292,10 @@
     $scope.show_applications_list   = true
     $scope.show_application_details = false
 
+    function load() {
+      load_applications();
+      load_tokens();
+    }
 
     function load_applications() {
       api.get('/api/rest/application?account='+$scope.account.id,function(out){
@@ -298,6 +303,11 @@
       })
     }
 
+    function load_tokens() {
+      api.get('/api/user/token',function(out){
+        $scope.tokens = out
+      })
+    }
 
     $scope.new_application = function(){ $scope.open_application() }
 
@@ -363,9 +373,19 @@
       }
     }
 
-    load_applications()
+    $scope.revoke_token = function( tokenid ) {
+      if( confirm('Are you sure?') ) {
+        api.del( '/api/user/token?access_token='+tokenid, function(){
+          pubsub.publish('application.change',[])
+        }, function( out ){
+          $scope.token_msg = msgmap[out.why] || msgmap.unknown          
+        })   
+      }
+    }
 
-    pubsub.subscribe('application.change',load_applications)
+    load();
+
+    pubsub.subscribe('application.change',load)
   })
 
 })();
