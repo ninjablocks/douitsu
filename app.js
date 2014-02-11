@@ -75,6 +75,7 @@ seneca.ready(function(err){
 
   var clientent = seneca.make('sys/project')
   var accesstokenent = seneca.make('accesstoken')
+  var projectpin = seneca.pin({role:'project',cmd:'*'});
 
   var oauth2srv = oauth2.init({seneca:seneca})
   app.use(function(req,res,next){
@@ -117,7 +118,15 @@ seneca.ready(function(err){
     else res.send({nope:1})
   })
 
-
+  app.post('/api/application', function(req,res,next){
+    var project = req.body;
+    project.appid = nid(20);
+    project.secret = nid(40);
+    projectpin.save(project, function(err, out) {
+      if(err) return next(err);
+      return res.send(out.project);
+    });
+  })
 
   app.use( function( req, res, next ){
     if( 0 == req.url.indexOf('/reset') ||
@@ -155,6 +164,9 @@ function dev_fixtures() {
       name:'app1',
       appid:'123',
       secret:'456789',
+      homeurl: 'http://example.com',
+      callback: 'http://example.com/oauth',
+      desc: 'example app'
     })
     seneca.act('role:settings, cmd:save, kind:user, settings:{a:"aaa"}, ref:"'+out.user.id+'"')
   })

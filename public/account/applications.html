@@ -30,6 +30,9 @@
       <div style="margin-left:200px;width:200px;text-align:center;float:right"><label>A P P&nbsp;&nbsp;&nbsp;P H O T O<label></div>
     </div>
 
+    <p ng-if="application.appid">Client ID: {{application.appid}}</p>
+    <p ng-if="application.secret">Secret: {{application.secret}}</p>
+
     <div class="form-group">
       <input type="text" class="form-control half-width" id="field_name" ng-model="field_name" placeholder="Application Name">
       <label>Something that users will trust<label>

@@ -293,7 +293,7 @@
 
 
     function load_applications() {
-      api.get('/api/rest/application?user='+$scope.user.id,function(out){
+      api.get('/api/rest/application?account='+$scope.account.id,function(out){
         $scope.applications = out
       })
     }
@@ -331,18 +331,18 @@
 
     function read_application() {
       return {
-        user: $scope.user.id,
+        account: $scope.account.id,
         name: $scope.field_name,
         homeurl: $scope.field_homeurl,
         callback: $scope.field_callback,
-        desc: $scope.field_desc,
+        desc: $scope.field_desc
       }
     }
 
     $scope.save_application = function() {
       $scope.application = _.extend($scope.application,read_application())
 
-      api.post( '/api/rest/application', $scope.application, function( out ){
+      api.post( '/api/application', $scope.application, function( out ){
         $scope.show_application(out)
         $scope.application_msg = msgmap['application-updated']
         pubsub.publish('application.change',[out])

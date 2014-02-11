@@ -17,7 +17,7 @@
   },
   "homepage": "https://github.com/ninjablocks/douitsu",
   "dependencies": {
-    "seneca-jsonrest-api": "~0.2.0",
+    "seneca-jsonrest-api": "~0.2.1",
     "underscore": "~1.5.2",
     "seneca-account": "~0.1.5",
     "seneca-user": "~0.2.7",
