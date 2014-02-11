@@ -4,12 +4,12 @@
 var _       = require('underscore')
 var nid     = require('nid')
 var express = require('express')
+var fs      = require('fs');
 
 var seneca = require('seneca')()
 
 
 var oauth2 = require('./oauth2')
-
 
 process.on('uncaughtException', function(err) {
   console.error('uncaughtException:', err.message)
@@ -163,6 +163,18 @@ seneca.ready(function(err){
     }
   })
 
+  // Upload files
+  app.post('/upload', function(req, res) {
+    upload(res, req.body, "./uploads/", false);
+  });
+
+  app.get('/uploads/:file', function (req, res){
+    var file = req.params.file;
+    var img = fs.readFileSync("./uploads/" + file);
+    res.writeHead(200, {'Content-Type': 'image/jpg' });
+    res.end(img, 'binary');
+  });
+
   app.use( function( req, res, next ){
     if( 0 == req.url.indexOf('/signup') ||
         0 == req.url.indexOf('/reset') ||
@@ -188,7 +200,50 @@ seneca.ready(function(err){
   dev_fixtures()
 })
 
+function upload(response, postData, filePathBase, s3Enabled) {
+    
+    var file                 = postData,
+        fileRootName         = nid(20),
+        fileExtension        = file.name.split('.').pop(),
+        fileRootNameWithBase = filePathBase + fileRootName,
+        filePath             = fileRootNameWithBase + '.' + fileExtension,
+        fileID               = 2,
+        fileBuffer;
+    
+    while (fs.existsSync(filePath)) {
+        filePath = fileRootNameWithBase + '(' + fileID + ').' + fileExtension;
+        fileID += 1;
+    }
+    
+    file.contents = file.contents.split(',').pop();
+    
+    fileBuffer = new Buffer(file.contents, "base64");
+    
+    if (s3Enabled) {
 
+        var knox = require('knox'),
+            client = knox.createClient(config.s3),
+            headers = {'Content-Type': file.type};
+        
+        client.putBuffer(fileBuffer, fileRootName, headers, function (err, res) {
+            
+            if (typeof res !== "undefined" && 200 === res.statusCode) {
+                console.log('Uploaded to: %s', res.client._httpMessage.url);
+                response.statusCode = 200;
+            } else {
+                console.log('Upload failed!');
+                response.statusCode = 500;
+            }
+            
+            response.end(JSON.stringify({url:res.client._httpMessage.url}));
+        });
+        
+    } else {
+      fs.writeFileSync(filePath, fileBuffer);
+      response.statusCode = 200;
+      response.end(JSON.stringify({url:"/uploads/" + fileRootName + "." + fileExtension}));
+    }
+}
   
 function dev_fixtures() {
   var u = seneca.pin({role:'user',cmd:'*'})

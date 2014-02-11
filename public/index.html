@@ -23,6 +23,7 @@
     <link href="/css/bootstrap.css" rel="stylesheet">
     <link href="/css/animate.css" rel="stylesheet">
     <link href="/css/ninjablocks.css" rel="stylesheet">
+    <link href="/css/upload.css" rel="stylesheet">
   </head>
 
   <body ng-app="home" ng-controller="Main" ng-cloak>
@@ -81,8 +82,13 @@
             <div>
               <form role="form">
                 <div class="form-group" style="width:45%;float:right;text-align:right">
-                  <div class="form-control" style="width:200px;height:200px;float:right">&nbsp;</div>
+                  <div id="dropzoneWrap">
+                    <div id="dropzone">
+                      <span id="dropzoneLabel"></span>
+                    </div>
+                  </div>
                   <div style="margin-left:200px;width:200px;text-align:center;float:right"><label>D R A G / D R O P&nbsp;&nbsp;&nbsp;P H O T O<label></div>
+                  
                 </div>
                 <div style="height:85px" ng-class="{'form-group':true,mvp_seek_input:seek_email}">
                   <input type="text" class="form-control half-width" id="email" placeholder="Email Address" ng-model="input_email" tab-index="2">
@@ -168,6 +174,7 @@
     <script src="/js/angular.min.js"></script>
     <script src="/js/cookies.js"></script>
     <script src="/js/ninja-public.js"></script>
+    <script src="/js/upload.js"></script>
   </body>
 </html>
 
