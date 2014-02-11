@@ -240,9 +240,20 @@ a.forgot-password {
     color:#ccc;
 }
 
-a.inline {
-    width: 350px;
-    margin: 20px;
+input.btn-primary {
+    border-radius: 0px;
+    border: 0px;
+    background-color: #080808;
+    width: 100%;
+    font-family: "Raleway", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-weight: bold;
+    font-size: 20px;
+    height: 60px;
+    padding: 20px;
+}
+input.btn-inline {
+    width: 39%;
+    margin: 10px;
 }
 
 label {

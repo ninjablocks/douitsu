@@ -121,8 +121,7 @@ seneca.ready(function(err){
 
   app.use( function( req, res, next ){
     if( 0 == req.url.indexOf('/reset') ||
-        0 == req.url.indexOf('/confirm') ||
-        0 == req.url.indexOf('/authorize') ) 
+        0 == req.url.indexOf('/confirm') ) 
     {
       req.url = '/'
     }

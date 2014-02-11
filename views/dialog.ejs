@@ -1,11 +1,97 @@
-<p>Hi <%= user.name %>!</p>
-<p><b><%= client.name %></b> is requesting access to your account.</p>
-<p>Do you approve?</p>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<form action="/dialog/authorize/decision" method="post">
-  <input name="transaction_id" type="hidden" value="<%= transactionID %>">
-  <div>
-  <input type="submit" value="Allow" id="allow">
-  <input type="submit" value="Deny" name="cancel" id="deny">
-  </div>
-</form>
+    <title>Ninja Blocks</title>
+
+    <style>
+      @font-face {
+      font-family: 'Raleway';
+      font-style: normal;
+      font-weight: 700;
+      src: local('Raleway Bold'), local('Raleway-Bold'), url(/css/JbtMzqLaYbbbCL9X6EvaI73hpw3pgy2gAi-Ip7WPMi0.woff) format('woff');
+      }
+
+      [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+      display: none !important;
+      }
+    </style>
+
+    <link rel="shortcut icon" type="image/x-icon" href="http://cdn.shopify.com/s/files/1/0201/1862/t/2/assets/favicon.png?1871">
+    <link href="/css/bootstrap.css" rel="stylesheet">
+    <link href="/css/animate.css" rel="stylesheet">
+    <link href="/css/ninjablocks.css" rel="stylesheet">
+  </head>
+
+  <body>
+
+    <div id="wrap">
+
+      <div class="container" >
+        <div class="navbar">
+          <h3 class="text-muted"><img src="/img/logo.png"></h3>
+        </div>
+
+
+      <div class="row">
+        <div class="col-lg-3">&nbsp;</div>
+        <div class="col-lg-6">
+          <h4 style="text-align: center">APPLICATION AUTHORIZATION</h4>
+
+          <h3 style="text-align: center; text-transform: none">
+            <%= client.name %> would like to use your Ninja account.
+          </h3>
+
+          <p></p>
+
+          <div class="row" style="text-align: center">
+            <div class="col-lg-1">&nbsp;</div>
+            <div class="col-lg-3" style="border: 1px solid #000; width: 150px; height: 150px; margin: 30px; padding: 0;">
+              <img src="/img/appicon.png" width="148" height="148">
+            </div>
+            <div class="col-lg-2" style="text-align: center; margin-top: 60px;">
+              <span class="glyphicon glyphicon-arrow-right" style="font-size: 80px";></span>
+            </div>
+            <div class="col-lg-3" style="border: 1px solid #000; width: 150px; height: 150px; margin: 30px; padding: 0;">
+              <img src="/img/usericon.png" width="148" height="148">
+              <p style="margin-top: 10px;"><%= user.name %></p>
+            </div>
+          </div>
+
+          <div class="row" style="text-align: center; height: 80px; margin-bottom: 40px;">
+          	<div class="col-lg-1">&nbsp;</div>
+            <form action="/dialog/authorize/decision" method="post">
+	            <input name="transaction_id" type="hidden" value="<%= transactionID %>">
+	            <input type="submit" value="Allow" id="allow" class="btn btn-primary btn-inline">
+	  			<input type="submit" value="Deny" name="cancel" id="deny" class="btn btn-primary btn-inline">
+            </form>
+          </div>
+
+          <div class="row" style="text-align: center; margin-top: 20px;">
+            <span class="not-your-acc">Not your account? <a href="/">Sign in as a different user.</a></span>
+          </div>
+        </div>
+        <div class="col-lg-3">&nbsp;</div>
+      </div>
+
+    </div> <!-- /container -->
+
+    <footer>
+      <div class="container" style="text-align:right;">
+        <p>&copy; NinjaBlocks 2014</p>
+      </div>
+    </footer>
+
+    </div> <!-- /wrap -->
+
+
+    <script src="/js/underscore-min.js"></script>
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/angular.min.js"></script>
+    <script src="/js/cookies.js"></script>
+    <script src="/js/ninja-public.js"></script>
+  </body>
+</html>

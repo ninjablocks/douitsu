@@ -10,14 +10,12 @@
     var page_login   = true
     var page_reset   = 0==path.indexOf('/reset')
     var page_confirm = 0==path.indexOf('/confirm')
-    var page_authorize = 0==path.indexOf('/authorize')
 
-    page_login = !page_confirm && !page_reset && !page_authorize
+    page_login = !page_confirm && !page_reset
 
     $scope.show_login   = page_login
     $scope.show_reset   = page_reset
     $scope.show_confirm = page_confirm
-    $scope.show_authorize = page_authorize
   })
 
 
@@ -114,8 +112,6 @@
 
     }
   })
-
-
 
   home_module.controller('Login', function($scope, $rootScope, auth) {
 
@@ -379,23 +375,6 @@
       window.location.href='/account'
     }
   })
-
-  home_module.controller('Authorize', function($scope, $rootScope, auth) {
-    if( !$scope.show_authorize ) return;
-
-    auth.instance(function(out){
-      $scope.user = out.user
-    })
-
-    $scope.gohome = function() {
-      window.location.href='/'
-    }
-
-    // var path = window.location.pathname
-    // var code = path.replace(/^\/confirm\//,'')
-
-  })
-
 
 })();
 

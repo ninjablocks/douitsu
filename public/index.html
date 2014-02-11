@@ -116,44 +116,6 @@
         <div class="col-lg-5">&nbsp;</div>
       </div>
       
-      <div class="row" id="confirm" ng-controller="Authorize" ng-show="show_authorize">
-        <div class="col-lg-3">&nbsp;</div>
-        <div class="col-lg-6">
-          <h4 style="text-align: center">APPLICATION AUTHORIZATION</h4>
-
-          <h3 style="text-align: center; text-transform: none">
-            &lt;APPLICATION NAME&gt; would like to use your Ninja account.
-          </h3>
-
-          <p></p>
-
-          <div class="row" style="text-align: center">
-            <div class="col-lg-2">&nbsp;</div>
-            <div class="col-lg-3" style="border: 1px solid #000; width: 175px; height: 175px; margin: 30px; padding: 0;">
-              <img src="/img/appicon.png">
-            </div>
-            <div class="col-lg-2" style="text-align: center; margin-top: 60px;">
-              <span class="glyphicon glyphicon-arrow-right" style="font-size: 100px";></span>
-            </div>
-            <div class="col-lg-3" style="border: 1px solid #000; width: 175px; height: 175px; margin: 30px; padding: 0;">
-              <img src="/img/usericon.png">
-              <p style="margin-top: 10px;">{{user.name}}</p>
-            </div>
-          </div>
-
-          <div class="row" style="text-align: center; height: 80px; margin-bottom: 40px;">
-            <a ng-class="{btn:true, 'btn-primary':true, 'inline':true }" href="#" ng-click="reject()">REJECT</a>
-            <a ng-class="{btn:true, 'btn-primary':true, 'inline':true }" href="#" ng-click="approve()">APPROVE</a>
-          </div>
-
-          <div class="row" style="text-align: center; margin-top: 20px;">
-            <span class="not-your-acc">Not your account? <a href="#" ng-click="gohome()">Sign in as a different user.</a></span>
-          </div>
-
-        </div>
-        <div class="col-lg-3">&nbsp;</div>
-      </div>
-
     </div> <!-- /container -->
 
     <footer>
