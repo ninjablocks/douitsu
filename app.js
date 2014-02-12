@@ -162,10 +162,19 @@ seneca.ready(function(err){
   });
 
   app.get('/uploads/:file', function (req, res){
-    var file = req.params.file;
-    var img = fs.readFileSync("./uploads/" + file);
-    res.writeHead(200, {'Content-Type': 'image/jpg' });
-    res.end(img, 'binary');
+    var file = "./uploads/" + req.params.file;
+    fs.exists(file,function(exists){
+      if (!exists) {
+        res.statusCode = 404;
+        return res.end();
+      }
+      else {
+        fs.readFile(file,function(err, img){
+          res.writeHead(200, {'Content-Type': 'image/jpg' });
+          res.end(img, 'binary');
+        });
+      }
+    });
   });
 
   app.use( function( req, res, next ){
@@ -203,12 +212,7 @@ function upload(response, postData, filePathBase, s3Enabled) {
         filePath             = fileRootNameWithBase + '.' + fileExtension,
         fileID               = 2,
         fileBuffer;
-    
-    while (fs.existsSync(filePath)) {
-        filePath = fileRootNameWithBase + '(' + fileID + ').' + fileExtension;
-        fileID += 1;
-    }
-    
+
     file.contents = file.contents.split(',').pop();
     
     fileBuffer = new Buffer(file.contents, "base64");
@@ -224,21 +228,22 @@ function upload(response, postData, filePathBase, s3Enabled) {
             if (typeof res !== "undefined" && 200 === res.statusCode) {
                 console.log('Uploaded to: %s', res.client._httpMessage.url);
                 response.statusCode = 200;
+                response.end(JSON.stringify({url:res.client._httpMessage.url}));
             } else {
                 console.log('Upload failed!');
                 response.statusCode = 500;
+                response.end();
             }
-            
-            response.end(JSON.stringify({url:res.client._httpMessage.url}));
+
         });
         
     } else {
-      if (!fs.existsSync(filePathBase)) {
-        fs.mkdirSync(filePathBase);
-      }
-      fs.writeFileSync(filePath, fileBuffer);
-      response.statusCode = 200;
-      response.end(JSON.stringify({url:"/uploads/" + fileRootName + "." + fileExtension}));
+      fs.mkdir(filePathBase, function(e) {
+        fs.writeFile(filePath, fileBuffer, function(err, img){
+          response.statusCode = 200;
+          response.end(JSON.stringify({url:"/uploads/" + fileRootName + "." + fileExtension}));
+        });
+      });
     }
 }
   
