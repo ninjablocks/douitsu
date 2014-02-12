@@ -285,6 +285,31 @@
       })
   })
 
+  account_module.directive('imageUrl', function () {
+    return {
+        restrict: 'A',
+        link: function (scope, element, attrs) {
+          // set the initial value of the textbox
+          element.val(scope.imageUrl);
+          element.data('old-value', scope.imageUrl);
+
+          // detect outside changes and update our input
+          scope.$watch('imageUrl', function (val) {
+              element.val(scope.imageUrl);
+          });
+
+          // on blur, update the value in scope
+          element.bind('onchange propertychange keyup paste', function (blurEvent) {
+              if (element.data('old-value') != element.val()) {
+                  scope.$apply(function () {
+                      scope.imageUrl = element.val();
+                      element.data('old-value', element.val());
+                  });
+              }
+          });
+        }
+    };
+  });
 
   account_module.controller('Applications', function($scope, api, pubsub) {
     $scope.applications = []
@@ -345,7 +370,8 @@
         name: $scope.field_name,
         homeurl: $scope.field_homeurl,
         callback: $scope.field_callback,
-        desc: $scope.field_desc
+        desc: $scope.field_desc,
+        image: $scope.imageUrl
       }
     }
 

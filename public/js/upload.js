@@ -1,3 +1,6 @@
+
+// Based on https://github.com/merty/simple-file-uploader
+
 ;(function($, window) {
 
 	"use strict";
@@ -63,7 +66,10 @@
 
 			$.post('/upload', current_file, function(data, textStatus, jqXHR) {
 				if ( jqXHR.status == 200 ) {
-					$("#dropzone").html('<img src="' + JSON.parse(data).url + '" width="200">');
+					var imgUrl = JSON.parse(data).url;
+					$("#dropzone img").attr('src', imgUrl);
+					$("#field_image").val(imgUrl);
+					$("#field_image").trigger('propertychange');
 				} else {
 					alett("Upload failed");
 				}
@@ -91,11 +97,15 @@
 			}
 		};
 
-		dropzone = document.getElementById("dropzone");
-		dropzone.addEventListener("dragenter", noopHandler, false);
-		dropzone.addEventListener("dragexit", noopHandler, false);
-		dropzone.addEventListener("dragover", noopHandler, false);
-		dropzone.addEventListener("drop", drop, false);
+		// TODO Temp fix - wait for angular?
+		window.setTimeout(function () {
+			dropzone = document.getElementById("dropzone");
+			dropzone.addEventListener("dragenter", noopHandler, false);
+			dropzone.addEventListener("dragexit", noopHandler, false);
+			dropzone.addEventListener("dragover", noopHandler, false);
+			dropzone.addEventListener("drop", drop, false);
+		}, 200);
+
 	});
 
 }(jQuery, window));

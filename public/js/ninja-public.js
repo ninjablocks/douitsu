@@ -291,6 +291,31 @@
     })
   })
 
+  home_module.directive('imageUrl', function () {
+    return {
+        restrict: 'A',
+        link: function (scope, element, attrs) {
+          // set the initial value of the textbox
+          element.val(scope.imageUrl);
+          element.data('old-value', scope.imageUrl);
+
+          // detect outside changes and update our input
+          scope.$watch('imageUrl', function (val) {
+              element.val(scope.imageUrl);
+          });
+
+          // on blur, update the value in scope
+          element.bind('onchange propertychange keyup paste', function (blurEvent) {
+              if (element.data('old-value') != element.val()) {
+                  scope.$apply(function () {
+                      scope.imageUrl = element.val();
+                      element.data('old-value', element.val());
+                  });
+              }
+          });
+        }
+    };
+  });
 
   home_module.controller('Signup', function($scope, $rootScope, auth) {
 
@@ -323,6 +348,10 @@
 
 
     function perform_signup() {
+      
+      // TODO add image when registering new user
+      // console.log($scope.imageUrl);
+
       auth.register({
         // name:$scope.input_name,
         email:$scope.input_email,

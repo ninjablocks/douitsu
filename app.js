@@ -239,6 +239,9 @@ function upload(response, postData, filePathBase, s3Enabled) {
         });
         
     } else {
+      if (!fs.existsSync(filePathBase)) {
+        fs.mkdirSync(filePathBase);
+      }
       fs.writeFileSync(filePath, fileBuffer);
       response.statusCode = 200;
       response.end(JSON.stringify({url:"/uploads/" + fileRootName + "." + fileExtension}));

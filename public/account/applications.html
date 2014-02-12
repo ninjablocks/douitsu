@@ -38,8 +38,15 @@
     <br>
 
     <div class="form-group" style="width:45%;float:right;text-align:right">
-      <div class="form-control" style="width:200px;height:200px;float:right">&nbsp;</div>
-      <div style="margin-left:200px;width:200px;text-align:center;float:right"><label>A P P&nbsp;&nbsp;&nbsp;P H O T O<label></div>
+      <input type="hidden" class="form-control half-width" id="field_image" ng-model="field_image" image-url value="{{application.image}}">
+      <div id="dropzoneWrap">
+        <div id="dropzone">
+          <img ng-if="application.image" src="{{application.image}}" width="200px">
+          <img ng-if="!application.image" width="200px">
+          <span ng-if="!application.image" id="dropzoneLabel"></span>
+        </div>
+      </div>
+      <div style="margin-left:200px;width:200px;text-align:center;float:right"><label>D R A G / D R O P&nbsp;&nbsp;&nbsp;P H O T O<label></div>
     </div>
 
     <p ng-if="application.appid">Client ID: {{application.appid}}</p>
@@ -65,16 +72,13 @@
       <label>This text is displayed to all potential users of your application<label>
     </div>
 
-
     <a type="submit" class="btn btn-primary" style="float:left;width:45%" ng-click="save_application()">S A V E</a>
     <a type="submit" class="btn btn-primary" style="float:right;width:45%" ng-click="close_application()">C L O S E</a>
-
 
     <p class="account_msg" style="clear:both;padding-top:50px">
       {{application_msg}}
     </p>
   </form>
-
 
 </div>
 
