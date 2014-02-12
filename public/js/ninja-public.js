@@ -328,6 +328,7 @@
 
     function read() {
       return {
+        name:     !empty($scope.input_name),
         email:    !empty($scope.input_email),
         password: !empty($scope.input_password),
         verify_password: !empty($scope.input_verify_password)
@@ -349,7 +350,7 @@
 
     function perform_signup() {
       auth.register({
-        // name:$scope.input_name,
+        name:$scope.input_name,
         email:$scope.input_email,
         password:$scope.input_password,
         image:$scope.imageUrl,
@@ -371,7 +372,7 @@
       var state = read()
       markinput(state)
 
-      if( state.email && state.password && state.verify_password) {
+      if( state.name && state.email && state.password && state.verify_password) {
         if ($scope.input_password == $scope.input_verify_password) {
           perform_signup() 
         } else {
