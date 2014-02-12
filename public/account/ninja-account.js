@@ -14,7 +14,7 @@
             when('/Account', {
               tab:'Account'
             }).
-            otherwise({tab:'Dashboard'})}])
+            otherwise({tab:'Applications'})}])
 
   var msgmap = {
     'unknown': 'Unable to perform your request at this time - please try again later.',
@@ -161,6 +161,10 @@
 
 
   account_module.controller('NavBar', function($scope, auth, pubsub) {
+
+    $scope.btn_applications = function() {
+      pubsub.publish('view',['Applications'])
+    }
     
     $scope.btn_account = function() {
       pubsub.publish('view',['Account'])
