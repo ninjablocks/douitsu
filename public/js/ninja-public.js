@@ -8,14 +8,16 @@
     var path = window.location.pathname
 
     var page_login   = true
-    var page_signup   = 0==path.indexOf('/signup')
+    var page_signup  = 0==path.indexOf('/signup')
+    var page_forgot  = 0==path.indexOf('/forgot')
     var page_reset   = 0==path.indexOf('/reset')
     var page_confirm = 0==path.indexOf('/confirm')
 
-    page_login = !page_signup && !page_confirm && !page_reset
+    page_login = !page_signup && !page_forgot && !page_confirm && !page_reset
 
     $scope.show_login   = page_login
     $scope.show_signup  = page_signup
+    $scope.show_forgot  = page_forgot
     $scope.show_reset   = page_reset
     $scope.show_confirm = page_confirm
   })
@@ -183,7 +185,6 @@
       })
     }
 
-
 /*
     $scope.signup = function(){
       if( 'signup' != $scope.mode ) {
@@ -249,10 +250,7 @@
 
 
     $scope.forgot = function() {
-      $scope.hide_forgot = true
-      show({name:false,password:false,signup:false,signin:false,cancel:true,send:true})
-      $scope.msg = 'Enter an email address so that we can send you a reset link.'
-      $scope.showmsg = true
+      window.location.href='/forgot'
     }
 
 
@@ -407,6 +405,75 @@
     $scope.seek_password = false
     $scope.seek_verify_password = false
     $scope.seek_gravatar = false
+  })
+
+  home_module.controller('Forgot', function($scope, $rootScope, auth) {
+
+    auth.instance(function(out){      
+      if (out.user) {
+        $scope.show_forgot = false;
+        window.location.href='/account';
+      }
+    });
+
+    function read() {
+      return {
+        email:    !empty($scope.input_email)
+      }
+    }
+
+    function markinput(state,exclude) {
+      _.each( state, function( full, field ){
+        if( exclude && exclude[field] ) return;
+        $scope['seek_'+field] = !full
+      })
+
+      $scope.seek_forgot = !state.email
+      $scope.seek_send   = !state.email
+    }
+
+    function perform_send() {
+      auth.reset({
+        email:$scope.input_email,
+
+      }, function(){
+        $scope.msg = msgmap['reset-sent']
+        $scope.showmsg = true
+
+      }, function( out ){
+        $scope.msg = msgmap[out.why] || msgmap.unknown
+        $scope.showmsg = true
+        if( 'user-not-found' == out.why ) $scope.seek_email = true;
+      })
+    }
+
+    $scope.forgot = function(){
+      $scope.showmsg = false
+
+      var state = read()
+      markinput(state)
+
+      if( state.email) {
+        perform_send()
+      }
+      else {
+        $scope.msg = msgmap['missing-fields']
+        $scope.showmsg = true
+      }
+
+      $scope.forgot_hit = true
+      $scope.mode = 'forgot'
+    }
+
+    $scope.showmsg = false
+
+    $scope.forgot_hit = false
+
+    $scope.input_email = ''
+
+    $scope.$watch('input_email',function(){ $scope.seek_email=false})
+
+    $scope.seek_email = false
   })
 
 

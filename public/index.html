@@ -72,9 +72,8 @@
 
           <div class="col-lg-2"></div>
         </div>
-      </div>
 
-      <div class="row" id="signup" ng-controller="Signup" ng-show="show_signup">
+        <div class="row" id="signup" ng-controller="Signup" ng-show="show_signup">
           <div class="col-lg-3"></div>
 
           <div class="col-lg-6">
@@ -119,50 +118,69 @@
 
           <div class="col-lg-3"></div>
         </div>
-      </div>
 
+        <div class="row" id="forgot" ng-controller="Forgot" ng-show="show_forgot">
+            <div class="col-lg-3"></div>
 
-      <div class="row" id="reset" ng-controller="Reset" ng-show="show_reset">
-        <div class="col-lg-5">&nbsp;</div>
-        <div class="col-lg-2">
-          <h1>Password Reset</h1>
-          <form role="form" ng-show="show_reset">
-            <div ng-class="{'form-group':true,mvp_seek_input:seek_password}">
-              <label for="password">Password</label>
-              <input type="password" class="form-control" id="password" placeholder="enter password" ng-model="input_password" tab-index="1">
+            <div class="col-lg-6">
+              <h2 class="login_head">F O R G O T&nbsp;&nbsp;&nbsp;P A S S W O R D</h2>
+              <div>
+                <form role="form">
+                  <div style="height:85px" ng-class="{'form-group':true,mvp_seek_input:seek_email}">
+                    <input type="text" class="form-control" id="email" placeholder="Email Address" ng-model="input_email" tab-index="2">
+                  </div>
+                  <a ng-class="{btn:true, 'btn-primary':true, mvp_seek_input:seek_signup}" href="#"  ng-click="forgot()" tab-index="7">S U B M I T</a>
+                </form>              
+              </div>
+
+              <p style="margin-top:40px;color:red" ng-show="showmsg">{{msg}}</p>
             </div>
-            <div ng-class="{'form-group':true,mvp_seek_input:seek_repeat}">
-              <label for="repeat">Repeat Password</label>
-              <input type="password" class="form-control" id="repeat" placeholder="enter repeat" ng-model="input_repeat" tab-index="2">
-            </div>
 
-            <a ng-class="{btn:true, 'btn-primary':true, mvp_seek_input:seek_reset}" ng-show="show_resetpass" href="#" ng-click="reset()">Reset Password &raquo;</a>
+            <div class="col-lg-3"></div>
+        </div>
+
+
+        <div class="row" id="reset" ng-controller="Reset" ng-show="show_reset">
+          <div class="col-lg-5">&nbsp;</div>
+          <div class="col-lg-2">
+            <h1>Password Reset</h1>
+            <form role="form" ng-show="show_reset">
+              <div ng-class="{'form-group':true,mvp_seek_input:seek_password}">
+                <label for="password">Password</label>
+                <input type="password" class="form-control" id="password" placeholder="enter password" ng-model="input_password" tab-index="1">
+              </div>
+              <div ng-class="{'form-group':true,mvp_seek_input:seek_repeat}">
+                <label for="repeat">Repeat Password</label>
+                <input type="password" class="form-control" id="repeat" placeholder="enter repeat" ng-model="input_repeat" tab-index="2">
+              </div>
+
+              <a ng-class="{btn:true, 'btn-primary':true, mvp_seek_input:seek_reset}" ng-show="show_resetpass" href="#" ng-click="reset()">Reset Password &raquo;</a>
+              <a ng-class="{btn:true, 'btn-primary':true }" href="#" ng-show="show_gohome" ng-click="gohome()">Sign In &raquo;</a>
+
+            </form>
+            <p style="margin-top:40px;color:red">
+              {{msg}}
+            </p>
+          </div>
+          <div class="col-lg-5">&nbsp;</div>
+        </div>
+
+
+        <div class="row" id="confirm" ng-controller="Confirm" ng-show="show_confirm">
+          <div class="col-lg-5">&nbsp;</div>
+          <div class="col-lg-2">
+            <h1>Confirm Account</h1>
+
+            <p style="">
+              {{msg}}
+            </p>
+
+            <a ng-class="{btn:true, 'btn-primary':true }" href="#" ng-show="show_goaccount" ng-click="goaccount()">Your Account &raquo;</a>
             <a ng-class="{btn:true, 'btn-primary':true }" href="#" ng-show="show_gohome" ng-click="gohome()">Sign In &raquo;</a>
 
-          </form>
-          <p style="margin-top:40px;color:red">
-            {{msg}}
-          </p>
+          </div>
+          <div class="col-lg-5">&nbsp;</div>
         </div>
-        <div class="col-lg-5">&nbsp;</div>
-      </div>
-
-
-      <div class="row" id="confirm" ng-controller="Confirm" ng-show="show_confirm">
-        <div class="col-lg-5">&nbsp;</div>
-        <div class="col-lg-2">
-          <h1>Confirm Account</h1>
-
-          <p style="">
-            {{msg}}
-          </p>
-
-          <a ng-class="{btn:true, 'btn-primary':true }" href="#" ng-show="show_goaccount" ng-click="goaccount()">Your Account &raquo;</a>
-          <a ng-class="{btn:true, 'btn-primary':true }" href="#" ng-show="show_gohome" ng-click="gohome()">Sign In &raquo;</a>
-
-        </div>
-        <div class="col-lg-5">&nbsp;</div>
-      </div>
       
     </div> <!-- /container -->
 
