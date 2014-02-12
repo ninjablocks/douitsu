@@ -33,7 +33,8 @@
     "oauth2orize": "~1.0.1",
     "nid": "~0.3.0",
     "ejs-locals": "~1.0.2",
-    "ejs": "~0.8.5"
+    "ejs": "~0.8.5",
+    "seneca-redis-store":"git://github.com/bamse16/seneca-redis-store.git#0.0.4"
   },
   "devDependencies": {
     "gulp": "~3.5.2",
