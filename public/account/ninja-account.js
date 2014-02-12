@@ -352,6 +352,8 @@
       $scope.field_homeurl = application.homeurl
       $scope.field_callback = application.callback
       $scope.field_desc = application.desc
+      $scope.appid = application.appid
+      $scope.secret = application.secret
 
       $scope.show_applications_list   = false
       $scope.show_application_details = true
@@ -368,6 +370,8 @@
       return {
         account: $scope.account.id,
         name: $scope.field_name,
+        appid: $scope.appid,
+        secret: $scope.secret,
         homeurl: $scope.field_homeurl,
         callback: $scope.field_callback,
         desc: $scope.field_desc,

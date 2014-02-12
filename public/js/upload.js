@@ -14,6 +14,7 @@
 		    locked = false,
 		    prev_count_files = 0,
 		    waiting = 0,
+		    dropzoneEl,
 		    drop, dropzone, handleNextFile, handleReaderLoad, noopHandler;
 
 		noopHandler = function(evt) {
@@ -22,6 +23,8 @@
 		};
 
 		drop = function(evt) {
+
+			dropzoneEl = $(event.target).closest('.dropzone');
 
 			noopHandler(evt);
 
@@ -62,14 +65,15 @@
 			current_file.type = all_files[current_file_id].type;
 			current_file.contents = evt.target.result;
 
-			$("#dropzoneLabel").html("Uploading...");
+			dropzoneEl.find("#dropzoneLabel").html("Uploading...");
 
 			$.post('/upload', current_file, function(data, textStatus, jqXHR) {
 				if ( jqXHR.status == 200 ) {
 					var imgUrl = JSON.parse(data).url;
-					$("#dropzone img").attr('src', imgUrl);
-					$("#field_image").val(imgUrl);
-					$("#field_image").trigger('propertychange');
+					dropzoneEl.find("img").attr('src', imgUrl);
+					var fieldImage = dropzoneEl.find("#field_image");
+					fieldImage.val(imgUrl);
+					fieldImage.trigger('propertychange');
 				} else {
 					alett("Upload failed");
 				}
@@ -99,11 +103,12 @@
 
 		// TODO Temp fix - wait for angular?
 		window.setTimeout(function () {
-			dropzone = document.getElementById("dropzone");
-			dropzone.addEventListener("dragenter", noopHandler, false);
-			dropzone.addEventListener("dragexit", noopHandler, false);
-			dropzone.addEventListener("dragover", noopHandler, false);
-			dropzone.addEventListener("drop", drop, false);
+			$('.dropzone').each(function() {
+				this.addEventListener("dragenter", noopHandler, false);
+				this.addEventListener("dragexit", noopHandler, false);
+				this.addEventListener("dragover", noopHandler, false);
+				this.addEventListener("drop", drop, false);
+			});
 		}, 200);
 
 	});

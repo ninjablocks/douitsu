@@ -7,7 +7,7 @@
 	float: right;
 }
 
-#dropzone {
+.dropzone {
 	background-color: #f7f7f7;
 	border: 2px solid #000;
 	color: #e0e0e0;

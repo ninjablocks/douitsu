@@ -120,8 +120,10 @@ seneca.ready(function(err){
 
   app.post('/api/application', function(req,res,next){
     var project = req.body;
-    project.appid = nid(20);
-    project.secret = nid(40);
+    if (!project.appid)
+      project.appid = nid(20);
+    if (!project.secret)
+      project.secret = nid(40);
     projectpin.save(project, function(err, out) {
       if(err) return next(err);
       return res.send(out.project);

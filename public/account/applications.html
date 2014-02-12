@@ -38,9 +38,9 @@
     <br>
 
     <div class="form-group" style="width:45%;float:right;text-align:right">
-      <input type="hidden" class="form-control half-width" id="field_image" ng-model="field_image" image-url value="{{application.image}}">
       <div id="dropzoneWrap">
-        <div id="dropzone">
+        <div class="dropzone">
+          <input type="hidden" id="field_image" ng-model="field_image" image-url value="{{application.image}}">
           <img ng-if="application.image" src="{{application.image}}" width="200px">
           <img ng-if="!application.image" width="200px">
           <span ng-if="!application.image" id="dropzoneLabel"></span>
