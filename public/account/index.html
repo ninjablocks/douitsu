@@ -24,6 +24,7 @@
     <link href="/css/animate.css" rel="stylesheet">
     <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
     <link href="/css/ninjablocks.css" rel="stylesheet">
+    <link href="/css/upload.css" rel="stylesheet">
 
   </head>
 
@@ -80,6 +81,18 @@
         <div class="col-lg-12">
           <h2>Y O U R&nbsp;&nbsp;&nbsp;D E T A I L S</h2>
           <form role="form">
+            <div class="form-group" style="width:45%;float:right;text-align:right">
+              <div id="dropzoneWrap">
+                <div class="dropzone">
+                  <input type="hidden" id="field_image" ng-model="field_image" image-url value="{{user.image}}">
+                  <img ng-if="user.image" src="{{user.image}}" width="200px">
+                  <img ng-if="!user.image" width="200px">
+                  <span ng-if="!user.image" id="dropzoneLabel"></span>
+                </div>
+              </div>
+              <div style="margin-left:200px;width:200px;text-align:center;float:right"><label>D R A G / D R O P&nbsp;&nbsp;&nbsp;P H O T O<label></div>
+            </div>
+
             <div class="form-group">
               <label for="field_name">Name</label>
               <input type="text" class="form-control half-width" id="field_name" ng-model="field_name">
@@ -87,6 +100,10 @@
             <div class="form-group">
               <label for="field_email">Email</label>
               <input type="text" class="form-control half-width" id="field_email" ng-model="field_email">
+            </div>
+            <div class="form-group">
+              <label for="field_email">Gravatar Email (Private)</label>
+              <input type="text" class="form-control half-width" id="field_gravatar" ng-model="field_gravatar">
             </div>
 
             <button type="submit" class="btn btn-primary" style="width:50%" ng-click="update_user()">U P D A T E</button>
@@ -135,5 +152,6 @@
     <script src="/js/cookies.js"></script>
     <script src="/settings/seneca-settings.js"></script>
     <script src="/account/ninja-account.js"></script>
+    <script src="/js/upload.js"></script>
   </body>
 </html>

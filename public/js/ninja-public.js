@@ -8,12 +8,14 @@
     var path = window.location.pathname
 
     var page_login   = true
+    var page_signup   = 0==path.indexOf('/signup')
     var page_reset   = 0==path.indexOf('/reset')
     var page_confirm = 0==path.indexOf('/confirm')
 
-    page_login = !page_confirm && !page_reset
+    page_login = !page_signup && !page_confirm && !page_reset
 
     $scope.show_login   = page_login
+    $scope.show_signup  = page_signup
     $scope.show_reset   = page_reset
     $scope.show_confirm = page_confirm
   })
@@ -25,6 +27,7 @@
     'missing-fields': 'Please enter the missing fields.',
     'user-not-found': 'That email address is not recognized.',
     'invalid-password': 'That password is incorrect',
+    'mismatch-password': 'Password mismatch',
     'email-exists': 'That email address is already in use. Please login, or ask for a password reset.',
     'nick-exists': 'That email address is already in use. Please login, or ask for a password reset.',
     'reset-sent': 'An email with password reset instructions has been sent to you.',
@@ -258,6 +261,10 @@
       window.location.href='/account'
     }
 
+    $scope.signup = function() {
+      window.location.href='/signup'
+    }
+
 
     $scope.user = null
 
@@ -284,7 +291,123 @@
     })
   })
 
+  home_module.directive('imageUrl', function () {
+    return {
+        restrict: 'A',
+        link: function (scope, element, attrs) {
+          // set the initial value of the textbox
+          element.val(scope.imageUrl);
+          element.data('old-value', scope.imageUrl);
 
+          // detect outside changes and update our input
+          scope.$watch('imageUrl', function (val) {
+              element.val(scope.imageUrl);
+          });
+
+          // on blur, update the value in scope
+          element.bind('onchange propertychange keyup paste', function (blurEvent) {
+              if (element.data('old-value') != element.val()) {
+                  scope.$apply(function () {
+                      scope.imageUrl = element.val();
+                      element.data('old-value', element.val());
+                  });
+              }
+          });
+        }
+    };
+  });
+
+  home_module.controller('Signup', function($scope, $rootScope, auth) {
+
+    auth.instance(function(out){      
+      if (out.user) {
+        $scope.show_signup = false;
+        window.location.href='/account';
+      }
+    });
+
+    function read() {
+      return {
+        name:     !empty($scope.input_name),
+        email:    !empty($scope.input_email),
+        password: !empty($scope.input_password),
+        verify_password: !empty($scope.input_verify_password)
+        //, gravatar: !empty($scope.input_gravatar)
+      }
+    }
+    
+
+    function markinput(state,exclude) {
+      _.each( state, function( full, field ){
+        if( exclude && exclude[field] ) return;
+        $scope['seek_'+field] = !full
+      })
+
+      $scope.seek_signup = !state.email || !state.password
+      $scope.seek_send   = !state.email
+    }
+
+
+    function perform_signup() {
+      auth.register({
+        name:$scope.input_name,
+        email:$scope.input_email,
+        password:$scope.input_password,
+        image:$scope.imageUrl,
+        gravatar:$scope.input_gravatar
+      }, null, function( out ){
+        $scope.msg = msgmap[out.why] || msgmap.unknown
+        if( 'email-exists' == out.why ) $scope.seek_email = true;
+        if( 'nick-exists'  == out.why ) $scope.seek_email = true;
+        $scope.showmsg = true
+      })
+    }
+
+    $scope.signup = function(){
+      // if( 'signup' != $scope.mode ) {
+      //   show({name:true,password:true,signup:true,signin:false,cancel:true,send:false})
+      // }
+      $scope.showmsg = false
+
+      var state = read()
+      markinput(state)
+
+      if( state.name && state.email && state.password && state.verify_password) {
+        if ($scope.input_password == $scope.input_verify_password) {
+          perform_signup() 
+        } else {
+          $scope.msg = msgmap['mismatch-password']
+          $scope.showmsg = true
+        }        
+      }
+      else {
+        $scope.msg = msgmap['missing-fields']
+        $scope.showmsg = true
+      }
+
+      $scope.signup_hit = true
+      $scope.mode = 'signup'
+    }
+
+    $scope.showmsg = false
+
+    $scope.signup_hit = false
+
+    $scope.input_email = ''
+    $scope.input_password = ''
+    $scope.input_verify_password = ''
+    $scope.input_gravatar = ''
+
+    $scope.$watch('input_email',function(){ $scope.seek_email=false})
+    $scope.$watch('input_password',function(){ $scope.seek_password=false})
+    $scope.$watch('input_verify_password',function(){ $scope.seek_verify_password=false})
+    $scope.$watch('input_gravatar',function(){ $scope.seek_gravatar=false})
+
+    $scope.seek_email = false
+    $scope.seek_password = false
+    $scope.seek_verify_password = false
+    $scope.seek_gravatar = false
+  })
 
 
   home_module.controller('Reset', function($scope, $http, auth) {

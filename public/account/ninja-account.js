@@ -25,6 +25,7 @@
     'org-updated': 'Your organisations details have been updated.',
     'application-updated': 'Application updated.',
     'application-deleted': 'Application deleted.',
+    'token-deleted': "Token deleted."
   }
 
 
@@ -180,6 +181,8 @@
     pubsub.subscribe('user',function(user){
       $scope.field_name  = user.name
       $scope.field_email = user.email
+      $scope.field_gravatar = user.gravatar
+      $scope.field_image = user.image
     })
 
     pubsub.subscribe('account',function(account){
@@ -191,7 +194,9 @@
     function read_user() {
       return {
         name:  $scope.field_name,
-        email: $scope.field_email
+        email: $scope.field_email,
+        gravatar: $scope.field_gravatar,
+        image: $scope.imageUrl
       }
     }
 
@@ -284,6 +289,31 @@
       })
   })
 
+  account_module.directive('imageUrl', function () {
+    return {
+        restrict: 'A',
+        link: function (scope, element, attrs) {
+          // set the initial value of the textbox
+          element.val(scope.imageUrl);
+          element.data('old-value', scope.imageUrl);
+
+          // detect outside changes and update our input
+          scope.$watch('imageUrl', function (val) {
+              element.val(scope.imageUrl);
+          });
+
+          // on blur, update the value in scope
+          element.bind('onchange propertychange keyup paste', function (blurEvent) {
+              if (element.data('old-value') != element.val()) {
+                  scope.$apply(function () {
+                      scope.imageUrl = element.val();
+                      element.data('old-value', element.val());
+                  });
+              }
+          });
+        }
+    };
+  });
 
   account_module.controller('Applications', function($scope, api, pubsub) {
     $scope.applications = []
@@ -291,13 +321,22 @@
     $scope.show_applications_list   = true
     $scope.show_application_details = false
 
+    function load() {
+      load_applications();
+      load_tokens();
+    }
 
     function load_applications() {
-      api.get('/api/rest/application?user='+$scope.user.id,function(out){
+      api.get('/api/rest/application?account='+$scope.account.id,function(out){
         $scope.applications = out
       })
     }
 
+    function load_tokens() {
+      api.get('/api/user/token',function(out){
+        $scope.tokens = out
+      })
+    }
 
     $scope.new_application = function(){ $scope.open_application() }
 
@@ -317,6 +356,8 @@
       $scope.field_homeurl = application.homeurl
       $scope.field_callback = application.callback
       $scope.field_desc = application.desc
+      $scope.appid = application.appid
+      $scope.secret = application.secret
 
       $scope.show_applications_list   = false
       $scope.show_application_details = true
@@ -331,18 +372,21 @@
 
     function read_application() {
       return {
-        user: $scope.user.id,
+        account: $scope.account.id,
         name: $scope.field_name,
+        appid: $scope.appid,
+        secret: $scope.secret,
         homeurl: $scope.field_homeurl,
         callback: $scope.field_callback,
         desc: $scope.field_desc,
+        image: $scope.imageUrl
       }
     }
 
     $scope.save_application = function() {
       $scope.application = _.extend($scope.application,read_application())
 
-      api.post( '/api/rest/application', $scope.application, function( out ){
+      api.post( '/api/application', $scope.application, function( out ){
         $scope.show_application(out)
         $scope.application_msg = msgmap['application-updated']
         pubsub.publish('application.change',[out])
@@ -363,9 +407,19 @@
       }
     }
 
-    load_applications()
+    $scope.revoke_token = function( tokenid ) {
+      if( confirm('Are you sure?') ) {
+        api.del( '/api/user/token?access_token='+tokenid, function(){
+          pubsub.publish('application.change',[])
+        }, function( out ){
+          $scope.token_msg = msgmap[out.why] || msgmap.unknown          
+        })   
+      }
+    }
 
-    pubsub.subscribe('application.change',load_applications)
+    load();
+
+    pubsub.subscribe('application.change',load)
   })
 
 })();
