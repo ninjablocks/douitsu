@@ -348,14 +348,12 @@
 
 
     function perform_signup() {
-      
-      // TODO add image when registering new user
-      // console.log($scope.imageUrl);
-
       auth.register({
         // name:$scope.input_name,
         email:$scope.input_email,
-        password:$scope.input_password
+        password:$scope.input_password,
+        image:$scope.imageUrl,
+        gravatar:$scope.input_gravatar
       }, null, function( out ){
         $scope.msg = msgmap[out.why] || msgmap.unknown
         if( 'email-exists' == out.why ) $scope.seek_email = true;
