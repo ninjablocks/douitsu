@@ -1,8 +1,6 @@
 
 var nid = require('nid')
 
-
-
 module.exports = function( options ) {
   var seneca = this
   var plugin = 'douitsu'
@@ -12,9 +10,6 @@ module.exports = function( options ) {
 
   var accesstokenent = seneca.make('accesstoken')
 
-
-
-  
   function cmd_get_user_token( args, done ) {
     var user = args.user
     var userent = this.make('sys/user')
@@ -29,8 +24,6 @@ module.exports = function( options ) {
     else return done(null,{tokens:[]})
   }
 
-
-
   seneca.add({role:'jsonrest-api',prefix:'/api/rest/',method:'post',base:'sys',name:'project'},function(args,done){
     var data = args.data
 
@@ -41,24 +34,6 @@ module.exports = function( options ) {
 
     this.prior(args,done)
   })
-
-  
-  /*
-
-  app.post('/api/application', function(req,res,next){
-    var project = req.body;
-    if (!project.appid)
-      project.appid = nid(20);
-    if (!project.secret)
-      project.secret = nid(40);
-    projectpin.save(project, function(err, out) {
-      if(err) return next(err);
-      return res.send(out.project);
-    });
-  })
-   */
-
-
 
   function buildcontext(req,res,args,act,respond) {
     args.user = req.seneca.user

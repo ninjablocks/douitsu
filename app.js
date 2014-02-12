@@ -132,20 +132,6 @@ seneca.ready(function(err){
     });
   })
 
-
-  /* moved to douitsu.js
-  app.get('/api/user/token', function(req,res,next){
-    if ( req.seneca && req.seneca.user ) {
-      accesstokenent.list$({userID:req.seneca.user.id},function(err, tokens){
-        if(err) return next(err);
-        res.send(tokens);
-      })
-    } else {
-      res.send({});
-    }
-  })
-   */
-
   app.delete('/api/user/token', function(req,res,next){
     if ( req.seneca && req.seneca.user ) {
       var access_token = req.query.access_token
