@@ -2,9 +2,9 @@
   function noop(){for(var i=0;i<arguments.length;i++)if('function'==typeof(arguments[i]))arguments[i]()}
   function empty(val) { return null == val || 0 == ''+val }
 
-  var home_module = angular.module('home',['cookiesModule'])
+  var home_module = angular.module('home',['cookiesModule', 'services.config'])
 
-  home_module.controller('Main', function($scope,$location) {
+  home_module.controller('Main', function($scope,$location,configuration) {
     var path = window.location.pathname
 
     var page_login   = true
@@ -12,6 +12,10 @@
     var page_forgot  = 0==path.indexOf('/forgot')
     var page_reset   = 0==path.indexOf('/reset')
     var page_confirm = 0==path.indexOf('/confirm')
+
+    if (page_signup && !configuration.signup_enabled) {
+      return window.location.href = "/";
+    }
 
     page_login = !page_signup && !page_forgot && !page_confirm && !page_reset
 
@@ -118,7 +122,9 @@
     }
   })
 
-  home_module.controller('Login', function($scope, $rootScope, auth) {
+  home_module.controller('Login', function($scope, $rootScope, auth, configuration) {
+
+    $scope.signup_enabled = configuration.signup_enabled;
 
     function read() {
       return {

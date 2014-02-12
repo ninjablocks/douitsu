@@ -37,6 +37,7 @@
 
 
         <div class="row" id="welcome" ng-controller="Login" ng-show="show_login">
+          <div class="col-lg-4" ng-show="!signup_enabled">&nbsp;</div>
           <div class="col-lg-5">
             <h2 class="login_head">S I G N&nbsp;&nbsp;&nbsp;I N</h2>
             <div>
@@ -58,10 +59,10 @@
 
           </div>
 
-          <div class="col-lg-1" style="border-right: 2px solid #080808;height:130%">&nbsp;</div>
-          <div class="col-lg-1">&nbsp;</div>
+          <div class="col-lg-1" ng-show="signup_enabled" style="border-right: 2px solid #080808;height:130%">&nbsp;</div>
+          <div class="col-lg-1" ng-show="signup_enabled">&nbsp;</div>
 
-          <div class="col-lg-5">
+          <div class="col-lg-5" ng-show="signup_enabled">
             <h2 class="login_head">N O T&nbsp;&nbsp;&nbsp;A&nbsp;&nbsp;&nbsp;N I N J A ?</h2>
 
             <p style="text-align:center;height:200px;margin:0;"><img src="/img/ninja.png"></p>
@@ -196,6 +197,7 @@
     <script src="/js/bootstrap.min.js"></script>
     <script src="/js/angular.min.js"></script>
     <script src="/js/cookies.js"></script>
+    <script src="/js/config.js"></script>
     <script src="/js/ninja-public.js"></script>
     <script src="/js/upload.js"></script>
     
