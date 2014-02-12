@@ -6,7 +6,19 @@ var oauth2orize = require('oauth2orize')
 
 
 function init( options ) {
+  var argv = require('optimist').argv
+  var env = argv.env || process.env['NODE_ENV']
+
   var seneca = options.seneca
+  if( 'development' == env ) {
+    seneca.use('options','seneca.options.js')
+    seneca.use('redis-store')
+    seneca.use('ldap-store', {
+      map: {
+        '-/ldap/-':'*'
+      }
+    });
+  }
 
   var userent        = seneca.make('sys/user')
   var clientent      = seneca.make('sys/project')
