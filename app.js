@@ -261,7 +261,8 @@ function dev_fixtures() {
       secret:'456789',
       homeurl: 'http://example.com',
       callback: 'http://example.com/oauth',
-      desc: 'example app'
+      desc: 'example app',
+      image: 'https://pbs.twimg.com/profile_images/432897163673075713/7lcs7v8c.png'
     })
     
     accesstokenent.make$({id$:'i1afk49ulwybf46j4cwkhe7ejt121m3no1r0d3eg', userID:out.user.id, clientID:'123', clientName: 'app1'}).save$();

@@ -49,13 +49,21 @@
           <div class="row" style="text-align: center">
             <div class="col-lg-1">&nbsp;</div>
             <div class="col-lg-3" style="border: 1px solid #000; width: 150px; height: 150px; margin: 30px; padding: 0;">
+            <% if (client.image) { %>
+              <img src="<%= client.image %>" width="148" height="148">
+              <% } else { %>
               <img src="/img/appicon.png" width="148" height="148">
+              <% } %>
             </div>
             <div class="col-lg-2" style="text-align: center; margin-top: 60px;">
               <span class="glyphicon glyphicon-arrow-right" style="font-size: 80px";></span>
             </div>
             <div class="col-lg-3" style="border: 1px solid #000; width: 150px; height: 150px; margin: 30px; padding: 0;">
+              <% if (user.image) { %>
+              <img src="<%= user.image %>" width="148" height="148">
+              <% } else { %>
               <img src="/img/usericon.png" width="148" height="148">
+              <% } %>
               <p style="margin-top: 10px;"><%= user.name %></p>
             </div>
           </div>
