@@ -334,7 +334,7 @@
 
     function load_tokens() {
       api.get('/api/user/token',function(out){
-        $scope.tokens = out
+        $scope.tokens = out.tokens
       })
     }
 
