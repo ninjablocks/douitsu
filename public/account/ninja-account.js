@@ -181,6 +181,8 @@
     pubsub.subscribe('user',function(user){
       $scope.field_name  = user.name
       $scope.field_email = user.email
+      $scope.field_gravatar = user.gravatar
+      $scope.field_image = user.image
     })
 
     pubsub.subscribe('account',function(account){
@@ -192,7 +194,9 @@
     function read_user() {
       return {
         name:  $scope.field_name,
-        email: $scope.field_email
+        email: $scope.field_email,
+        gravatar: $scope.field_gravatar,
+        image: $scope.imageUrl
       }
     }
 
