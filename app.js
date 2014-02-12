@@ -42,6 +42,7 @@ seneca.use('jsonrest-api',{
   }
 })
 
+
 seneca.use('./douitsu')
 
 
@@ -118,6 +119,7 @@ seneca.ready(function(err){
     else res.send({nope:1})
   })
 
+
   app.post('/api/application', function(req,res,next){
     var project = req.body;
     if (!project.appid)
@@ -130,6 +132,8 @@ seneca.ready(function(err){
     });
   })
 
+
+  /* moved to douitsu.js
   app.get('/api/user/token', function(req,res,next){
     if ( req.seneca && req.seneca.user ) {
       accesstokenent.list$({userID:req.seneca.user.id},function(err, tokens){
@@ -140,6 +144,7 @@ seneca.ready(function(err){
       res.send({});
     }
   })
+   */
 
   app.delete('/api/user/token', function(req,res,next){
     if ( req.seneca && req.seneca.user ) {

@@ -386,7 +386,7 @@
     $scope.save_application = function() {
       $scope.application = _.extend($scope.application,read_application())
 
-      api.post( '/api/application', $scope.application, function( out ){
+      api.post( '/api/rest/application', $scope.application, function( out ){
         $scope.show_application(out)
         $scope.application_msg = msgmap['application-updated']
         pubsub.publish('application.change',[out])
