@@ -1,0 +1,16 @@
+{
+  "name": "douitsu",
+  "version": "0.0.0",
+  "homepage": "https://github.com/ninjablocks/douitsu",
+  "private": true,
+  "ignore": [
+    "**/.*"
+  ],
+  "dependencies": {
+    "bootstrap": "~3.0.0",
+    "underscore": "~1.5.1",
+    "jquery": "~2.0.3",
+    "angular": "*",
+    "angular-route": "*"
+  }
+}
