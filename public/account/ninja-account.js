@@ -1,9 +1,12 @@
+'use strict';
+
 ;(function(){
   function noop(){for(var i=0;i<arguments.length;i++)if('function'==typeof(arguments[i]))arguments[i]()}
   function empty(val) { return null == val || 0 == ''+val }
 
-  var account_module = angular.module('account',['ngRoute','cookiesModule','senecaSettingsModule']).
-        config(['$routeProvider', function($routeProvider) {
+  var account_module = angular.module('account',['ngRoute','cookiesModule','senecaSettingsModule']);
+
+  account_module.config(['$routeProvider', function($routeProvider) {
           $routeProvider.
             when('/Applications', {
               tab:'Applications'
@@ -14,7 +17,7 @@
             when('/Account', {
               tab:'Account'
             }).
-            otherwise({tab:'Applications'})}])
+            otherwise({tab:'Applications'})}]);
 
   var msgmap = {
     'unknown': 'Unable to perform your request at this time - please try again later.',
@@ -26,11 +29,11 @@
     'application-updated': 'Application updated.',
     'application-deleted': 'Application deleted.',
     'token-deleted': "Token deleted."
-  }
+  };
 
 
 
-  account_module.service('auth', ['$http', '$window', function($http,$window) {
+  account_module.service('auth', function($http,$window) {
     return {
       instance: function(win,fail){
         $http({method:'GET', url: '/auth/instance', cache:false}).
@@ -83,10 +86,10 @@
           })
       },
     }
-  }])
+  })
 
 
-  account_module.service('api', ['$http', '$window', function($http,$window) {
+  account_module.service('api', function($http,$window) {
     return {
       get: function(path,win,fail){
         this.call('GET',path,null,null,win,fail)
@@ -113,7 +116,7 @@
           })
       }
     }
-  }])
+  })
 
   account_module.service('pubsub', function() {
     var cache = {};
@@ -144,7 +147,7 @@
   });
 
 
-  account_module.controller('Main', ['$scope', 'auth', 'pubsub', function($scope, auth, pubsub) {
+  account_module.controller('Main', function($scope, auth, pubsub) {
     //var path = window.location.pathname
 
     auth.instance(function(out){
@@ -157,10 +160,10 @@
     pubsub.subscribe('user',function(user){
       $scope.user = user
     })
-  }])
+  })
 
 
-  account_module.controller('NavBar', ['$scope', 'auth', 'pubsub', function($scope, auth, pubsub) {
+  account_module.controller('NavBar', function($scope, auth, pubsub) {
 
     $scope.btn_applications = function() {
       pubsub.publish('view',['Applications'])
@@ -174,10 +177,10 @@
       auth.logout()
     }
     
-  }])
+  })
 
 
-  account_module.controller('Account', ['$scope', 'auth', 'pubsub', function($scope, auth, pubsub) {
+  account_module.controller('Account', function($scope, auth, pubsub) {
     pubsub.subscribe('view',function(view){
       if( 'Account' != view ) return;
     })
@@ -261,10 +264,10 @@
         }
       )
     }
-  }])
+  })
 
 
-  account_module.controller('TabView', ['$scope', '$route', '$location', 'pubsub', function($scope, $route, $location, pubsub) {
+  account_module.controller('TabView', function($scope, $route, $location, pubsub) {
     var views = ['Dashboard','Applications','Settings','Account']
 
     $scope.views = _.filter(views,function(n){return n!='Account'})
@@ -291,7 +294,7 @@
           $scope.tabview( route.tab )
         }
       })
-  }])
+  })
 
   account_module.directive('imageUrl', function () {
     return {
@@ -319,7 +322,7 @@
     };
   });
 
-  account_module.controller('Applications', ['$scope', 'api', 'pubsub', function($scope, api, pubsub) {
+  account_module.controller('Applications', function($scope, api, pubsub) {
     $scope.applications = []
 
     $scope.show_applications_list   = true
@@ -424,7 +427,7 @@
     load();
 
     pubsub.subscribe('application.change',load)
-  }])
+  })
 
 })();
 

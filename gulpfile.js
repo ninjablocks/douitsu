@@ -5,25 +5,22 @@ var gulp = require('gulp');
 // Load plugins
 var $ = require('gulp-load-plugins')({camelize: true});
 
-var jsFiles = ['./public/**/ninja-*.js', '!./public/**/ninja-*.min.js'];
+var paths = {
+    jsFiles: ['./**/*.js', '!./**/*min.js', '!./node_modules/**/*.js'],
+    publicJsFiles: ['./public/**/*.js', '!./public/**/*min.js']
+};
+
 gulp.task('jshint', function () {
-  return gulp.src(jsFiles)
+  return gulp.src(paths.jsFiles)
     .pipe($.jshint('.jshintrc'))
     .pipe($.jshint.reporter('default'));
 });
 
-gulp.task('ninja-account-script', function () {
-    return gulp.src('./public/account/ninja-account.js')
-    	.pipe($.rename('ninja-account.min.js'))
-        .pipe($.uglify())        
-        .pipe($.size())
-        .pipe(gulp.dest('./public/account'));
-});
-
-gulp.task('ninja-public-script', function () {
-    return gulp.src('./public/js/ninja-public.js')
-    	.pipe($.rename('ninja-public.min.js'))
-        .pipe($.uglify())        
+gulp.task('scripts', function () {
+    return gulp.src(paths.publicJsFiles)
+        .pipe($.concat("main.min.js"))
+        .pipe($.ngmin())
+        .pipe($.uglify())
         .pipe($.size())
         .pipe(gulp.dest('./public/js'));
 });
@@ -34,7 +31,6 @@ gulp.task('clean', function () {
 });
 
 // Build
-gulp.task('scripts', ['ninja-account-script', 'ninja-public-script']);
 gulp.task('build', ['jshint', 'scripts']);
 
 // Default task
@@ -42,7 +38,7 @@ gulp.task('default', ['clean'], function () {
     gulp.start('build');
 
     // watch for JS changes
-    gulp.watch(jsFiles, function() {
+    gulp.watch(paths.publicJsFiles, function() {
         gulp.run('scripts');
     });
 });

@@ -4,7 +4,7 @@
 
   var home_module = angular.module('home',['cookiesModule', 'services.config'])
 
-  home_module.controller('Main', ['$scope', '$location', 'configuration', function($scope,$location,configuration) {
+  home_module.controller('Main', function($scope,$location,configuration) {
     var path = window.location.pathname
 
     var page_login   = true
@@ -24,7 +24,7 @@
     $scope.show_forgot  = page_forgot
     $scope.show_reset   = page_reset
     $scope.show_confirm = page_confirm
-  }])
+  })
 
 
 
@@ -45,7 +45,7 @@
   }
 
 
-  home_module.service('auth', ['$http', '$window', function($http,$window) {
+  home_module.service('auth', function($http,$window) {
     return {
       login: function(creds,win,fail){
         $http({method:'POST', url: '/auth/login', data:creds, cache:false}).
@@ -120,9 +120,9 @@
       },
 
     }
-  }])
+  })
 
-  home_module.controller('Login', ['$scope', '$rootScope', 'auth', 'configuration', function($scope, $rootScope, auth, configuration) {
+  home_module.controller('Login', function($scope, $rootScope, auth, configuration) {
 
     $scope.signup_enabled = configuration.signup_enabled;
 
@@ -293,7 +293,7 @@
       $scope.hasuser = !!$scope.user
       $rootScope.$emit('instance',{user:out.user})
     })
-  }])
+  })
 
   home_module.directive('imageUrl', function () {
     return {
@@ -321,7 +321,7 @@
     };
   });
 
-  home_module.controller('Signup', ['$scope', '$rootScope', 'auth', function($scope, $rootScope, auth) {
+  home_module.controller('Signup', function($scope, $rootScope, auth) {
 
     auth.instance(function(out){      
       if (out.user) {
@@ -411,9 +411,9 @@
     $scope.seek_password = false
     $scope.seek_verify_password = false
     $scope.seek_gravatar = false
-  }])
+  })
 
-  home_module.controller('Forgot', ['$scope', '$rootScope', 'auth', function($scope, $rootScope, auth) {
+  home_module.controller('Forgot', function($scope, $rootScope, auth) {
 
     auth.instance(function(out){      
       if (out.user) {
@@ -480,10 +480,10 @@
     $scope.$watch('input_email',function(){ $scope.seek_email=false})
 
     $scope.seek_email = false
-  }])
+  })
 
 
-  home_module.controller('Reset', ['$scope', '$http', 'auth', function($scope, $http, auth) {
+  home_module.controller('Reset', function($scope, $http, auth) {
     if( !$scope.show_reset ) return;
 
     $scope.show_resetpass = true
@@ -538,11 +538,11 @@
     $scope.goaccount = function() {
       window.location.href='/account'
     }
-  }])
+  })
 
 
 
-  home_module.controller('Confirm', ['$scope', '$rootScope', 'auth', function($scope, $rootScope, auth) {
+  home_module.controller('Confirm', function($scope, $rootScope, auth) {
     if( !$scope.show_confirm ) return;
 
     $rootScope.$on('instance', function(event,args){
@@ -570,7 +570,7 @@
     $scope.goaccount = function() {
       window.location.href='/account'
     }
-  }])
+  })
 
 })();
 
