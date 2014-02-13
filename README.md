@@ -23,8 +23,8 @@ And open [localhost:3333](http://localhost:3333)
 ## Gulp
 
 Gulp does the following:
-* Lint JavaScript
-* Concatenate JavaScript
+* Lint JavaScript files
+* Concatenate JavaScript files
 * Minify and rename said concatenated files
 * Watch for file changes and do the above on the fly
 
