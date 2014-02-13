@@ -27,11 +27,11 @@ var env = argv.env || process.env['NODE_ENV']
 
 if( 'production' == env ) {
   seneca.use('redis-store')
-  seneca.use('ldap-store', {
-    map: {
-      '-/sys/user':'*'
-    }
-  })
+  // seneca.use('ldap-store', {
+  //   map: {
+  //     '-/sys/user':'*'
+  //   }
+  // })
 }
 else {
   seneca.use('mem-store',{web:{dump:true}})
