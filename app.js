@@ -132,30 +132,6 @@ seneca.ready(function(err){
     else res.send({nope:1})
   })
 
-  app.delete('/api/user/token', function(req,res,next){
-    if ( req.seneca && req.seneca.user ) {
-      var access_token = req.query.access_token
-      
-      if( access_token ) {
-        accesstokenent.load$(access_token,function(err,at){
-          if(err) return next(err);
-
-          if (at.userID == req.seneca.user.id) {
-            accesstokenent.remove$(at.id, function(err){
-              if(err) return next(err);
-              res.send({id:at.id})
-            })
-          } else {
-            res.send({id:null})  
-          }
-        })
-      }
-      else res.send({id:null})
-    } else {
-      res.send({id:null});
-    }
-  })
-
   // Upload files
   app.post('/upload', function(req, res) {
     upload(res, req.body, "./uploads/", false);
