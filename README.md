@@ -30,7 +30,9 @@ Gulp does the following:
 
 ### Install globally
 
+```bash
 npm i -g gulp
+```
 
 ### Run
 
@@ -44,5 +46,5 @@ gulp
 
 ### Signup
 
-Edit signup_enabled in public/js/config.js to enabled / disable signup.
+Edit signup_enabled in [public/js/config.js](https://github.com/ninjablocks/douitsu/public/js/config.js) to enabled / disable signup.
 
