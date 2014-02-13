@@ -6,8 +6,8 @@ var gulp = require('gulp');
 var $ = require('gulp-load-plugins')({camelize: true});
 
 var paths = {
-    jsFiles: ['./**/*.js', '!./**/*min.js', '!./node_modules/**/*.js'],
-    publicJsFiles: ['./public/**/*.js', '!./public/**/*min.js']
+    jsFiles: ['./**/*.js', '!./**/*min.js', '!./public/bower_components/**/*.js', '!./node_modules/**/*.js'],
+    publicJsFiles: ['./public/**/*.js', '!./public/**/*min.js', '!./public/bower_components/**/*.js']
 };
 
 gulp.task('jshint', function () {
