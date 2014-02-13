@@ -4,7 +4,7 @@
   function noop(){for(var i=0;i<arguments.length;i++)if('function'==typeof(arguments[i]))arguments[i]()}
   function empty(val) { return null == val || 0 == ''+val }
 
-  var account_module = angular.module('account',['ngRoute','cookiesModule','senecaSettingsModule']);
+  var account_module = angular.module('account',['ngRoute','cookiesModule','senecaSettingsModule', 'angularFileUpload']);
 
   account_module.config(['$routeProvider', function($routeProvider) {
           $routeProvider.
@@ -180,7 +180,7 @@
   })
 
 
-  account_module.controller('Account', function($scope, auth, pubsub) {
+  account_module.controller('Account', function($scope, auth, pubsub, $upload) {
     pubsub.subscribe('view',function(view){
       if( 'Account' != view ) return;
     })
@@ -189,7 +189,7 @@
       $scope.field_name  = user.name
       $scope.field_email = user.email
       $scope.field_gravatar = user.gravatar
-      $scope.field_image = user.image
+      $scope.imageUrl = user.image
     })
 
     pubsub.subscribe('account',function(account){
@@ -264,6 +264,23 @@
         }
       )
     }
+
+    $scope.onFileSelect = function($files) {
+      for (var i = 0; i < $files.length; i++) {
+        var file = $files[i];
+        $scope.upload = $upload.upload({
+          url: '/upload',
+          file: file,
+        }).progress(function(evt) {
+          console.log('percent: ' + parseInt(100.0 * evt.loaded / evt.total));
+        }).success(function(data, status, headers, config) {
+          $scope.imageUrl = data.url;
+        }).error(function(err) {
+          alert("Upload failed");
+        });
+      }
+    };
+    
   })
 
 
@@ -322,7 +339,7 @@
     };
   });
 
-  account_module.controller('Applications', function($scope, api, pubsub) {
+  account_module.controller('Applications', function($scope, api, pubsub, $upload) {
     $scope.applications = []
 
     $scope.show_applications_list   = true
@@ -365,6 +382,7 @@
       $scope.field_desc = application.desc
       $scope.appid = application.appid
       $scope.secret = application.secret
+      $scope.imageUrl = application.image
 
       $scope.show_applications_list   = false
       $scope.show_application_details = true
@@ -423,6 +441,22 @@
         })   
       }
     }
+
+    $scope.onFileSelect = function($files) {
+      for (var i = 0; i < $files.length; i++) {
+        var file = $files[i];
+        $scope.upload = $upload.upload({
+          url: '/upload',
+          file: file,
+        }).progress(function(evt) {
+          console.log('percent: ' + parseInt(100.0 * evt.loaded / evt.total));
+        }).success(function(data, status, headers, config) {
+          $scope.imageUrl = data.url;
+        }).error(function(err) {
+          alert("Upload failed");
+        });
+      }
+    };
 
     load();
 

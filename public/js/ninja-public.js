@@ -1,8 +1,10 @@
+'use strict';
+
 ;(function(){
   function noop(){for(var i=0;i<arguments.length;i++)if('function'==typeof(arguments[i]))arguments[i]()}
   function empty(val) { return null == val || 0 == ''+val }
 
-  var home_module = angular.module('home',['cookiesModule', 'services.config'])
+  var home_module = angular.module('home',['cookiesModule', 'services.config', 'angularFileUpload'])
 
   home_module.controller('Main', function($scope,$location,configuration) {
     var path = window.location.pathname
@@ -295,33 +297,7 @@
     })
   })
 
-  home_module.directive('imageUrl', function () {
-    return {
-        restrict: 'A',
-        link: function (scope, element, attrs) {
-          // set the initial value of the textbox
-          element.val(scope.imageUrl);
-          element.data('old-value', scope.imageUrl);
-
-          // detect outside changes and update our input
-          scope.$watch('imageUrl', function (val) {
-              element.val(scope.imageUrl);
-          });
-
-          // on blur, update the value in scope
-          element.bind('onchange propertychange keyup paste', function (blurEvent) {
-              if (element.data('old-value') != element.val()) {
-                  scope.$apply(function () {
-                      scope.imageUrl = element.val();
-                      element.data('old-value', element.val());
-                  });
-              }
-          });
-        }
-    };
-  });
-
-  home_module.controller('Signup', function($scope, $rootScope, auth) {
+  home_module.controller('Signup', function($scope, $rootScope, auth, $upload) {
 
     auth.instance(function(out){      
       if (out.user) {
@@ -392,6 +368,22 @@
       $scope.signup_hit = true
       $scope.mode = 'signup'
     }
+
+    $scope.onFileSelect = function($files) {
+      for (var i = 0; i < $files.length; i++) {
+        var file = $files[i];
+        $scope.upload = $upload.upload({
+          url: '/upload',
+          file: file,
+        }).progress(function(evt) {
+          console.log('percent: ' + parseInt(100.0 * evt.loaded / evt.total));
+        }).success(function(data, status, headers, config) {
+          $scope.imageUrl = data.url;
+        }).error(function(err) {
+          alert("Upload failed");
+        });
+      }
+    };
 
     $scope.showmsg = false
 

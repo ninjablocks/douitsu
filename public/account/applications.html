@@ -38,15 +38,13 @@
     <br>
 
     <div class="form-group" style="width:45%;float:right;text-align:right">
-      <div id="dropzoneWrap">
-        <div class="dropzone">
-          <input type="hidden" id="field_image" ng-model="field_image" image-url value="{{application.image}}">
-          <img ng-if="application.image" src="{{application.image}}" width="200px">
-          <img ng-if="!application.image" width="200px">
-          <span ng-if="!application.image" id="dropzoneLabel"></span>
+      <div class="dropzoneWrap">
+        <div ng-show="dropSupported" class="dropbox" ng-file-drop="onFileSelect($files);" ng-file-drop-available="dropSupported=true">
+          <img ng-show="imageUrl" ng-src="{{imageUrl}}" width="200px">
         </div>
       </div>
-      <div style="margin-left:200px;width:200px;text-align:center;float:right"><label>D R A G / D R O P&nbsp;&nbsp;&nbsp;P H O T O<label></div>
+      <div ng-show="!dropSupported" style="margin-left:200px;width:200px;text-align:center;float:right">HTML5 Drop File is not supported on this browser</div>
+      <div ng-show="dropSupported" style="margin-left:200px;width:200px;text-align:center;float:right"><label>D R A G / D R O P&nbsp;&nbsp;&nbsp;P H O T O</label></div>
     </div>
 
     <p ng-if="application.appid">Client ID: {{application.appid}}</p>

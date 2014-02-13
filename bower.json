@@ -11,6 +11,7 @@
     "underscore": "~1.5.1",
     "jquery": "~2.0.3",
     "angular": "*",
-    "angular-route": "*"
+    "angular-route": "*",
+    "ng-file-upload": "~1.2.7"
   }
 }

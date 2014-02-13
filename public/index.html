@@ -82,14 +82,13 @@
             <div>
               <form role="form">
                 <div class="form-group" style="width:45%;float:right;text-align:right">
-                  <div id="dropzoneWrap">
-                    <div class="dropzone">
-                      <input type="hidden" id="field_image" ng-model="field_image" image-url>
-                      <img width="200px">
-                      <span id="dropzoneLabel"></span>
+                  <div class="dropzoneWrap">
+                    <div ng-show="dropSupported" class="dropbox" ng-file-drop="onFileSelect($files);" ng-file-drop-available="dropSupported=true">
+                      <img ng-show="imageUrl" ng-src="{{imageUrl}}" width="200px">
                     </div>
                   </div>
-                  <div style="margin-left:200px;width:200px;text-align:center;float:right"><label>D R A G / D R O P&nbsp;&nbsp;&nbsp;P H O T O<label></div>
+                  <div ng-show="!dropSupported" style="margin-left:200px;width:200px;text-align:center;float:right">HTML5 Drop File is not supported on this browser</div>
+                  <div ng-show="dropSupported" style="margin-left:200px;width:200px;text-align:center;float:right"><label>D R A G / D R O P&nbsp;&nbsp;&nbsp;P H O T O</label></div>
                   
                 </div>
                 <div style="height:85px" ng-class="{'form-group':true,mvp_seek_input:seek_name}">
@@ -191,11 +190,14 @@
       </div>
     </footer>
 
-
+    <!-- angular-file-upload-shim.min.js to support upload progress/abort and non-HTML5 FormData browsers.-->
+    <!-- Note: MUST BE PLACED BEFORE angular.js-->
     <script src="/bower_components/underscore/underscore-min.js"></script>
     <script src="/bower_components/jquery/jquery.min.js"></script>
     <script src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="/bower_components/ng-file-upload/angular-file-upload-shim.min.js"></script> 
     <script src="/bower_components/angular/angular.min.js"></script>
+    <script src="/bower_components/ng-file-upload/angular-file-upload.min.js"></script>
     <script src="/js/main.min.js"></script>
     
   </body>
