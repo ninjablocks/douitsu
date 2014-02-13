@@ -119,19 +119,6 @@ seneca.ready(function(err){
     else res.send({nope:1})
   })
 
-
-  app.post('/api/application', function(req,res,next){
-    var project = req.body;
-    if (!project.appid)
-      project.appid = nid(20);
-    if (!project.secret)
-      project.secret = nid(40);
-    projectpin.save(project, function(err, out) {
-      if(err) return next(err);
-      return res.send(out.project);
-    });
-  })
-
   app.delete('/api/user/token', function(req,res,next){
     if ( req.seneca && req.seneca.user ) {
       var access_token = req.query.access_token
