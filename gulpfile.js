@@ -5,8 +5,9 @@ var gulp = require('gulp');
 // Load plugins
 var $ = require('gulp-load-plugins')({camelize: true});
 
+var jsFiles = ['./public/**/ninja-*.js', '!./public/**/ninja-*.min.js'];
 gulp.task('jshint', function () {
-  return gulp.src(['./public/**/ninja-*.js', '!./public/**/ninja-*.min.js'])
+  return gulp.src(jsFiles)
     .pipe($.jshint('.jshintrc'))
     .pipe($.jshint.reporter('default'));
 });
@@ -39,4 +40,9 @@ gulp.task('build', ['jshint', 'scripts']);
 // Default task
 gulp.task('default', ['clean'], function () {
     gulp.start('build');
+
+    // watch for JS changes
+    gulp.watch(jsFiles, function() {
+        gulp.run('scripts');
+    });
 });
