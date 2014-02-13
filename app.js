@@ -21,6 +21,21 @@ process.on('uncaughtException', function(err) {
 
 seneca.use('options','options.mine.js')
 
+var argv = require('optimist').argv
+var env = argv.env || process.env['NODE_ENV']
+
+
+if( 'production' == env ) {
+  seneca.use('redis-store')
+  seneca.use('ldap-store', {
+    map: {
+      '-/sys/user':'*'
+    }
+  })
+}
+else {
+  seneca.use('mem-store',{web:{dump:true}})
+}
 
 seneca.use('mem-store',{web:{dump:true}})
 
@@ -33,7 +48,6 @@ seneca.use('settings')
 seneca.use('data-editor')
 seneca.use('admin')
 
-
 seneca.use('jsonrest-api',{
   prefix:'/api/rest/',
   meta:false,
@@ -44,7 +58,6 @@ seneca.use('jsonrest-api',{
 
 
 seneca.use('./douitsu')
-
 
 
 seneca.ready(function(err){
