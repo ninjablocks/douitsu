@@ -10,15 +10,6 @@ function init( options ) {
   var env = argv.env || process.env['NODE_ENV']
 
   var seneca = options.seneca
-  if( 'development' == env ) {
-    seneca.use('options','seneca.options.js')
-    seneca.use('redis-store')
-    seneca.use('ldap-store', {
-      map: {
-        '-/ldap/-':'*'
-      }
-    });
-  }
 
   var userent        = seneca.make('sys/user')
   var clientent      = seneca.make('sys/project')
