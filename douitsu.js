@@ -1,6 +1,8 @@
 
 var nid = require('nid')
 
+var connect = require('connect')
+
 module.exports = function( options ) {
   var seneca = this
   var plugin = 'douitsu'
@@ -72,7 +74,37 @@ module.exports = function( options ) {
     this.prior(args,done)
   })
 
+  // express needs a scalable session store if you want to deploy to more than one machine
+  // this is simple implementation using seneca entities
+  function SessionStore() {
+    var self = new connect.session.Store(this)
+    var sess_ent = seneca.make$('session')
+
+    self.get = function(sid, cb) {
+      sess_ent.load$(sid,function(err,sess){
+        cb(err,sess&&sess.data)
+      })
+    }
+    self.set = function(sid, data, cb) {
+      sess_ent.load$(sid,function(err,sess){
+        if(err) return cb(err);
+        sess = sess||sess_ent.make$({id$:sid})
+        sess.last = new Date().getTime()
+        sess.data = data
+        sess.save$(cb)
+      })
+
+    }
+    self.destroy = function(sid, cb) {
+      sess_ent.remove$(sid,cb)
+    }
+    return self
+  }
+
   return {
     name: plugin
+    , exportmap:{
+      'session-store': new SessionStore()
+    }
   }
 }

@@ -83,7 +83,7 @@ seneca.ready(function(err){
   app.use( express.methodOverride() )
   app.use( express.json() )
 
-  app.use( express.session({secret:'seneca'}) )
+  app.use( express.session({secret:'seneca', store: seneca.export('douitsu/session-store')}) )
 
   app.use( web )
 
