@@ -36,8 +36,6 @@ else {
   seneca.use('mem-store',{web:{dump:true}})
 }
 
-seneca.use('mem-store',{web:{dump:true}})
-
 seneca.use('user',{confirm:true})
 seneca.use('mail')
 seneca.use('auth')
@@ -68,7 +66,6 @@ seneca.ready(function(err){
 
   seneca.act('role:settings, cmd:define_spec, kind:user',{spec:options.settings.spec})
 
-
   var app = express()
 
   app.engine('ejs',require('ejs-locals'))
@@ -83,7 +80,7 @@ seneca.ready(function(err){
   app.use( express.methodOverride() )
   app.use( express.json() )
 
-  app.use( express.session({secret:'seneca', store: seneca.export('douitsu/session-store')}) )
+  app.use( express.session({secret:'seneca'/*, store: seneca.export('douitsu/session-store')*/}) )
 
   app.use( web )
 
@@ -108,7 +105,6 @@ seneca.ready(function(err){
     }
     else return next();
   })
-
 
   app.get('/dialog/authorize', oauth2srv.authorization);
   app.post('/dialog/authorize/decision', oauth2srv.decision);
@@ -155,7 +151,6 @@ seneca.ready(function(err){
 
   app.listen( options.main.port )
 
-
   seneca.log.info('listen',options.main.port)
 
   seneca.listen()
@@ -169,24 +164,33 @@ function dev_fixtures() {
   var projectpin = seneca.pin({role:'project',cmd:'*'})
   var accesstokenent = seneca.make('accesstoken')
 
-  u.register({nick:'u1',name:'nu1',email:'u1@example.com',password:'u1',active:true}, function(err,out){
-    projectpin.save( {
-      account:out.user.accounts[0],
-      name:'app1',
-      appid:'123',
-      secret:'456789',
-      homeurl: 'http://example.com',
-      callback: 'http://example.com/oauth',
-      desc: 'example app',
-      image: 'https://pbs.twimg.com/profile_images/432897163673075713/7lcs7v8c.png'
-    })
-    
-    accesstokenent.make$({id$:'i1afk49ulwybf46j4cwkhe7ejt121m3no1r0d3eg', userID:out.user.id, clientID:'123', clientName: 'app1'}).save$();
+  function registerUser() {
+    u.register({nick:'u1',name:'nu1',email:'u1@example.com',password:'u1',active:true}, function(err,out){
+      if(out.ok) {
+        projectpin.save( {
+          account:out.user.accounts[0],
+          name:'app1',
+          appid:'123',
+          secret:'456789',
+          homeurl: 'http://example.com',
+          callback: 'http://example.com/oauth',
+          desc: 'example app',
+          image: 'https://pbs.twimg.com/profile_images/432897163673075713/7lcs7v8c.png'
+        })
+        accesstokenent.make$({id$:'i1afk49ulwybf46j4cwkhe7ejt121m3no1r0d3eg', userID:out.user.id, clientID:'123', clientName: 'app1'}).save$();
 
-    seneca.act('role:settings, cmd:save, kind:user, settings:{a:"aaa"}, ref:"'+out.user.id+'"')
+        seneca.act('role:settings, cmd:save, kind:user, settings:{a:"aaa"}, ref:"'+out.user.id+'"')
+      }
+    })
+    u.register({nick:'u2',name:'nu2',email:'u2@example.com',password:'u2',active:true})
+    u.register({nick:'a1',name:'na1',email:'a1@example.com',password:'a1',active:true,admin:true})
+  }
+
+  seneca.make("sys/user").load$({nick:"u1"}, function(err, user){ 
+    if(!user) {
+      registerUser()
+    }
   })
-  u.register({nick:'u2',name:'nu2',email:'u2@example.com',password:'u2',active:true})
-  u.register({nick:'a1',name:'na1',email:'a1@example.com',password:'a1',active:true,admin:true})
 
   seneca.act('role:util, cmd:define_sys_entity', {list:['authcode','accesstoken']})
 }
