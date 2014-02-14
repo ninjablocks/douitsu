@@ -4,7 +4,6 @@
 var _       = require('underscore')
 var nid     = require('nid')
 var express = require('express')
-var fs      = require('fs');
 
 var seneca = require('seneca')()
 
@@ -79,10 +78,7 @@ seneca.ready(function(err){
   app.use( express.cookieParser() )
   app.use( express.query() )
 
-  // TODO should be able to be overriden from options
-  var uploadDir = './uploads';
-  fs.mkdir(uploadDir);
-  app.use( express.bodyParser({uploadDir: uploadDir, keepExtensions: true}) )
+  app.use( express.bodyParser({uploadDir: __dirname + '/public/uploads', keepExtensions: true}) )
 
   app.use( express.methodOverride() )
   app.use( express.json() )
@@ -139,24 +135,7 @@ seneca.ready(function(err){
 
   // Upload files
   app.post('/upload', function(req, res, next) {
-    var filename = req.files.file.path.split('/').pop();
-    res.end(JSON.stringify({url:"/uploads/" + filename}));
-  });
-
-  app.get('/uploads/:file', function (req, res){
-    var file = uploadDir + "/" + req.params.file;
-    fs.exists(file,function(exists){
-      if (!exists) {
-        res.statusCode = 404;
-        return res.end();
-      }
-      else {
-        fs.readFile(file,function(err, img){
-          res.writeHead(200, {'Content-Type': 'image/jpg' });
-          res.end(img, 'binary');
-        });
-      }
-    });
+    res.end(JSON.stringify({url:"/uploads/" + req.files.file.path.split('/').pop()}));
   });
 
   app.use( function( req, res, next ){
