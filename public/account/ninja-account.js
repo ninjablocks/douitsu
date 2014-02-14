@@ -28,7 +28,8 @@
     'org-updated': 'Your organisations details have been updated.',
     'application-updated': 'Application updated.',
     'application-deleted': 'Application deleted.',
-    'token-deleted': "Token deleted."
+    'token-deleted': 'Token deleted.',
+    'only-images-allowed': 'Only images are allowed.'
   };
 
 
@@ -268,6 +269,11 @@
     $scope.onFileSelect = function($files) {
       for (var i = 0; i < $files.length; i++) {
         var file = $files[i];
+        var fileExtension = ['jpeg', 'jpg', 'png', 'gif', 'bmp'];
+        if ($.inArray(file.name.split('.').pop().toLowerCase(), fileExtension) == -1) {
+          alert(msgmap['only-images-allowed']);
+          return;
+        }
         $scope.upload = $upload.upload({
           url: '/upload',
           file: file,
@@ -280,7 +286,7 @@
         });
       }
     };
-    
+
   })
 
 
@@ -445,6 +451,11 @@
     $scope.onFileSelect = function($files) {
       for (var i = 0; i < $files.length; i++) {
         var file = $files[i];
+        var fileExtension = ['jpeg', 'jpg', 'png', 'gif', 'bmp'];
+        if ($.inArray(file.name.split('.').pop().toLowerCase(), fileExtension) == -1) {
+          alert(msgmap['only-images-allowed']);
+          return;
+        }
         $scope.upload = $upload.upload({
           url: '/upload',
           file: file,

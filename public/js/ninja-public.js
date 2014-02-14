@@ -34,16 +34,17 @@
     'unknown': 'Unable to perform your request at this time - please try again later.',
     'missing-fields': 'Please enter the missing fields.',
     'user-not-found': 'That email address is not recognized.',
-    'invalid-password': 'That password is incorrect',
-    'mismatch-password': 'Password mismatch',
+    'invalid-password': 'That password is incorrect.',
+    'mismatch-password': 'Password mismatch.',
     'email-exists': 'That email address is already in use. Please login, or ask for a password reset.',
     'nick-exists': 'That email address is already in use. Please login, or ask for a password reset.',
     'reset-sent': 'An email with password reset instructions has been sent to you.',
     'activate-reset': 'Please enter your new password.',
     'invalid-reset': 'This is not a valid reset.',
     'reset-done': 'Your password has been reset.',
-    'confirmed': 'Your account has been confirmed',
-    'invalid-confirm-code': 'That confirmation code is not valid.'
+    'confirmed': 'Your account has been confirmed.',
+    'invalid-confirm-code': 'That confirmation code is not valid.',
+    'only-images-allowed': 'Only images are allowed.'
   }
 
 
@@ -372,6 +373,11 @@
     $scope.onFileSelect = function($files) {
       for (var i = 0; i < $files.length; i++) {
         var file = $files[i];
+        var fileExtension = ['jpeg', 'jpg', 'png', 'gif', 'bmp'];
+        if ($.inArray(file.name.split('.').pop().toLowerCase(), fileExtension) == -1) {
+          alert(msgmap['only-images-allowed']);
+          return;
+        }
         $scope.upload = $upload.upload({
           url: '/upload',
           file: file,
