@@ -4,7 +4,15 @@
   function noop(){for(var i=0;i<arguments.length;i++)if('function'==typeof(arguments[i]))arguments[i]()}
   function empty(val) { return null == val || 0 == ''+val }
 
-  var home_module = angular.module('home',['cookiesModule', 'services.config', 'angularFileUpload'])
+  var home_module = angular.module('home',['cookiesModule', 'services.config', 'angularFileUpload', 'jm.i18next'])
+
+  home_module.config(function ($i18nextProvider) {
+    $i18nextProvider.options = {
+      useCookie: false,
+      useLocalStorage: false,
+      resGetPath: '../locales/__lng__/__ns__.json'
+    };
+  });
 
   home_module.controller('Main', function($scope,$location,configuration) {
     var path = window.location.pathname
@@ -29,22 +37,22 @@
   })
 
 
-
+  // Error messages defined in ../locales/
   var msgmap = {
-    'unknown': 'Unable to perform your request at this time - please try again later.',
-    'missing-fields': 'Please enter the missing fields.',
-    'user-not-found': 'That email address is not recognized.',
-    'invalid-password': 'That password is incorrect.',
-    'mismatch-password': 'Password mismatch.',
-    'email-exists': 'That email address is already in use. Please login, or ask for a password reset.',
-    'nick-exists': 'That email address is already in use. Please login, or ask for a password reset.',
-    'reset-sent': 'An email with password reset instructions has been sent to you.',
-    'activate-reset': 'Please enter your new password.',
-    'invalid-reset': 'This is not a valid reset.',
-    'reset-done': 'Your password has been reset.',
-    'confirmed': 'Your account has been confirmed.',
-    'invalid-confirm-code': 'That confirmation code is not valid.',
-    'only-images-allowed': 'Only images are allowed.'
+    'unknown': 'error.unknown',
+    'missing-fields': 'error.missing-fields',
+    'user-not-found': 'error.user-not-found',
+    'invalid-password': 'error.invalid-password',
+    'mismatch-password': 'error.mismatch-password',
+    'email-exists': 'error.email-exists',
+    'nick-exists': 'error.nick-exists',
+    'reset-sent': 'error.reset-sent',
+    'activate-reset': 'error.activate-reset',
+    'invalid-reset': 'error.invalid-reset',
+    'reset-done': 'error.reset-done',
+    'confirmed': 'error.confirmed',
+    'invalid-confirm-code': 'error.invalid-confirm-code',
+    'only-images-allowed': 'error.only-images-allowed'
   }
 
 

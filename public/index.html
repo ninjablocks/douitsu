@@ -39,23 +39,23 @@
         <div class="row" id="welcome" ng-controller="Login" ng-show="show_login">
           <div class="col-lg-4" ng-show="!signup_enabled">&nbsp;</div>
           <div class="col-lg-5">
-            <h2 class="login_head">S I G N&nbsp;&nbsp;&nbsp;I N</h2>
+            <h2 class="login_head" ng-i18next="[html]title.signin"></h2>
             <div>
               <form role="form">
                 <div style="height:85px" ng-class="{'form-group':true,mvp_seek_input:seek_email}">
-                  <input type="text" class="form-control" id="email" placeholder="Email Address" ng-model="input_email" tab-index="2">
+                  <input type="text" class="form-control" id="email" placeholder="{{'placeholder.email' | i18next }}" ng-model="input_email" tab-index="2">
                 </div>
                 <div style="height:85px" ng-class="{'form-group':true,mvp_seek_input:seek_password}">
-                  <input type="password" class="form-control" id="password" placeholder="Password" ng-model="input_password" tab-index="3">
+                  <input type="password" class="form-control" id="password" placeholder="{{'placeholder.password' | i18next }}" ng-model="input_password" tab-index="3">
                 </div>
-                <a ng-class="{btn:true, 'btn-primary':true, mvp_seek_input:seek_signin}" href="#"  ng-click="signin()" tab-index="5">S U B M I T</a>
+                <a ng-class="{btn:true, 'btn-primary':true, mvp_seek_input:seek_signin}" href="#"  ng-click="signin()" tab-index="5" ng-i18next="[html]btn.submit"></a>
               </form>
               <p>
-                <a class="forgot-password" href="#" ng-click="forgot()">forgot password?</a>
+                <a class="forgot-password" href="#" ng-click="forgot()" ng-i18next="[html]link.forgot-password"></a>
               </p>
             </div>
 
-            <p style="margin-top:40px;color:red" ng-show="showmsg">{{msg}}</p>
+            <p style="margin-top:40px;color:red" ng-show="showmsg">{{msg | i18next}}</p>
 
           </div>
 
@@ -63,11 +63,11 @@
           <div class="col-lg-1" ng-show="signup_enabled">&nbsp;</div>
 
           <div class="col-lg-5" ng-show="signup_enabled">
-            <h2 class="login_head">N O T&nbsp;&nbsp;&nbsp;A&nbsp;&nbsp;&nbsp;N I N J A ?</h2>
+            <h2 class="login_head" ng-i18next="[html]title.not-a-ninja"></h2>
 
             <p style="text-align:center;height:200px;margin:0;"><img src="/img/ninja.png"></p>
 
-            <a ng-class="{btn:true, 'btn-primary':true, mvp_seek_input:seek_signup, animated:true, fadeIn:fadein_signup, fadeOut:fadeout_signup}" href="#"  ng-click="signup()" tab-index="5">CREATE AN ACCOUNT</a>
+            <a ng-class="{btn:true, 'btn-primary':true, mvp_seek_input:seek_signup, animated:true, fadeIn:fadein_signup, fadeOut:fadeout_signup}" href="#"  ng-click="signup()" tab-index="5" ng-i18next="[html]btn.create-account"></a>
 
           </div>
 
@@ -78,7 +78,7 @@
           <div class="col-lg-3"></div>
 
           <div class="col-lg-6">
-            <h2 class="login_head">C R E A T E&nbsp;&nbsp;&nbsp;A N&nbsp;&nbsp;&nbsp;A C C O U N T</h2>
+            <h2 class="login_head" ng-i18next="[html]title.create-account"></h2>
             <div>
               <form role="form">
                 <div class="form-group" style="width:45%;float:right;text-align:right">
@@ -87,33 +87,33 @@
                       <img ng-show="imageUrl" ng-src="{{imageUrl}}" width="200px">
                     </div>
                   </div>
-                  <div ng-show="!dropSupported" style="margin-left:200px;width:200px;text-align:center;float:right">HTML5 Drop File is not supported on this browser</div>
-                  <div ng-show="dropSupported" style="margin-left:200px;width:200px;text-align:center;float:right"><label>D R A G / D R O P&nbsp;&nbsp;&nbsp;P H O T O</label></div>
+                  <div ng-show="!dropSupported" style="margin-left:200px;width:200px;text-align:center;float:right" ng-i18next="[html]label.drop-not-supported"></div>
+                  <div ng-show="dropSupported" style="margin-left:200px;width:200px;text-align:center;float:right"><label ng-i18next="[html]label.drop-photo"></label></div>
                   
                 </div>
                 <div style="height:85px" ng-class="{'form-group':true,mvp_seek_input:seek_name}">
-                  <input type="text" class="form-control half-width" id="name" placeholder="Name" ng-model="input_name" tab-index="2">
+                  <input type="text" class="form-control half-width" id="name" placeholder="{{'placeholder.name' | i18next }}" ng-model="input_name" tab-index="2">
                 </div>
                 <div style="height:85px" ng-class="{'form-group':true,mvp_seek_input:seek_email}">
-                  <input type="text" class="form-control half-width" id="email" placeholder="Email Address" ng-model="input_email" tab-index="3">
+                  <input type="text" class="form-control half-width" id="email" placeholder="{{'placeholder.email' | i18next }}" ng-model="input_email" tab-index="3">
                 </div>
                 <div style="height:85px" ng-class="{'form-group':true,mvp_seek_input:seek_password}">
-                  <input type="password" class="form-control half-width" id="password" placeholder="Password" ng-model="input_password" tab-index="4">
+                  <input type="password" class="form-control half-width" id="password" placeholder="{{'placeholder.password' | i18next }}" ng-model="input_password" tab-index="4">
                 </div>
                 <div style="height:85px" ng-class="{'form-group':true,mvp_seek_input:seek_verify_password}">
-                  <input type="password" class="form-control half-width" id="verify_password" placeholder="Verify Password" ng-model="input_verify_password" tab-index="5">
+                  <input type="password" class="form-control half-width" id="verify_password" placeholder="{{'placeholder.verify-password' | i18next }}" ng-model="input_verify_password" tab-index="5">
                 </div>
                 <!-- <div style="height:85px" ng-class="{'form-group':true,mvp_seek_input:seek_gravatar}">
                   <input type="text" class="form-control half-width" id="gravatar" placeholder="Gravatar Email (Private)" ng-model="input_gravatar" tab-index="6">
                 </div> -->
-                <a ng-class="{btn:true, 'btn-primary':true, mvp_seek_input:seek_signup}" href="#"  ng-click="signup()" tab-index="7">S U B M I T</a>
+                <a ng-class="{btn:true, 'btn-primary':true, mvp_seek_input:seek_signup}" href="#"  ng-click="signup()" tab-index="7" ng-i18next="[html]btn.submit"></a>
               </form>
               <p>
-                <a class="forgot-password" href="/">already have an account?</a>
+                <a class="forgot-password" href="/" ng-i18next="[html]link.have-account"></a>
               </p>
             </div>
 
-            <p style="margin-top:40px;color:red" ng-show="showmsg">{{msg}}</p>
+            <p style="margin-top:40px;color:red" ng-show="showmsg">{{msg | i18next}}</p>
           </div>
 
           <div class="col-lg-3"></div>
@@ -123,17 +123,17 @@
             <div class="col-lg-3"></div>
 
             <div class="col-lg-6">
-              <h2 class="login_head">F O R G O T&nbsp;&nbsp;&nbsp;P A S S W O R D</h2>
+              <h2 class="login_head" ng-i18next="[html]title.forgot-password"></h2>
               <div>
                 <form role="form">
                   <div style="height:85px" ng-class="{'form-group':true,mvp_seek_input:seek_email}">
-                    <input type="text" class="form-control" id="email" placeholder="Email Address" ng-model="input_email" tab-index="2">
+                    <input type="text" class="form-control" id="email" placeholder="{{'placeholder.email' | i18next }}" ng-model="input_email" tab-index="2">
                   </div>
-                  <a ng-class="{btn:true, 'btn-primary':true, mvp_seek_input:seek_signup}" href="#"  ng-click="forgot()" tab-index="7">S U B M I T</a>
+                  <a ng-class="{btn:true, 'btn-primary':true, mvp_seek_input:seek_signup}" href="#"  ng-click="forgot()" tab-index="3" ng-i18next="[html]btn.submit"></a>
                 </form>              
               </div>
 
-              <p style="margin-top:40px;color:red" ng-show="showmsg">{{msg}}</p>
+              <p style="margin-top:40px;color:red" ng-show="showmsg">{{msg | i18next}}</p>
             </div>
 
             <div class="col-lg-3"></div>
@@ -141,45 +141,45 @@
 
 
         <div class="row" id="reset" ng-controller="Reset" ng-show="show_reset">
-          <div class="col-lg-5">&nbsp;</div>
-          <div class="col-lg-2">
-            <h1>Password Reset</h1>
+          <div class="col-lg-2">&nbsp;</div>
+          <div class="col-lg-6">
+            <h1 ng-i18next="[html]title.password-reset"></h1>
             <form role="form" ng-show="show_reset">
               <div ng-class="{'form-group':true,mvp_seek_input:seek_password}">
-                <label for="password">Password</label>
-                <input type="password" class="form-control" id="password" placeholder="enter password" ng-model="input_password" tab-index="1">
+                <label for="password" ng-i18next="[html]label.password"></label>
+                <input type="password" class="form-control" id="password" placeholder="{{'placeholder.password' | i18next }}" ng-model="input_password" tab-index="1">
               </div>
               <div ng-class="{'form-group':true,mvp_seek_input:seek_repeat}">
-                <label for="repeat">Repeat Password</label>
-                <input type="password" class="form-control" id="repeat" placeholder="enter repeat" ng-model="input_repeat" tab-index="2">
+                <label for="repeat" ng-i18next="[html]label.verify-password"></label>
+                <input type="password" class="form-control" id="repeat" placeholder="{{'placeholder.verify-password' | i18next }}" ng-model="input_repeat" tab-index="2">
               </div>
 
-              <a ng-class="{btn:true, 'btn-primary':true, mvp_seek_input:seek_reset}" ng-show="show_resetpass" href="#" ng-click="reset()">Reset Password &raquo;</a>
-              <a ng-class="{btn:true, 'btn-primary':true }" href="#" ng-show="show_gohome" ng-click="gohome()">Sign In &raquo;</a>
+              <a ng-class="{btn:true, 'btn-primary':true, mvp_seek_input:seek_reset}" ng-show="show_resetpass" href="#" ng-click="reset()" ng-i18next="[html]btn.reset-password"></a>
+              <a ng-class="{btn:true, 'btn-primary':true }" href="#" ng-show="show_gohome" ng-click="gohome()" ng-i18next="[html]btn.signin"></a>
 
             </form>
             <p style="margin-top:40px;color:red">
-              {{msg}}
+              {{msg | i18next}}
             </p>
           </div>
-          <div class="col-lg-5">&nbsp;</div>
+          <div class="col-lg-1">&nbsp;</div>
         </div>
 
 
         <div class="row" id="confirm" ng-controller="Confirm" ng-show="show_confirm">
-          <div class="col-lg-5">&nbsp;</div>
-          <div class="col-lg-2">
-            <h1>Confirm Account</h1>
+          <div class="col-lg-2">&nbsp;</div>
+          <div class="col-lg-6">
+            <h1 ng-i18next="[html]title.confirm-account"></h1>
 
             <p style="">
-              {{msg}}
+              {{msg | i18next}}
             </p>
 
-            <a ng-class="{btn:true, 'btn-primary':true }" href="#" ng-show="show_goaccount" ng-click="goaccount()">Your Account &raquo;</a>
-            <a ng-class="{btn:true, 'btn-primary':true }" href="#" ng-show="show_gohome" ng-click="gohome()">Sign In &raquo;</a>
+            <a ng-class="{btn:true, 'btn-primary':true }" href="#" ng-show="show_goaccount" ng-click="goaccount()" ng-i18next="[html]btn.your-account"></a>
+            <a ng-class="{btn:true, 'btn-primary':true }" href="#" ng-show="show_gohome" ng-click="gohome()" ng-i18next="[html]btn.signin"></a>
 
           </div>
-          <div class="col-lg-5">&nbsp;</div>
+          <div class="col-lg-1">&nbsp;</div>
         </div>
       
     </div> <!-- /container -->
@@ -197,6 +197,8 @@
     <script src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="/bower_components/ng-file-upload/angular-file-upload-shim.min.js"></script> 
     <script src="/bower_components/angular/angular.min.js"></script>
+    <script src="/bower_components/i18next/release/i18next-1.7.1.min.js"></script>
+    <script src="/bower_components/ng-i18next/dist/ng-i18next.min.js"></script>
     <script src="/bower_components/ng-file-upload/angular-file-upload.min.js"></script>
     <script src="/js/main.min.js"></script>
     

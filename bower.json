@@ -12,6 +12,8 @@
     "jquery": "~2.0.3",
     "angular": "*",
     "angular-route": "*",
-    "ng-file-upload": "~1.2.7"
+    "ng-file-upload": "~1.2.7",
+    "i18next": "~1.7.1",
+    "ng-i18next": "~0.2.9"
   }
 }

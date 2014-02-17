@@ -1,0 +1,53 @@
+{
+  "app": {
+    "name": "Ninja Blocks"
+  },
+  "title": {
+    "signin": "S I G N&nbsp;&nbsp;&nbsp;I N",
+    "not-a-ninja": "N O T&nbsp;&nbsp;&nbsp;A&nbsp;&nbsp;&nbsp;N I N J A ?",
+    "create-account": "C R E A T E&nbsp;&nbsp;&nbsp;A N&nbsp;&nbsp;&nbsp;A C C O U N T",
+    "forgot-password": "F O R G O T&nbsp;&nbsp;&nbsp;P A S S W O R D",
+    "password-reset": "P A S S W O R D&nbsp;&nbsp;&nbsp;R E S E T",
+    "confirm-account": "C O N F I R M&nbsp;&nbsp;&nbsp;A C C O U N T"
+  },
+  "btn": {
+    "submit": "S U B M I T",
+    "signin": "S I G N&nbsp;&nbsp;&nbsp;I N",
+    "your-account": "Y O U R&nbsp;&nbsp;&nbsp;A C C O U N T",
+    "create-account": "C R E A T E&nbsp;&nbsp;&nbsp;A N&nbsp;&nbsp;&nbsp;A C C O U N T",
+    "reset-password": "R E S E T&nbsp;&nbsp;&nbsp;P A S S W OR D"
+  },
+  "link": {
+    "forgot-password": "forgot password?",
+    "have-account": "already have an account?"
+  },
+  "label": {
+    "password": "Password",
+    "verify-password": "Verify Password",
+    "drop-photo": "D R A G / D R O P&nbsp;&nbsp;&nbsp;P H O T O",
+    "drop_not_supported": "HTML5 Drop File is not supported on this browser"
+  },
+  "placeholder": {
+    "name": "Name",
+    "email": "Email Address",
+    "password": "Password",
+    "verify-password": "Verify Password"
+  },
+  "error": {
+    "unknown": "Unable to perform your request at this time - please try again later.",
+    "missing-fields": "Please enter the missing fields.",
+    "user-not-found": "That email address is not recognized.",
+    "invalid-password": "That password is incorrect.",
+    "mismatch-password": "Password mismatch.",
+    "email-exists": "That email address is already in use. Please login, or ask for a password reset.",
+    "nick-exists": "That email address is already in use. Please login, or ask for a password reset.",
+    "reset-sent": "An email with password reset instructions has been sent to you.",
+    "activate-reset": "Please enter your new password.",
+    "invalid-reset": "This is not a valid reset.",
+    "reset-done": "Your password has been reset.",
+    "confirmed": "Your account has been confirmed.",
+    "invalid-confirm-code": "That confirmation code is not valid.",
+    "only-images-allowed": "Only images are allowed."
+  }
+
+}
