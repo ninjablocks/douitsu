@@ -34,25 +34,27 @@
     $scope.show_forgot  = page_forgot
     $scope.show_reset   = page_reset
     $scope.show_confirm = page_confirm
+
+    $scope.msg = "blank"
   })
 
 
   // Error messages defined in ../locales/
   var msgmap = {
-    'unknown': 'error.unknown',
-    'missing-fields': 'error.missing-fields',
-    'user-not-found': 'error.user-not-found',
-    'invalid-password': 'error.invalid-password',
-    'mismatch-password': 'error.mismatch-password',
-    'email-exists': 'error.email-exists',
-    'nick-exists': 'error.nick-exists',
-    'reset-sent': 'error.reset-sent',
-    'activate-reset': 'error.activate-reset',
-    'invalid-reset': 'error.invalid-reset',
-    'reset-done': 'error.reset-done',
-    'confirmed': 'error.confirmed',
-    'invalid-confirm-code': 'error.invalid-confirm-code',
-    'only-images-allowed': 'error.only-images-allowed'
+    'unknown': 'msg.unknown',
+    'missing-fields': 'msg.missing-fields',
+    'user-not-found': 'msg.user-not-found',
+    'invalid-password': 'msg.invalid-password',
+    'mismatch-password': 'msg.mismatch-password',
+    'email-exists': 'msg.email-exists',
+    'nick-exists': 'msg.nick-exists',
+    'reset-sent': 'msg.reset-sent',
+    'activate-reset': 'msg.activate-reset',
+    'invalid-reset': 'msg.invalid-reset',
+    'reset-done': 'msg.reset-done',
+    'confirmed': 'msg.confirmed',
+    'invalid-confirm-code': 'msg.invalid-confirm-code',
+    'only-images-allowed': 'msg.only-images-allowed'
   }
 
 

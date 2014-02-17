@@ -4,33 +4,42 @@
   function noop(){for(var i=0;i<arguments.length;i++)if('function'==typeof(arguments[i]))arguments[i]()}
   function empty(val) { return null == val || 0 == ''+val }
 
-  var account_module = angular.module('account',['ngRoute','cookiesModule','senecaSettingsModule', 'angularFileUpload']);
+  var account_module = angular.module('account',['ngRoute','cookiesModule','senecaSettingsModule', 'angularFileUpload', 'jm.i18next']);
 
-  account_module.config(['$routeProvider', function($routeProvider) {
-          $routeProvider.
-            when('/Applications', {
-              tab:'Applications'
-            }).
-            when('/Settings', {
-              tab:'Settings'
-            }).
-            when('/Account', {
-              tab:'Account'
-            }).
-            otherwise({tab:'Applications'})}]);
+  account_module.config(['$routeProvider', '$i18nextProvider', function($routeProvider, $i18nextProvider) {
+    $routeProvider.
+      when('/Applications', {
+        tab:'Applications'
+      }).
+      when('/Settings', {
+        tab:'Settings'
+      }).
+      when('/Account', {
+        tab:'Account'
+      }).
+      otherwise({tab:'Applications'});
 
+    $i18nextProvider.options = {
+      useCookie: false,
+      useLocalStorage: false,
+      resGetPath: '../locales/__lng__/__ns__.json'
+    };
+
+  }]);
+
+  // Error messages defined in ../locales/
   var msgmap = {
-    'unknown': 'Unable to perform your request at this time - please try again later.',
-    'user-updated': 'Your user details have been updated.',
-    'user-exists-email': 'A user with that email already exists.',
-    'user-exists-nick': 'A user with that username already exists.',
-    'password-updated': 'Your password has been updated.',
-    'org-updated': 'Your organisations details have been updated.',
-    'application-updated': 'Application updated.',
-    'application-deleted': 'Application deleted.',
-    'token-deleted': 'Token deleted.',
-    'only-images-allowed': 'Only images are allowed.'
-  };
+    'unknown': 'msg.unknown',
+    'user-updated': 'msg.user-updated',
+    'user-exists-email': 'msg.user-exists-email',
+    'user-exists-nick': 'msg.user-exists-nick',
+    'password-updated': 'msg.password-updated',
+    'org-updated': 'msg.org-updated',
+    'application-updated': 'msg.application-updated',
+    'application-deleted': 'msg.application-deleted',
+    'token-deleted': 'msg.token-deleted',
+    'only-images-allowed': 'msg.only-images-allowed'
+  }
 
 
 
@@ -150,6 +159,10 @@
 
   account_module.controller('Main', function($scope, auth, pubsub) {
     //var path = window.location.pathname
+
+    $scope.application_msg = 'blank';
+    $scope.details_msg = 'blank';
+    $scope.password_msg = 'blank';
 
     auth.instance(function(out){
       $scope.user = out.user
@@ -393,7 +406,7 @@
       $scope.show_applications_list   = false
       $scope.show_application_details = true
 
-      $scope.application_msg = null
+      $scope.application_msg = "blank"
     }
 
     $scope.close_application = function() {

@@ -42,9 +42,9 @@
             <li class="dropdown">
               <a class="dropdown-toggle" data-toggle="dropdown">{{user.email}}<b class="caret"></b></a>
               <ul class="dropdown-menu">
-                <li><a ng-click="btn_applications()">Your Applications</a></li>
-                <li><a ng-click="btn_account()">Your Account</a></li>
-                <li><a ng-click="btn_signout()">Sign Out</a></li>
+                <li><a ng-click="btn_applications()" ng-i18next="nav.application"></a></li>
+                <li><a ng-click="btn_account()" ng-i18next="nav.account"></a></li>
+                <li><a ng-click="btn_signout()" ng-i18next="nav.signout"></a></li>
               </ul>
             </li>
           </ul>
@@ -80,7 +80,7 @@
 
       <div class="row" ng-show="show_view_Account" ng-controller="Account">
         <div class="col-lg-12">
-          <h2>Y O U R&nbsp;&nbsp;&nbsp;D E T A I L S</h2>
+          <h2 ng-i18next="[html]title.your-details"></h2>
           <form role="form">
             <div class="form-group" style="width:45%;float:right;text-align:right">
               <div class="dropzoneWrap">
@@ -88,45 +88,45 @@
                   <img ng-show="imageUrl" ng-src="{{imageUrl}}" width="200px">
                 </div>
               </div>
-              <div ng-show="!dropSupported" style="margin-left:200px;width:200px;text-align:center;float:right">HTML5 Drop File is not supported on this browser</div>
-              <div ng-show="dropSupported" style="margin-left:200px;width:200px;text-align:center;float:right"><label>D R A G / D R O P&nbsp;&nbsp;&nbsp;P H O T O</label></div>
+              <div ng-show="!dropSupported" style="margin-left:200px;width:200px;text-align:center;float:right" ng-i18next="[html]label.drop-not-supported"></div>
+              <div ng-show="dropSupported" style="margin-left:200px;width:200px;text-align:center;float:right"><label ng-i18next="[html]label.drop-photo"></label></div>
             </div>
 
             <div class="form-group">
-              <label for="field_name">Name</label>
+              <label for="field_name" ng-i18next="label.name"></label>
               <input type="text" class="form-control half-width" id="field_name" ng-model="field_name">
             </div>
             <div class="form-group">
-              <label for="field_email">Email</label>
+              <label for="field_email" ng-i18next="label.email"></label>
               <input type="text" class="form-control half-width" id="field_email" ng-model="field_email">
             </div>
             <!-- <div class="form-group">
-              <label for="field_email">Gravatar Email (Private)</label>
+              <label for="field_email" ng-i18next="label.gravatar"></label>
               <input type="text" class="form-control half-width" id="field_gravatar" ng-model="field_gravatar">
             </div> -->
 
-            <button type="submit" class="btn btn-primary" style="width:50%" ng-click="update_user()">U P D A T E</button>
+            <button type="submit" class="btn btn-primary" style="width:50%" ng-click="update_user()" ng-i18next="[html]btn.update"></button>
 
             <p class="account_msg">
-              {{details_msg}}
+              {{details_msg | i18next}}
             </p>
           </form>
 
-          <h2>C H A N G E&nbsp;&nbsp;&nbsp;Y O U R&nbsp;&nbsp;&nbsp;P A S S W O R D</h2>
+          <h2ng-i18next="[html]title.change-password"></h2>
           <form role="form">
             <div class="form-group">
-              <label for="field_password">Password</label>
+              <label for="field_password" ng-i18next="label.password"></label>
               <input type="text" class="form-control half-width" id="field_password" ng-model="field_password">
             </div>
             <div class="form-group">
-              <label for="field_repeat">Repeat Password</label>
+              <label for="field_repeat" ng-i18next="label.verify-password"></label>
               <input type="text" class="form-control half-width" id="field_repeat" ng-model="field_repeat">
             </div>
 
-            <button type="submit" class="btn btn-primary" style="width:50%" ng-click="change_pass()">C H A N G E</button>
+            <button type="submit" class="btn btn-primary" style="width:50%" ng-click="change_pass()" ng-i18next="[html]btn.change"></button>
 
             <p class="account_msg">
-              {{password_msg}}
+              {{password_msg | i18next}}
             </p>
           </form>
         </div>

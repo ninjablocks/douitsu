@@ -1,7 +1,7 @@
 
 <div ng-controller="Applications">
 
-  <h3 ng-show="show_applications_list">Y O U R&nbsp;&nbsp;&nbsp;A P P L I C A T I O N S</h3>
+  <h3 ng-show="show_applications_list" ng-i18next="[html]title.your-applications"></h3>
   
 
   <div ng-show="show_applications_list">
@@ -9,30 +9,30 @@
     <ul class="selection-list nav nav-stacked nav-pills">
       <li ng-repeat="application in applications" class="application_item">
         <a ng-click="open_application(application.id)" class="application_name" style="float:left">{{application.name}}</a>
-        <a ng-click="delete_application(application.id)" class="btn btn-primary btn-item-action" style="float:right">D E L E T E</a>
+        <a ng-click="delete_application(application.id)" class="btn btn-primary btn-item-action" style="float:right" ng-i18next="[html]btn.delete"></a>
       </li>
     </ul>
   </div>
 
   <div ng-show="show_applications_list">
     <br>
-    <a class="btn btn-primary" ng-click="new_application()">C R E A T E&nbsp;&nbsp;&nbsp;A P P L I C A T I O N</a>    
+    <a class="btn btn-primary" ng-click="new_application()" ng-i18next="[html]link.create-application"></a>
   </div>
 
-  <h3 ng-show="show_applications_list" style="margin-top: 60px">A C C E S S&nbsp;&nbsp;&nbsp;T O K E N S</h3>  
+  <h3 ng-show="show_applications_list" style="margin-top: 60px" ng-i18next="[html]title.access-tokens"></h3>
 
   <div ng-show="show_applications_list">
     <br>
     <ul class="selection-list nav nav-stacked nav-pills">
       <li ng-repeat="token in tokens" class="application_item">
         <span class="application_name" style="float:left; padding: 12px;">{{token.clientName}}</span>
-        <a ng-click="revoke_token(token.id)" class="btn btn-primary btn-item-action" style="float:right">R E V O K E</a>
+        <a ng-click="revoke_token(token.id)" class="btn btn-primary btn-item-action" style="float:right" ng-i18next="[html]btn.revoke"></a>
       </li>
     </ul>
   </div>
 
 
-  <h3 ng-show="show_application_details">A P P L I C A T I O N&nbsp;&nbsp;&nbsp;D E T A I L S</h3>
+  <h3 ng-show="show_application_details" ng-i18next="[html]title.application-details"></h3>
 
   <form role="form" ng-show="show_application_details">
     <br>
@@ -43,38 +43,38 @@
           <img ng-show="imageUrl" ng-src="{{imageUrl}}" width="200px">
         </div>
       </div>
-      <div ng-show="!dropSupported" style="margin-left:200px;width:200px;text-align:center;float:right">HTML5 Drop File is not supported on this browser</div>
-      <div ng-show="dropSupported" style="margin-left:200px;width:200px;text-align:center;float:right"><label>D R A G / D R O P&nbsp;&nbsp;&nbsp;P H O T O</label></div>
+      <div ng-show="!dropSupported" style="margin-left:200px;width:200px;text-align:center;float:right" ng-i18next="[html]label.drop-not-supported"></div>
+      <div ng-show="dropSupported" style="margin-left:200px;width:200px;text-align:center;float:right"><label ng-i18next="[html]label.drop-photo"></label></div>
     </div>
 
-    <p ng-if="application.appid">Client ID: {{application.appid}}</p>
-    <p ng-if="application.secret">Secret: {{application.secret}}</p>
+    <p ng-if="application.appid">{{'label.client-id' | i18next }}: {{application.appid}}</p>
+    <p ng-if="application.secret">{{'label.client-secret' | i18next }}: {{application.secret}}</p>
 
     <div class="form-group">
-      <input type="text" class="form-control half-width" id="field_name" ng-model="field_name" placeholder="Application Name">
-      <label>Something that users will trust<label>
-    </div>
-
-    <div class="form-group">
-      <input type="text" class="form-control half-width" id="field_homeurl" ng-model="field_homeurl" placeholder="Homepage URL">
-      <label>The full URL to your application homepage<label>
+      <input type="text" class="form-control half-width" id="field_name" ng-model="field_name" placeholder="{{'placeholder.application-name' | i18next }}">
+      <label ng-i18next="label.users-trust"><label>
     </div>
 
     <div class="form-group">
-      <input type="text" class="form-control half-width" id="field_callback" ng-model="field_callback" placeholder="Authorization Callback URL">
-      <label>Your application’s callback URL; Read our OAuth documentation for more info.<label>
+      <input type="text" class="form-control half-width" id="field_homeurl" ng-model="field_homeurl" placeholder="{{'placeholder.homepage-url' | i18next }}">
+      <label ng-i18next="label.homepage-url"><label>
     </div>
 
     <div class="form-group">
-      <textarea class="form-control" id="field_desc" ng-model="field_desc" placeholder="Application Description"></textarea>
-      <label>This text is displayed to all potential users of your application<label>
+      <input type="text" class="form-control half-width" id="field_callback" ng-model="field_callback" placeholder="{{'placeholder.auth-callback-url' | i18next }}">
+      <label ng-i18next="label.auth-callback-url"><label>
     </div>
 
-    <a type="submit" class="btn btn-primary" style="float:left;width:45%" ng-click="save_application()">S A V E</a>
-    <a type="submit" class="btn btn-primary" style="float:right;width:45%" ng-click="close_application()">C L O S E</a>
+    <div class="form-group">
+      <textarea class="form-control" id="field_desc" ng-model="field_desc" placeholder="{{'placeholder.application-desc' | i18next }}"></textarea>
+      <label ng-i18next="label.application-desc"><label>
+    </div>
+
+    <a type="submit" class="btn btn-primary" style="float:left;width:45%" ng-click="save_application()" ng-i18next="[html]btn.save"></a>
+    <a type="submit" class="btn btn-primary" style="float:right;width:45%" ng-click="close_application()" ng-i18next="[html]btn.close"></a>
 
     <p class="account_msg" style="clear:both;padding-top:50px">
-      {{application_msg}}
+      {{application_msg | i18next}}
     </p>
   </form>
 
