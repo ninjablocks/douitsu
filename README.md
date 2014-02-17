@@ -64,3 +64,4 @@ bower install
 
 Edit signup_enabled in [public/js/config.js](https://github.com/ninjablocks/douitsu/blob/master/public/js/config.js) to enabled / disable signup.
 
+
