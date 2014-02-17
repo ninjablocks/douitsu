@@ -15,6 +15,8 @@
     , "your-details": "Y O U R&nbsp;&nbsp;&nbsp;D E T A I L S"
     , "application-details": "A P P L I C A T I O N&nbsp;&nbsp;&nbsp;D E T A I L S"
     , "change-password": "C H A N G E&nbsp;&nbsp;&nbsp;Y O U R&nbsp;&nbsp;&nbsp;P A S S W O R D"
+    , "application-auth": "APPLICATION AUTHORIZATION"
+    , "use-your-account": "would like to use your Ninja account."
   }
   , "nav": {
     "application": "Your Applications"
@@ -33,11 +35,14 @@
     , "close": "C L O S E"
     , "update": "U P D A T E"
     , "change": "C H A N G E"
+    , "allow": "A L L O W"
+    , "deny": "D E N Y"
   }
   , "link": {
     "forgot-password": "forgot password?"
     , "have-account": "already have an account?"
     , "create-application": "C R E A T E&nbsp;&nbsp;&nbsp;A P P L I C A T I O N"
+    , "signin-diff-user": "Sign in as a different user."
   }
   , "label": {
     "name": "Name"
@@ -53,6 +58,7 @@
     , "homepage-url": "The full URL to your application homepage."
     , "auth-callback-url": "Your application’s callback URL; Read our OAuth documentation for more info."
     , "application-desc": "This text is displayed to all potential users of your application."
+    , "not-your-account": "Not your account?"
   }
   , "placeholder": {
     "name": "Name"

@@ -38,10 +38,10 @@
       <div class="row">
         <div class="col-lg-3">&nbsp;</div>
         <div class="col-lg-6">
-          <h4 style="text-align: center">APPLICATION AUTHORIZATION</h4>
+          <h4 style="text-align: center" data-i18n="title.application-auth"></h4>
 
           <h3 style="text-align: center; text-transform: none">
-            <%= client.name %> would like to use your Ninja account.
+            <%= client.name %> <span data-i18n="title.use-your-account"></span>
           </h3>
 
           <p></p>
@@ -72,13 +72,13 @@
           	<div class="col-lg-1">&nbsp;</div>
             <form action="/dialog/authorize/decision" method="post">
 	            <input name="transaction_id" type="hidden" value="<%= transactionID %>">
-	            <input type="submit" value="Allow" id="allow" class="btn btn-primary btn-inline">
-	  			<input type="submit" value="Deny" name="cancel" id="deny" class="btn btn-primary btn-inline">
+	            <input type="submit" id="allow" class="btn btn-primary btn-inline" data-i18n="[value]btn.allow">
+	  			    <input type="submit" name="cancel" id="deny" class="btn btn-primary btn-inline" data-i18n="[value]btn.deny">
             </form>
           </div>
 
           <div class="row" style="text-align: center; margin-top: 20px;">
-            <span class="not-your-acc">Not your account? <a href="/">Sign in as a different user.</a></span>
+            <span class="not-your-acc"><span data-i18n="label.not-your-account"></span> <a href="/" data-i18n="link.signin-diff-user"></a></span>
           </div>
         </div>
         <div class="col-lg-3">&nbsp;</div>
@@ -99,6 +99,7 @@
     <script src="/bower_components/jquery/jquery.min.js"></script>
     <script src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="/bower_components/angular/angular.min.js"></script>
+    <script src="/bower_components/i18next/release/i18next-1.7.1.min.js"></script>
     <script src="/js/main.min.js"></script>
   </body>
 </html>
