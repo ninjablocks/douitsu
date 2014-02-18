@@ -60,7 +60,7 @@ function init( options ) {
 
   server.grant(oauth2orize.grant.code(function(client, redirectURI, user, ares, done) {
     var code = nid(16)
-    
+
     authcodeent.make$({code:code, clientID:client.id, redirectURI:redirectURI, userID:user.user.id}).save$(function(err) {
       if (err) { return done(err); }
       done(null, code);
@@ -93,7 +93,7 @@ function init( options ) {
       if (err) { return done(err); }
       if (client.id !== authCode.clientID) { return done(null, false); }
       if (redirectURI !== authCode.redirectURI) { return done(null, false); }
-      
+
       var token = nid(40)
       accesstokenent.make$({id$:token, userID:authCode.userID, clientID:authCode.clientID, clientName:client.name}).save$(function(err) {
         if (err) { return done(err); }
@@ -176,7 +176,7 @@ function init( options ) {
   // the application's responsibility to authenticate the user and render a dialog
   // to obtain their approval (displaying details about the client requesting
   // authorization).  We accomplish that here by routing through `ensureLoggedIn()`
-  // first, and rendering the `dialog` view. 
+  // first, and rendering the `dialog` view.
 
 
   var srv = {}
@@ -184,12 +184,6 @@ function init( options ) {
   srv.authorization = [
 
     //login.ensureLoggedIn(),
-    function(req,res,next) {
-      if( req.seneca && req.seneca.user ) return next();
-
-      // TODO: url option
-      res.redirect('/')
-    },
 
     server.authorization(function(clientID, redirectURI, done) {
       clientent.load$({appid:clientID}, function(err, client) {
@@ -214,7 +208,7 @@ function init( options ) {
   // a response.
 
   srv.decision = [
-    
+
     //login.ensureLoggedIn(),
     function(req,res,next) {
       if( req.seneca && req.seneca.user ) return next();
@@ -235,7 +229,7 @@ function init( options ) {
   // authenticate when making requests to this endpoint.
 
   srv.token = [
-    
+
     // FIX
     //passport.authenticate(['basic', 'oauth2-client-password'], { session: false }),
 
