@@ -18,7 +18,7 @@
     'only-images-allowed': 'msg.only-images-allowed'
   }
 
-  var account_controllers = angular.module('accountControllers',['ngRoute', 'cookiesModule', 'senecaSettingsModule', 'authService', 'apiService', 'pubsubService', 'angularFileUpload']);
+  var account_controllers = angular.module('accountControllers',['ngRoute', 'cookiesModule', 'senecaSettingsModule', 'authService', 'apiService', 'pubsubService', 'fileUploadService']);
 
   account_controllers.controller('Main', function($scope, auth, pubsub) {
     //var path = window.location.pathname
@@ -57,7 +57,7 @@
   })
 
 
-  account_controllers.controller('Account', function($scope, auth, pubsub, $upload) {
+  account_controllers.controller('Account', function($scope, auth, pubsub, fileUpload) {
     pubsub.subscribe('view',function(view){
       if( 'Account' != view ) return;
     })
@@ -143,23 +143,21 @@
     }
 
     $scope.onFileSelect = function($files) {
+      $scope.details_msg = "blank";
       for (var i = 0; i < $files.length; i++) {
         var file = $files[i];
-        var fileExtension = ['jpeg', 'jpg', 'png', 'gif', 'bmp'];
-        if ($.inArray(file.name.split('.').pop().toLowerCase(), fileExtension) == -1) {
-          alert(msgmap['only-images-allowed']);
-          return;
+        if (fileUpload.isImage(file)) {
+          $scope.upload = fileUpload.upload(file, function(data, err) {
+            if (data) {
+              $scope.imageUrl = data.url;
+            }
+            else {
+              $scope.details_msg = msgmap['upload-failed'];
+            }
+          });
+        } else {
+          $scope.details_msg = msgmap['only-images-allowed'];
         }
-        $scope.upload = $upload.upload({
-          url: '/upload',
-          file: file,
-        }).progress(function(evt) {
-          console.log('percent: ' + parseInt(100.0 * evt.loaded / evt.total));
-        }).success(function(data, status, headers, config) {
-          $scope.imageUrl = data.url;
-        }).error(function(err) {
-          alert("Upload failed");
-        });
       }
     };
 
@@ -195,7 +193,7 @@
       })
   })
 
-  account_controllers.controller('Applications', function($scope, api, pubsub, $upload) {
+  account_controllers.controller('Applications', function($scope, api, pubsub, fileUpload) {
     $scope.applications = []
 
     $scope.show_applications_list   = true
@@ -299,23 +297,21 @@
     }
 
     $scope.onFileSelect = function($files) {
+      $scope.application_msg = "blank";
       for (var i = 0; i < $files.length; i++) {
         var file = $files[i];
-        var fileExtension = ['jpeg', 'jpg', 'png', 'gif', 'bmp'];
-        if ($.inArray(file.name.split('.').pop().toLowerCase(), fileExtension) == -1) {
-          alert(msgmap['only-images-allowed']);
-          return;
+        if (fileUpload.isImage(file)) {
+          $scope.upload = fileUpload.upload(file, function(data, err) {
+            if (data) {
+              $scope.imageUrl = data.url;
+            }
+            else {
+              $scope.application_msg = msgmap['upload-failed'];
+            }
+          });
+        } else {
+          $scope.application_msg = msgmap['only-images-allowed'];
         }
-        $scope.upload = $upload.upload({
-          url: '/upload',
-          file: file,
-        }).progress(function(evt) {
-          console.log('percent: ' + parseInt(100.0 * evt.loaded / evt.total));
-        }).success(function(data, status, headers, config) {
-          $scope.imageUrl = data.url;
-        }).error(function(err) {
-          alert("Upload failed");
-        });
       }
     };
 

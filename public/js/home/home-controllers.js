@@ -23,7 +23,7 @@
     'only-images-allowed': 'msg.only-images-allowed'
   }
 
-	var home_controllers = angular.module('homeControllers', ['cookiesModule', 'configService', 'authService', 'angularFileUpload']);
+	var home_controllers = angular.module('homeControllers', ['cookiesModule', 'configService', 'authService', 'fileUploadService']);
 
 	home_controllers.controller('Main', function($scope,$location,configuration) {
 	  var path = window.location.pathname
@@ -222,7 +222,7 @@
     })
   })
 
-  home_controllers.controller('Signup', function($scope, $rootScope, auth, $upload) {
+  home_controllers.controller('Signup', function($scope, $rootScope, auth, fileUpload) {
 
     auth.instance(function(out){
       if (out.user) {
@@ -297,21 +297,20 @@
     $scope.onFileSelect = function($files) {
       for (var i = 0; i < $files.length; i++) {
         var file = $files[i];
-        var fileExtension = ['jpeg', 'jpg', 'png', 'gif', 'bmp'];
-        if ($.inArray(file.name.split('.').pop().toLowerCase(), fileExtension) == -1) {
-          alert(msgmap['only-images-allowed']);
-          return;
-        }
-        $scope.upload = $upload.upload({
-          url: '/upload',
-          file: file,
-        }).progress(function(evt) {
-          console.log('percent: ' + parseInt(100.0 * evt.loaded / evt.total));
-        }).success(function(data, status, headers, config) {
-          $scope.imageUrl = data.url;
-        }).error(function(err) {
-          alert("Upload failed");
-        });
+        if (fileUpload.isImage(file)) {
+        	$scope.upload = fileUpload.upload(file, function(data, err) {
+	        	if (data) {
+	        		$scope.imageUrl = data.url;
+	        	}
+	        	else {
+	        		$scope.msg = msgmap['upload-failed'];
+	        		$scope.showmsg = true;
+	        	}
+	        });
+        } else {
+        	$scope.msg = msgmap['only-images-allowed'];
+        	$scope.showmsg = true;
+      	}
       }
     };
 

@@ -86,6 +86,7 @@
     , "confirmed": "Your account has been confirmed."
     , "invalid-confirm-code": "That confirmation code is not valid."
     , "only-images-allowed": "Only images are allowed."
+    , "upload-failed": "Upload failed."
     , "user-updated": "Your user details have been updated."
     , "user-exists-email": "A user with that email already exists."
     , "user-exists-nick": "A user with that username already exists."
