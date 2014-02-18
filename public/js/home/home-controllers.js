@@ -1,45 +1,11 @@
 'use strict';
 
 ;(function(){
-  function noop(){for(var i=0;i<arguments.length;i++)if('function'==typeof(arguments[i]))arguments[i]()}
+
+	function noop(){for(var i=0;i<arguments.length;i++)if('function'==typeof(arguments[i]))arguments[i]()}
   function empty(val) { return null == val || 0 == ''+val }
 
-  var home_module = angular.module('home',['cookiesModule', 'services.config', 'angularFileUpload', 'jm.i18next'])
-
-  home_module.config(function ($i18nextProvider) {
-    $i18nextProvider.options = {
-      useCookie: false,
-      useLocalStorage: false,
-      resGetPath: '../locales/__lng__/__ns__.json'
-    };
-  });
-
-  home_module.controller('Main', function($scope,$location,configuration) {
-    var path = window.location.pathname
-
-    var page_login   = true
-    var page_signup  = 0==path.indexOf('/signup')
-    var page_forgot  = 0==path.indexOf('/forgot')
-    var page_reset   = 0==path.indexOf('/reset')
-    var page_confirm = 0==path.indexOf('/confirm')
-
-    if (page_signup && !configuration.signup_enabled) {
-      return window.location.href = "/";
-    }
-
-    page_login = !page_signup && !page_forgot && !page_confirm && !page_reset
-
-    $scope.show_login   = page_login
-    $scope.show_signup  = page_signup
-    $scope.show_forgot  = page_forgot
-    $scope.show_reset   = page_reset
-    $scope.show_confirm = page_confirm
-
-    $scope.msg = "blank"
-  })
-
-
-  // Error messages defined in ../locales/
+	// Error messages defined in ../locales/
   var msgmap = {
     'unknown': 'msg.unknown',
     'missing-fields': 'msg.missing-fields',
@@ -57,85 +23,33 @@
     'only-images-allowed': 'msg.only-images-allowed'
   }
 
+	var home_controllers = angular.module('homeControllers', ['cookiesModule', 'configService', 'authService', 'angularFileUpload']);
 
-  home_module.service('auth', function($http,$window) {
-    return {
-      login: function(creds,win,fail){
-        $http({method:'POST', url: '/auth/login', data:creds, cache:false}).
-          success(function(data, status) {
-            if( win ) return win(data);
-            return $window.location.href='/account'
-          }).
-          error(function(data, status) {
-            if( fail ) return fail(data);
-          })
-      },
+	home_controllers.controller('Main', function($scope,$location,configuration) {
+	  var path = window.location.pathname
 
-      register: function(details,win,fail){
-        $http({method:'POST', url: '/auth/register', data:details, cache:false}).
-          success(function(data, status) {
-            if( win ) return win(data);
-            return $window.location.href='/account'
-          }).
-          error(function(data, status) {
-            if( fail ) return fail(data);
-          })
-      },
+	  var page_login   = true
+	  var page_signup  = 0==path.indexOf('/signup')
+	  var page_forgot  = 0==path.indexOf('/forgot')
+	  var page_reset   = 0==path.indexOf('/reset')
+	  var page_confirm = 0==path.indexOf('/confirm')
 
-      instance: function(win,fail){
-        $http({method:'GET', url: '/auth/instance', cache:false}).
-          success(function(data, status) {
-            if( win ) return win(data);
-          }).
-          error(function(data, status) {
-            if( fail ) return fail(data);
-          })
-      },
+	  if (page_signup && !configuration.signup_enabled) {
+	    return window.location.href = "/";
+	  }
 
-      reset: function(creds,win,fail){
-        $http({method:'POST', url: '/auth/create_reset', data:creds, cache:false}).
-          success(function(data, status) {
-            if( win ) return win(data);
-          }).
-          error(function(data, status) {
-            if( fail ) return fail(data);
-          })
-      },
+	  page_login = !page_signup && !page_forgot && !page_confirm && !page_reset
 
-      reset_load: function(creds,win,fail){
-        $http({method:'POST', url: '/auth/load_reset', data:creds, cache:false}).
-          success(function(data, status) {
-            if( win ) return win(data);
-          }).
-          error(function(data, status) {
-            if( fail ) return fail(data);
-          })
-      },
+	  $scope.show_login   = page_login
+	  $scope.show_signup  = page_signup
+	  $scope.show_forgot  = page_forgot
+	  $scope.show_reset   = page_reset
+	  $scope.show_confirm = page_confirm
 
-      reset_execute: function(creds,win,fail){
-        $http({method:'POST', url: '/auth/execute_reset', data:creds, cache:false}).
-          success(function(data, status) {
-            if( win ) return win(data);
-          }).
-          error(function(data, status) {
-            if( fail ) return fail(data);
-          })
-      },
+	  $scope.msg = "blank"
+	});
 
-      confirm: function(creds,win,fail){
-        $http({method:'POST', url: '/auth/confirm', data:creds, cache:false}).
-          success(function(data, status) {
-            if( win ) return win(data);
-          }).
-          error(function(data, status) {
-            if( fail ) return fail(data);
-          })
-      },
-
-    }
-  })
-
-  home_module.controller('Login', function($scope, $rootScope, auth, configuration) {
+	home_controllers.controller('Login', function($scope, $rootScope, auth, configuration) {
 
     $scope.signup_enabled = configuration.signup_enabled;
 
@@ -145,7 +59,7 @@
         password: !empty($scope.input_password)
       }
     }
-    
+
 
     function markinput(state,exclude) {
       _.each( state, function( full, field ){
@@ -308,9 +222,9 @@
     })
   })
 
-  home_module.controller('Signup', function($scope, $rootScope, auth, $upload) {
+  home_controllers.controller('Signup', function($scope, $rootScope, auth, $upload) {
 
-    auth.instance(function(out){      
+    auth.instance(function(out){
       if (out.user) {
         $scope.show_signup = false;
         window.location.href='/account';
@@ -326,7 +240,7 @@
         //, gravatar: !empty($scope.input_gravatar)
       }
     }
-    
+
 
     function markinput(state,exclude) {
       _.each( state, function( full, field ){
@@ -365,11 +279,11 @@
 
       if( state.name && state.email && state.password && state.verify_password) {
         if ($scope.input_password == $scope.input_verify_password) {
-          perform_signup() 
+          perform_signup()
         } else {
           $scope.msg = msgmap['mismatch-password']
           $scope.showmsg = true
-        }        
+        }
       }
       else {
         $scope.msg = msgmap['missing-fields']
@@ -421,9 +335,9 @@
     $scope.seek_gravatar = false
   })
 
-  home_module.controller('Forgot', function($scope, $rootScope, auth) {
+  home_controllers.controller('Forgot', function($scope, $rootScope, auth) {
 
-    auth.instance(function(out){      
+    auth.instance(function(out){
       if (out.user) {
         $scope.show_forgot = false;
         window.location.href='/account';
@@ -491,7 +405,7 @@
   })
 
 
-  home_module.controller('Reset', function($scope, $http, auth) {
+  home_controllers.controller('Reset', function($scope, $http, auth) {
     if( !$scope.show_reset ) return;
 
     $scope.show_resetpass = true
@@ -508,12 +422,12 @@
       $scope.msg = msgmap['activate-reset']
       $scope.nick = out.nick
       $scope.show_reset = true
-      
+
     }, function( out ){
       $scope.msg = msgmap['invalid-reset']
     })
 
-    
+
     $scope.reset = function(){
       $scope.seek_password = empty($scope.input_password)
       $scope.seek_repeat   = empty($scope.input_repeat)
@@ -529,7 +443,7 @@
           $scope.msg = msgmap['reset-done']
           $scope.show_gohome = true
           $scope.show_resetpass = false
-      
+
         }, function( out ){
           $scope.msg = msgmap['invalid-reset']
         })
@@ -548,9 +462,7 @@
     }
   })
 
-
-
-  home_module.controller('Confirm', function($scope, $rootScope, auth) {
+  home_controllers.controller('Confirm', function($scope, $rootScope, auth) {
     if( !$scope.show_confirm ) return;
 
     $rootScope.$on('instance', function(event,args){
@@ -581,5 +493,3 @@
   })
 
 })();
-
-

@@ -118,7 +118,7 @@ seneca.ready(function(err){
         access_token = access_token.substring('Bearer '.length)
       }
     }
-    
+
     if( access_token ) {
       accesstokenent.load$(access_token,function(err,at){
         if(err) return next(err);
@@ -138,7 +138,7 @@ seneca.ready(function(err){
     if( 0 == req.url.indexOf('/signup') ||
         0 == req.url.indexOf('/forgot') ||
         0 == req.url.indexOf('/reset') ||
-        0 == req.url.indexOf('/confirm') ) 
+        0 == req.url.indexOf('/confirm') )
     {
       req.url = '/'
     }
@@ -147,7 +147,7 @@ seneca.ready(function(err){
   })
 
 
-  app.use( express.static(__dirname+options.main.public) )  
+  app.use( express.static(__dirname+options.main.public) )
 
   app.listen( options.main.port )
 
@@ -186,7 +186,7 @@ function dev_fixtures() {
     u.register({nick:'a1',name:'na1',email:'a1@example.com',password:'a1',active:true,admin:true})
   }
 
-  seneca.make("sys/user").load$({nick:"u1"}, function(err, user){ 
+  seneca.make("sys/user").load$({nick:"u1"}, function(err, user){
     if(!user) {
       registerUser()
     }

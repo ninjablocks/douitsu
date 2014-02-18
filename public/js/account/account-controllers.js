@@ -4,29 +4,6 @@
   function noop(){for(var i=0;i<arguments.length;i++)if('function'==typeof(arguments[i]))arguments[i]()}
   function empty(val) { return null == val || 0 == ''+val }
 
-  var account_module = angular.module('account',['ngRoute','cookiesModule','senecaSettingsModule', 'angularFileUpload', 'jm.i18next']);
-
-  account_module.config(['$routeProvider', '$i18nextProvider', function($routeProvider, $i18nextProvider) {
-    $routeProvider.
-      when('/Applications', {
-        tab:'Applications'
-      }).
-      when('/Settings', {
-        tab:'Settings'
-      }).
-      when('/Account', {
-        tab:'Account'
-      }).
-      otherwise({tab:'Applications'});
-
-    $i18nextProvider.options = {
-      useCookie: false,
-      useLocalStorage: false,
-      resGetPath: '../locales/__lng__/__ns__.json'
-    };
-
-  }]);
-
   // Error messages defined in ../locales/
   var msgmap = {
     'unknown': 'msg.unknown',
@@ -41,123 +18,9 @@
     'only-images-allowed': 'msg.only-images-allowed'
   }
 
+  var account_controllers = angular.module('accountControllers',['ngRoute', 'cookiesModule', 'senecaSettingsModule', 'authService', 'apiService', 'pubsubService', 'angularFileUpload']);
 
-
-  account_module.service('auth', function($http,$window) {
-    return {
-      instance: function(win,fail){
-        $http({method:'GET', url: '/auth/instance', cache:false}).
-          success(function(data, status) {
-            if( win ) return win(data);
-          }).
-          error(function(data, status) {
-            if( fail ) return fail(data);
-          })
-      },
-
-      logout: function(win,fail){
-        $http({method:'POST', url: '/auth/logout', cache:false}).
-          success(function(data, status) {
-            if( win ) return win(data);
-            return $window.location.href='/'
-          }).
-          error(function(data, status) {
-            if( fail ) return fail(data);
-          })
-      },
-
-      change_password: function(creds,win,fail){
-        $http({method:'POST', url: '/auth/change_password', data:creds, cache:false}).
-          success(function(data, status) {
-            if( win ) return win(data);
-          }).
-          error(function(data, status) {
-            if( fail ) return fail(data);
-          })
-      },
-
-      update_user: function(fields,win,fail){
-        $http({method:'POST', url: '/auth/update_user', data:fields, cache:false}).
-          success(function(data, status) {
-            if( win ) return win(data);
-          }).
-          error(function(data, status) {
-            if( fail ) return fail(data);
-          })
-      },
-
-      update_org: function(fields,win,fail){
-        $http({method:'POST', url: '/account/update', data:fields, cache:false}).
-          success(function(data, status) {
-            if( win ) return win(data);
-          }).
-          error(function(data, status) {
-            if( fail ) return fail(data);
-          })
-      },
-    }
-  })
-
-
-  account_module.service('api', function($http,$window) {
-    return {
-      get: function(path,win,fail){
-        this.call('GET',path,null,null,win,fail)
-      },
-      post: function(path,data,win,fail){
-        this.call('POST',path,data,null,win,fail)
-      },
-      del: function(path,win,fail){
-        this.call('DELETE',path,null,null,win,fail)
-      },
-      call: function(method,path,data,meta,win,fail){
-        var params = {
-          method:method,
-          url: path, 
-          data:data, 
-          cache:false}
-
-        $http( params ).
-          success(function(out, status) {
-            if( win ) return win(out);
-          }).
-          error(function(out, status) {
-            if( fail ) return fail(out);
-          })
-      }
-    }
-  })
-
-  account_module.service('pubsub', function() {
-    var cache = {};
-    return {
-      publish: function(topic, args) { 
-	cache[topic] && $.each(cache[topic], function() {
-	  this.apply(null, args || []);
-	});
-      },
-      
-      subscribe: function(topic, callback) {
-	if(!cache[topic]) {
-	  cache[topic] = [];
-	}
-	cache[topic].push(callback);
-	return [topic, callback]; 
-      },
-      
-      unsubscribe: function(handle) {
-	var t = handle[0];
-	cache[t] && d.each(cache[t], function(idx){
-	  if(this == handle[1]){
-	    cache[t].splice(idx, 1);
-	  }
-	});
-      }
-    }
-  });
-
-
-  account_module.controller('Main', function($scope, auth, pubsub) {
+  account_controllers.controller('Main', function($scope, auth, pubsub) {
     //var path = window.location.pathname
 
     $scope.application_msg = 'blank';
@@ -177,12 +40,12 @@
   })
 
 
-  account_module.controller('NavBar', function($scope, auth, pubsub) {
+  account_controllers.controller('NavBar', function($scope, auth, pubsub) {
 
     $scope.btn_applications = function() {
       pubsub.publish('view',['Applications'])
     }
-    
+
     $scope.btn_account = function() {
       pubsub.publish('view',['Account'])
     }
@@ -190,11 +53,11 @@
     $scope.btn_signout = function() {
       auth.logout()
     }
-    
+
   })
 
 
-  account_module.controller('Account', function($scope, auth, pubsub, $upload) {
+  account_controllers.controller('Account', function($scope, auth, pubsub, $upload) {
     pubsub.subscribe('view',function(view){
       if( 'Account' != view ) return;
     })
@@ -238,14 +101,14 @@
 
     $scope.update_user = function() {
       var data = read_user()
-      auth.update_user( 
-        data, 
+      auth.update_user(
+        data,
         function( out ){
           $scope.details_msg = msgmap['user-updated']
           pubsub.publish('user',[out.user])
         },
         function( out ){
-          $scope.details_msg = msgmap[out.why] || msgmap.unknown          
+          $scope.details_msg = msgmap[out.why] || msgmap.unknown
         }
       )
     }
@@ -253,13 +116,13 @@
 
     $scope.change_pass = function() {
       var data = read_pass()
-      auth.change_password( 
-        data, 
+      auth.change_password(
+        data,
         function( out ){
           $scope.password_msg = msgmap['password-updated']
         },
         function( out ){
-          $scope.password_msg = msgmap[out.why] || msgmap.unknown          
+          $scope.password_msg = msgmap[out.why] || msgmap.unknown
         }
       )
     }
@@ -267,14 +130,14 @@
 
     $scope.update_org = function() {
       var data = read_org()
-      auth.update_org( 
-        data, 
+      auth.update_org(
+        data,
         function( out ){
           $scope.org_msg = msgmap['org-updated']
           pubsub.publish('account',[out.account])
         },
         function( out ){
-          $scope.org_msg = msgmap[out.why] || msgmap.unknown          
+          $scope.org_msg = msgmap[out.why] || msgmap.unknown
         }
       )
     }
@@ -303,7 +166,7 @@
   })
 
 
-  account_module.controller('TabView', function($scope, $route, $location, pubsub) {
+  account_controllers.controller('TabView', function($scope, $route, $location, pubsub) {
     var views = ['Dashboard','Applications','Settings','Account']
 
     $scope.views = _.filter(views,function(n){return n!='Account'})
@@ -332,33 +195,7 @@
       })
   })
 
-  account_module.directive('imageUrl', function () {
-    return {
-        restrict: 'A',
-        link: function (scope, element, attrs) {
-          // set the initial value of the textbox
-          element.val(scope.imageUrl);
-          element.data('old-value', scope.imageUrl);
-
-          // detect outside changes and update our input
-          scope.$watch('imageUrl', function (val) {
-              element.val(scope.imageUrl);
-          });
-
-          // on blur, update the value in scope
-          element.bind('onchange propertychange keyup paste', function (blurEvent) {
-              if (element.data('old-value') != element.val()) {
-                  scope.$apply(function () {
-                      scope.imageUrl = element.val();
-                      element.data('old-value', element.val());
-                  });
-              }
-          });
-        }
-    };
-  });
-
-  account_module.controller('Applications', function($scope, api, pubsub, $upload) {
+  account_controllers.controller('Applications', function($scope, api, pubsub, $upload) {
     $scope.applications = []
 
     $scope.show_applications_list   = true
@@ -387,7 +224,7 @@
       if( void 0 != applicationid ) {
         api.get( '/api/rest/application/'+applicationid, function( out ){
           $scope.show_application(out)
-        }) 
+        })
       }
       else $scope.show_application()
     }
@@ -435,8 +272,8 @@
         $scope.application_msg = msgmap['application-updated']
         pubsub.publish('application.change',[out])
       }, function( out ){
-        $scope.application_msg = msgmap[out.why] || msgmap.unknown          
-      })   
+        $scope.application_msg = msgmap[out.why] || msgmap.unknown
+      })
     }
 
 
@@ -446,8 +283,8 @@
           $scope.application_msg = msgmap['application-deleted']
           pubsub.publish('application.change',[])
         }, function( out ){
-          $scope.application_msg = msgmap[out.why] || msgmap.unknown          
-        })   
+          $scope.application_msg = msgmap[out.why] || msgmap.unknown
+        })
       }
     }
 
@@ -456,8 +293,8 @@
         api.del( '/api/user/token?access_token='+tokenid, function(){
           pubsub.publish('application.change',[])
         }, function( out ){
-          $scope.token_msg = msgmap[out.why] || msgmap.unknown          
-        })   
+          $scope.token_msg = msgmap[out.why] || msgmap.unknown
+        })
       }
     }
 
@@ -488,5 +325,3 @@
   })
 
 })();
-
-
