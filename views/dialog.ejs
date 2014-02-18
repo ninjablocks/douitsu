@@ -120,11 +120,11 @@
     <% if (!user) { %>
     <script>
       $(document).ready(function(){
-        $('#dialogForm').on('submit', function(e) {
+        $('#allow').on('click', function(e) {
           // this code prevents form from actually being submitted
           e.preventDefault();
           e.returnValue = false;
-          var $form = $(this);
+          var $form = $(this).closest('form');
 
           if ($('#email').val().length < 1 || $('#password').val().length < 1) {
             alert("Email and password required.");

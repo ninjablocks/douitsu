@@ -211,6 +211,10 @@ function init( options ) {
 
     //login.ensureLoggedIn(),
     function(req,res,next) {
+      // If user has denied auth
+      // then proceed as it does not matter if they are not logged in
+      if ( req.body.cancel ) return next();
+
       if( req.seneca && req.seneca.user ) return next();
 
       // TODO: url option
