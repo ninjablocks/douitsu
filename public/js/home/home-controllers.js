@@ -295,6 +295,7 @@
     }
 
     $scope.onFileSelect = function($files) {
+    	$scope.showmsg = false;
       for (var i = 0; i < $files.length; i++) {
         var file = $files[i];
         if (fileUpload.isImage(file)) {
