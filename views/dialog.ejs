@@ -59,26 +59,41 @@
               <span class="glyphicon glyphicon-arrow-right" style="font-size: 80px";></span>
             </div>
             <div class="col-lg-3" style="border: 1px solid #000; width: 150px; height: 150px; margin: 30px; padding: 0;">
-              <% if (user.image) { %>
+              <% if (user && user.image) { %>
               <img src="<%= user.image %>" width="148" height="148">
               <% } else { %>
               <img src="/img/usericon.png" width="148" height="148">
               <% } %>
-              <p style="margin-top: 10px;"><%= user.name %></p>
+              <p style="margin-top: 10px;"><% if (user) { %><%= user.name %><% } %></p>
             </div>
           </div>
 
-          <div class="row" style="text-align: center; height: 80px; margin-bottom: 40px;">
+          <div class="row" style="text-align: center; margin-bottom: 40px;">
           	<div class="col-lg-1">&nbsp;</div>
-            <form action="/dialog/authorize/decision" method="post">
+            <form id="dialogForm" action="/dialog/authorize/decision" method="post">
 	            <input name="transaction_id" type="hidden" value="<%= transactionID %>">
+
+              <% if (!user) { %>
+              <div style="height:85px" class="form-group">
+              <h4 style="text-align: left" data-i18n="label.sign-in-allow-access"></h4>
+              <input type="text" class="form-control" style="width: 80%; margin-left: 50px;" name="email" id="email" tab-index="2" data-i18n="[placeholder]placeholder.email">
+              </div>
+              <div style="height:85px" class="form-group">
+              <input type="password" class="form-control" style="width: 80%; margin-left: 50px;" name="password" id="password" tab-index="3" data-i18n="[placeholder]placeholder.password">
+              </div>
+              <% } %>
+
 	            <input type="submit" id="allow" class="btn btn-primary btn-inline" data-i18n="[value]btn.allow">
 	  			    <input type="submit" name="cancel" id="deny" class="btn btn-primary btn-inline" data-i18n="[value]btn.deny">
             </form>
           </div>
 
           <div class="row" style="text-align: center; margin-top: 20px;">
+            <% if (user) { %>
             <span class="not-your-acc"><span data-i18n="label.not-your-account"></span> <a href="/" data-i18n="link.signin-diff-user"></a></span>
+            <% } else { %>
+            <span class="not-your-acc"><span data-i18n="label.no-account"></span> <a href="/signup" data-i18n="link.signup-user"></a></span>
+            <% } %>
           </div>
         </div>
         <div class="col-lg-3">&nbsp;</div>
@@ -101,5 +116,38 @@
     <script src="/bower_components/angular/angular.min.js"></script>
     <script src="/bower_components/i18next/release/i18next-1.7.1.min.js"></script>
     <script src="/js/main.min.js"></script>
+
+    <% if (!user) { %>
+    <script>
+      $(document).ready(function(){
+        $('#dialogForm').on('submit', function(e) {
+          // this code prevents form from actually being submitted
+          e.preventDefault();
+          e.returnValue = false;
+          var $form = $(this);
+
+          if ($('#email').val().length < 1 || $('#password').val().length < 1) {
+            alert("Email and password required.");
+          } else {
+            var data = {email:$("#email").val(), password:$("#password").val()};
+            $.ajax({
+              type: 'post',
+              url: "/auth/login",
+              data: JSON.stringify(data),
+              contentType: "application/json",
+              dataType: "json",
+              success: function(data) { // your success handler
+                $form.unbind('submit').submit();
+              },
+              error: function(data) { // your error handler
+                alert("Sign in failed.");
+              }
+            });
+          }
+        });
+      });
+    </script>
+    <% } %>
+
   </body>
 </html>

@@ -43,6 +43,7 @@
     , "have-account": "already have an account?"
     , "create-application": "C R E A T E&nbsp;&nbsp;&nbsp;A P P L I C A T I O N"
     , "signin-diff-user": "Sign in as a different user."
+    , "signup-user": "Sign up."
   }
   , "label": {
     "name": "Name"
@@ -59,6 +60,8 @@
     , "auth-callback-url": "Your application’s callback URL; Read our OAuth documentation for more info."
     , "application-desc": "This text is displayed to all potential users of your application."
     , "not-your-account": "Not your account?"
+    , "no-account": "Haven't got an account?"
+    , "sign-in-allow-access": "Sign in and allow access:"
   }
   , "placeholder": {
     "name": "Name"
