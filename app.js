@@ -25,7 +25,32 @@ var env = argv.env || process.env['NODE_ENV']
 
 
 if( 'production' == env ) {
-  seneca.use('redis-store')
+  seneca.use('mem-store',{
+      web:{dump:true},
+      map:{
+        '-/sys/entity':'*',
+        '-/sys/account':'*',
+        '-/sys/settings':'*',
+        '-/sys/project':'*',
+        '-/sys/login':'*',
+        '-/-/accesstoken':'*',
+        '-/-/authcode':'*',
+
+        // TODO Comment out once ldap-store is enabled below
+        '-/sys/user':'*',
+
+        // TODO Comment out once redis-store is enabled below
+        '-/-/session':'*',
+      }
+  });
+
+  // TODO Enable once seneca-redis-store is working
+  // seneca.use('redis-store',{
+  //     map:{
+  //       '-/-/session':'*'
+  //     }
+  // });
+
   // seneca.use('ldap-store', {
   //   map: {
   //     '-/sys/user':'*'
@@ -80,7 +105,7 @@ seneca.ready(function(err){
   app.use( express.methodOverride() )
   app.use( express.json() )
 
-  app.use( express.session({secret:'seneca'/*, store: seneca.export('douitsu/session-store')*/}) )
+  app.use( express.session({secret:'seneca', store: seneca.export('douitsu/session-store')}) )
 
   app.use( web )
 
