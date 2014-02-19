@@ -16,8 +16,6 @@ process.on('uncaughtException', function(err) {
   process.exit(1)
 })
 
-
-
 seneca.use('options','options.mine.js')
 
 var argv = require('optimist').argv
@@ -25,31 +23,7 @@ var env = argv.env || process.env['NODE_ENV']
 
 
 if( 'production' == env ) {
-  seneca.use('mem-store',{
-      web:{dump:true},
-      map:{
-        '-/sys/entity':'*',
-        '-/sys/account':'*',
-        '-/sys/settings':'*',
-        '-/sys/project':'*',
-        '-/sys/login':'*',
-        '-/-/accesstoken':'*',
-        '-/-/authcode':'*',
-
-        // TODO Comment out once ldap-store is enabled below
-        '-/sys/user':'*',
-
-        // TODO Comment out once redis-store is enabled below
-        '-/-/session':'*',
-      }
-  });
-
-  // TODO Enable once seneca-redis-store is working
-  // seneca.use('redis-store',{
-  //     map:{
-  //       '-/-/session':'*'
-  //     }
-  // });
+  seneca.use('redis-store')
 
   // seneca.use('ldap-store', {
   //   map: {
@@ -178,8 +152,10 @@ seneca.ready(function(err){
 
   seneca.log.info('listen',options.main.port)
 
-  seneca.listen()
-
+  if (options.listen && options.listen.port)
+    seneca.listen( options.listen.port );
+  else
+    seneca.listen();
 
   dev_fixtures()
 })

@@ -7,6 +7,10 @@ module.exports = {
     public:'/public'
   },
 
+  listen: {
+    port: 10101
+  },
+
   auth: {
     // change to true if you want to send emails
     sendemail:false,
