@@ -81,6 +81,10 @@
               <div style="height:85px" class="form-group">
               <input type="password" class="form-control" style="width: 80%; margin-left: 50px;" name="password" id="password" tab-index="3" data-i18n="[placeholder]placeholder.password">
               </div>
+              <p id="msg-missing-fields" class="msg" style="display:none; color: red;" data-i18n="msg.missing-fields"></p>
+              <p id="msg-user-not-found" class="msg" style="display:none; color: red;" data-i18n="msg.user-not-found"></p>
+              <p id="msg-invalid-password" class="msg" style="display:none; color: red;" data-i18n="msg.invalid-password"></p>
+              <p id="msg-signin-failed" class="msg" style="display:none; color: red;" data-i18n="msg.signin-failed"></p>
               <% } %>
 
 	            <input type="submit" id="allow" class="btn btn-primary btn-inline" data-i18n="[value]btn.allow">
@@ -121,13 +125,15 @@
     <script>
       $(document).ready(function(){
         $('#allow').on('click', function(e) {
+          $(".msg").each(function() {$(this).hide()});
+
           // this code prevents form from actually being submitted
           e.preventDefault();
           e.returnValue = false;
           var $form = $(this).closest('form');
 
           if ($('#email').val().length < 1 || $('#password').val().length < 1) {
-            alert("Email and password required.");
+            $("#msg-missing-fields").show();
           } else {
             var data = {email:$("#email").val(), password:$("#password").val()};
             $.ajax({
@@ -136,11 +142,15 @@
               data: JSON.stringify(data),
               contentType: "application/json",
               dataType: "json",
-              success: function(data) { // your success handler
+              success: function(data) {
                 $form.unbind('submit').submit();
               },
-              error: function(data) { // your error handler
-                alert("Sign in failed.");
+              error: function(data) {
+                var msg = "signin-failed";
+                if (data.responseJSON && data.responseJSON.why) {
+                  msg = data.responseJSON.why;
+                }
+                $("#msg-" + msg).show();
               }
             });
           }

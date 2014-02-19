@@ -79,6 +79,7 @@
     , "missing-fields": "Please enter the missing fields."
     , "user-not-found": "That email address is not recognized."
     , "invalid-password": "That password is incorrect."
+    , "signin-failed": "Sign in failed."
     , "mismatch-password": "Password mismatch."
     , "email-exists": "That email address is already in use. Please login, or ask for a password reset."
     , "nick-exists": "That email address is already in use. Please login, or ask for a password reset."
