@@ -36,7 +36,8 @@
     "ejs-locals": "~1.0.2",
     "ejs": "~0.8.5",
     "optimist": "~0.6.1",
-    "connect": "~2.12.0"
+    "connect": "~2.12.0",
+    "ldapjs": "~0.7.0"
   },
   "devDependencies": {
     "gulp": "~3.5.2",

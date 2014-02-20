@@ -16,6 +16,12 @@ module.exports = {
     sendemail:false,
     user: {
       updatefields: ['name','email','gravatar','image']
+    },
+    ldap:{
+      enabled: true,
+      url: 'ldap://localhost:389',
+      base: 'ou=people,dc=ec2,dc=internal',
+      filter: '(&(ObjectClass=person)(uid=%s))'
     }
   },
 

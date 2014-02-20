@@ -18,10 +18,15 @@
     'only-images-allowed': 'msg.only-images-allowed'
   }
 
-  var account_controllers = angular.module('accountControllers',['ngRoute', 'cookiesModule', 'senecaSettingsModule', 'authService', 'apiService', 'pubsubService', 'fileUploadService']);
+  var account_controllers = angular.module('accountControllers',['ngRoute', 'cookiesModule', 'configService', 'senecaSettingsModule', 'authService', 'apiService', 'pubsubService', 'fileUploadService']);
 
-  account_controllers.controller('Main', function($scope, auth, pubsub) {
+  account_controllers.controller('Main', function($scope, configuration, auth, pubsub) {
     //var path = window.location.pathname
+
+    $scope.show_account = true;
+    if (!configuration.account_enabled) {
+      $scope.show_account = false;
+    }
 
     $scope.application_msg = 'blank';
     $scope.details_msg = 'blank';
@@ -40,14 +45,16 @@
   })
 
 
-  account_controllers.controller('NavBar', function($scope, auth, pubsub) {
+  account_controllers.controller('NavBar', function($scope, configuration, auth, pubsub) {
 
     $scope.btn_applications = function() {
       pubsub.publish('view',['Applications'])
     }
 
-    $scope.btn_account = function() {
-      pubsub.publish('view',['Account'])
+    if (configuration.account_enabled) {
+      $scope.btn_account = function() {
+        pubsub.publish('view',['Account'])
+      }
     }
 
     $scope.btn_signout = function() {
@@ -57,7 +64,11 @@
   })
 
 
-  account_controllers.controller('Account', function($scope, auth, pubsub, fileUpload) {
+  account_controllers.controller('Account', function($scope, configuration, auth, pubsub, fileUpload) {
+    if (!configuration.account_enabled) {
+      return;
+    }
+
     pubsub.subscribe('view',function(view){
       if( 'Account' != view ) return;
     })

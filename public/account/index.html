@@ -43,7 +43,7 @@
               <a class="dropdown-toggle" data-toggle="dropdown">{{user.email}}<b class="caret"></b></a>
               <ul class="dropdown-menu">
                 <li><a ng-click="btn_applications()" ng-i18next="nav.application"></a></li>
-                <li><a ng-click="btn_account()" ng-i18next="nav.account"></a></li>
+                <li ng-show="show_account"><a ng-click="btn_account()" ng-i18next="nav.account"></a></li>
                 <li><a ng-click="btn_signout()" ng-i18next="nav.signout"></a></li>
               </ul>
             </li>
@@ -133,7 +133,7 @@
       </div>
 
     </div> <!-- /container -->
-    
+
     </div>
 
     <footer>
@@ -148,13 +148,13 @@
     <script src="/bower_components/underscore/underscore-min.js"></script>
     <script src="/bower_components/jquery/jquery.min.js"></script>
     <script src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-    <script src="/bower_components/ng-file-upload/angular-file-upload-shim.min.js"></script> 
+    <script src="/bower_components/ng-file-upload/angular-file-upload-shim.min.js"></script>
     <script src="/bower_components/angular/angular.min.js"></script>
     <script src="/bower_components/angular-route/angular-route.min.js"></script>
     <script src="/bower_components/i18next/release/i18next-1.7.1.min.js"></script>
     <script src="/bower_components/ng-i18next/dist/ng-i18next.min.js"></script>
     <script src="/bower_components/ng-file-upload/angular-file-upload.min.js"></script>
     <script src="/settings/seneca-settings.js"></script>
-    <script src="/js/main.min.js"></script>    
+    <script src="/js/main.min.js"></script>
   </body>
 </html>

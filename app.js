@@ -55,12 +55,15 @@ seneca.use('jsonrest-api',{
 
 seneca.use('./douitsu')
 
-
 seneca.ready(function(err){
   if( err ) return process.exit( !console.error(err) );
 
 
   var options = seneca.export('options')
+
+  if ('production' == env && options.auth.ldap.enabled)
+    seneca.use('./ldap');
+
   var web = seneca.export('web')
 
   seneca.act('role:settings, cmd:define_spec, kind:user',{spec:options.settings.spec})
@@ -157,7 +160,9 @@ seneca.ready(function(err){
   else
     seneca.listen();
 
+  // TODO Only run dev fixtures if not in production env? How will admin user be created though?
   dev_fixtures()
+
 })
 
 function dev_fixtures() {
@@ -166,7 +171,7 @@ function dev_fixtures() {
   var accesstokenent = seneca.make('accesstoken')
 
   function registerUser() {
-    u.register({nick:'u1',name:'nu1',email:'u1@example.com',password:'u1',active:true}, function(err,out){
+    u.register({nick:'u1@example.com',name:'nu1',email:'u1@example.com',password:'u1',active:true}, function(err,out){
       if(out.ok) {
         projectpin.save( {
           account:out.user.accounts[0],
@@ -183,8 +188,8 @@ function dev_fixtures() {
         seneca.act('role:settings, cmd:save, kind:user, settings:{a:"aaa"}, ref:"'+out.user.id+'"')
       }
     })
-    u.register({nick:'u2',name:'nu2',email:'u2@example.com',password:'u2',active:true})
-    u.register({nick:'a1',name:'na1',email:'a1@example.com',password:'a1',active:true,admin:true})
+    u.register({nick:'u2@example.com',name:'nu2',email:'u2@example.com',password:'u2',active:true})
+    u.register({nick:'a1@example.com',name:'na1',email:'a1@example.com',password:'a1',active:true,admin:true})
   }
 
   seneca.make("sys/user").load$({nick:"u1"}, function(err, user){

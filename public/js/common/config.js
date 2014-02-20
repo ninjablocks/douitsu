@@ -4,7 +4,8 @@
 
 	angular.module('configService', [])
 	  .constant('configuration', {
-	    signup_enabled: true
+	    signup_enabled: false,
+	    account_enabled: false
 	  });
 
 })();
