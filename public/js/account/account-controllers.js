@@ -204,7 +204,7 @@
       })
   })
 
-  account_controllers.controller('Applications', function($scope, api, pubsub, fileUpload) {
+  account_controllers.controller('Applications', function($scope, auth, api, pubsub, fileUpload) {
     $scope.applications = []
 
     $scope.show_applications_list   = true
@@ -216,9 +216,11 @@
     }
 
     function load_applications() {
-      api.get('/api/rest/application?account='+$scope.account.id,function(out){
-        $scope.applications = out
-      })
+      auth.instance(function(out){
+        api.get('/api/rest/application?account='+out.account.id,function(applications){
+          $scope.applications = applications;
+        });
+      });
     }
 
     function load_tokens() {
