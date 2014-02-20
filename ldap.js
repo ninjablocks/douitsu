@@ -15,6 +15,10 @@ module.exports = function( options ) {
     }
   },options);
 
+  if (process.env['LDAP_URL']) {
+    options.auth.ldap.url = process.env['LDAP_URL'];
+  }
+
   function authenticate(user, pass, callback) {
     var client = ldap.createClient({
       url: options.auth.ldap.url
