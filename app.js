@@ -30,12 +30,13 @@ if( 'production' == env ) {
     var urlM = /^mysql:\/\/((.*?):(.*?)@)?(.*?)(:?(\d+))?\/(.*?)$/.exec(process.env['DB_URL']);
     spec.name   = urlM[7];
     spec.port   = urlM[6];
-    spec.server = urlM[4];
-    spec.username = urlM[2];
+    spec.host = urlM[4];
+    spec.user = urlM[2];
     spec.password = urlM[3];
     spec.port = spec.port ? parseInt(spec.port,10) : null;
   }
 
+  seneca.log.info('mysql', "mysql://" + spec.host + ":" + spec.port + "/" + spec.name, "user: " + spec.user);
   seneca.use(mysqlStore, spec);
 
   seneca.use('redis-store', {
@@ -45,6 +46,7 @@ if( 'production' == env ) {
   });
 
   if (options.auth.ldap.enabled) {
+    seneca.log.info('ldap', options.auth.ldap.url);
     seneca.use('./ldap');
   }
 }
