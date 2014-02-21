@@ -32,6 +32,7 @@ CREATE TABLE sys_user (
   salt varchar(255) DEFAULT NULL,
   pass varchar(255) DEFAULT NULL,
   image varchar(255) DEFAULT NULL,
+  gravatar varchar(255) DEFAULT NULL,
   accounts varchar(4000) DEFAULT NULL,
   seneca varchar(255) DEFAULT NULL,
   PRIMARY KEY (id)
@@ -43,6 +44,7 @@ CREATE TABLE sys_login (
   email varchar(255) DEFAULT NULL,
   user varchar(255) DEFAULT NULL,
   active tinyint(1) DEFAULT NULL,
+  auto tinyint(1) DEFAULT NULL,
   `when` datetime DEFAULT NULL,
   why varchar(255) DEFAULT NULL,
   token varchar(255) DEFAULT NULL,
