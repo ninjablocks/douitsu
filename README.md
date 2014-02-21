@@ -58,10 +58,20 @@ Front-end dependencies are defined in [bower.js](https://github.com/ninjablocks/
 bower install
 ```
 
+## MySQL
+
+### Install schema
+
+```bash
+mysql -u douitsu -p douitsu < mysql/douitsu.ddl
+```
+
 ## UI Config
 
 ### Signup
 
 Edit signup_enabled in [public/js/config.js](https://github.com/ninjablocks/douitsu/blob/master/public/js/config.js) to enabled / disable signup.
+
+Edit account_enabled in [public/js/config.js](https://github.com/ninjablocks/douitsu/blob/master/public/js/config.js) to enabled / disable updating account details.
 
 
