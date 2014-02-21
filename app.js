@@ -25,7 +25,7 @@ var env = argv.env || process.env['NODE_ENV']
 
 if( 'production' == env ) {
 
-  var spec = options.mysql;
+  var spec = options.mysql || {};
   if (process.env['DB_URL']) {
     var urlM = /^mysql:\/\/((.*?):(.*?)@)?(.*?)(:?(\d+))?\/(.*?)$/.exec(process.env['DB_URL']);
     spec.name   = urlM[7];
