@@ -7,7 +7,7 @@ var express = require('express')
 
 var seneca = require('seneca')()
 
-var mysqlStore = require('seneca-mysql')
+var mysqlStore = require('seneca-mysql-store')
 
 var oauth2 = require('./oauth2')
 
