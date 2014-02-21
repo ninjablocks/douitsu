@@ -7,6 +7,7 @@ var express = require('express')
 
 var seneca = require('seneca')()
 
+var mysqlStore = require('seneca-mysql')
 
 var oauth2 = require('./oauth2')
 
@@ -17,19 +18,35 @@ process.on('uncaughtException', function(err) {
 })
 
 seneca.use('options','options.mine.js')
+var options = seneca.export('options')
 
 var argv = require('optimist').argv
 var env = argv.env || process.env['NODE_ENV']
 
-
 if( 'production' == env ) {
-  seneca.use('redis-store')
 
-  // seneca.use('ldap-store', {
-  //   map: {
-  //     '-/sys/user':'*'
-  //   }
-  // })
+  var spec = options.mysql;
+  if (process.env['DB_URL']) {
+    var urlM = /^mysql:\/\/((.*?):(.*?)@)?(.*?)(:?(\d+))?\/(.*?)$/.exec(process.env['DB_URL']);
+    spec.name   = urlM[7];
+    spec.port   = urlM[6];
+    spec.server = urlM[4];
+    spec.username = urlM[2];
+    spec.password = urlM[3];
+    spec.port = spec.port ? parseInt(spec.port,10) : null;
+  }
+
+  seneca.use(mysqlStore, spec);
+
+  seneca.use('redis-store', {
+    map: {
+      '-/-/session':'*'
+    }
+  });
+
+  if (options.auth.ldap.enabled) {
+    seneca.use('./ldap');
+  }
 }
 else {
   seneca.use('mem-store',{web:{dump:true}})
@@ -58,11 +75,6 @@ seneca.use('./douitsu')
 seneca.ready(function(err){
   if( err ) return process.exit( !console.error(err) );
 
-
-  var options = seneca.export('options')
-
-  if ('production' == env && options.auth.ldap.enabled)
-    seneca.use('./ldap');
 
   var web = seneca.export('web')
 

@@ -18,11 +18,19 @@ module.exports = {
       updatefields: ['name','email','gravatar','image']
     },
     ldap:{
-      enabled: true,
+      enabled: false,
       url: 'ldap://localhost:389',
       base: 'ou=people,dc=ec2,dc=internal',
       filter: '(&(ObjectClass=person)(uid=%s))'
     }
+  },
+
+  mysql: {
+    name:'douitsu',
+    host:'localhost',
+    user:'douitsu',
+    password:'douitsu',
+    port:3306
   },
 
   mail: {
