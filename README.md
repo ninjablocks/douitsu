@@ -20,6 +20,10 @@ node app.js
 
 And open [localhost:3333](http://localhost:3333)
 
+### Testing OAuth Provider
+
+Follow README in [example-oauth2orize-consumer](https://github.com/chico/example-oauth2orize-consumer).
+
 ## Gulp
 
 Gulp does the following:
@@ -66,11 +70,13 @@ bower install
 mysql -u douitsu -p douitsu < mysql/douitsu.ddl
 ```
 
-## UI Config
+## Feature flags
 
 ### Signup
 
 Edit signup_enabled in [public/js/config.js](https://github.com/ninjablocks/douitsu/blob/master/public/js/config.js) to enabled / disable signup.
+
+### Account details
 
 Edit account_enabled in [public/js/config.js](https://github.com/ninjablocks/douitsu/blob/master/public/js/config.js) to enabled / disable updating account details.
 
