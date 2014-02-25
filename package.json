@@ -26,6 +26,7 @@
     "seneca-settings": "~0.1.2",
     "seneca-redis-store": "git://github.com/chico/seneca-redis-store.git",
     "seneca-mysql": "git://github.com/chico/seneca-mysql-store.git",
+    "seneca-fieldmap": "~0.1.0",
     "express": "~3.4.8",
     "seneca": "~0.5.15",
     "seneca-perm": "~0.1.2",

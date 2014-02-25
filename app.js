@@ -39,6 +39,18 @@ if( 'production' == env ) {
   seneca.log.info('mysql', "mysql://" + spec.host + ":" + spec.port + "/" + spec.name, "user: " + spec.user);
   seneca.use(mysqlStore, spec);
 
+  /* Set any field aliases here (must be after store has been set)
+  seneca.use("fieldmap", {
+    map: {
+      '-/sys/user': {
+        alias: {
+          when:'created_at'
+        }
+      }
+    }
+  });
+  */
+
   seneca.use('redis-store', {
     map: {
       '-/-/session':'*'
