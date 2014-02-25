@@ -126,13 +126,6 @@ seneca.ready(function(err){
 
   app.expose(options.features, 'features', 'features');
 
-  app.get('/', function(req, res, next) {
-    res.render('index');
-  });
-  app.get('/account', function(req, res, next) {
-    res.render('account');
-  });
-
   var clientent = seneca.make('sys/project')
   var accesstokenent = seneca.make('accesstoken')
   var projectpin = seneca.pin({role:'project',cmd:'*'});
@@ -180,6 +173,13 @@ seneca.ready(function(err){
   // Upload files
   app.post('/upload', function(req, res, next) {
     res.end(JSON.stringify({url:"/uploads/" + req.files.file.path.split('/').pop()}));
+  });
+
+  app.get('/', function(req, res, next) {
+    res.render('index');
+  });
+  app.get('/account', function(req, res, next) {
+    res.render('account');
   });
 
   app.use( function( req, res, next ){
