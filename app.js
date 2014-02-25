@@ -17,11 +17,13 @@ process.on('uncaughtException', function(err) {
   process.exit(1)
 })
 
-seneca.use('options','options.mine.js')
-var options = seneca.export('options')
+
 
 var argv = require('optimist').argv
 var env = argv.env || process.env['NODE_ENV']
+
+seneca.use('options', argv.options || 'options.mine.js')
+var options = seneca.export('options')
 
 if( 'production' == env ) {
 
