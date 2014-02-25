@@ -126,6 +126,12 @@ seneca.ready(function(err){
 
   app.expose(options.features, 'features', 'features');
 
+  app.use(function(req,res,next){
+    var lang = req.acceptedLanguages || ['en'];
+    res.expose(lang, 'languages', 'languages');
+    next();
+  })
+
   var clientent = seneca.make('sys/project')
   var accesstokenent = seneca.make('accesstoken')
   var projectpin = seneca.pin({role:'project',cmd:'*'});
