@@ -188,10 +188,11 @@ seneca.ready(function(err){
         0 == req.url.indexOf('/reset') ||
         0 == req.url.indexOf('/confirm') )
     {
-      req.url = '/'
+      res.render('index');
     }
-
-    next()
+    else {
+      next();
+    }
   })
 
 
