@@ -41,18 +41,6 @@ if( 'production' == env ) {
   seneca.log.info('mysql', "mysql://" + spec.host + ":" + spec.port + "/" + spec.name, "user: " + spec.user);
   seneca.use(mysqlStore, spec);
 
-  /* Set any field aliases here (must be after store has been set)
-  seneca.use("fieldmap", {
-    map: {
-      '-/sys/user': {
-        alias: {
-          when:'created_at'
-        }
-      }
-    }
-  });
-  */
-
   seneca.use('redis-store', {
     map: {
       '-/-/session':'*'
@@ -67,6 +55,27 @@ if( 'production' == env ) {
 else {
   seneca.use('mem-store',{web:{dump:true}})
 }
+
+// Map when to created field
+seneca.use("fieldmap", {
+  map: {
+    '-/sys/user': {
+      alias: {
+        when:'created'
+      }
+    }
+  }
+});
+// Add updated field
+seneca.use("./store-extend", {
+  map: {
+      '-/sys/user': {
+        alias: {
+          updated:'updated'
+        }
+      }
+    }
+});
 
 seneca.use('user',{confirm:true})
 seneca.use('mail')
