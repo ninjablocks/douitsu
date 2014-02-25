@@ -20,11 +20,11 @@
 
   var account_controllers = angular.module('accountControllers',['ngRoute', 'cookiesModule', 'configService', 'senecaSettingsModule', 'authService', 'apiService', 'pubsubService', 'fileUploadService']);
 
-  account_controllers.controller('Main', function($scope, configuration, auth, pubsub) {
+  account_controllers.controller('Main', function($scope, features, auth, pubsub) {
     //var path = window.location.pathname
 
     $scope.show_account = true;
-    if (!configuration.account_enabled) {
+    if (!features.account) {
       $scope.show_account = false;
     }
 
@@ -45,13 +45,13 @@
   })
 
 
-  account_controllers.controller('NavBar', function($scope, configuration, auth, pubsub) {
+  account_controllers.controller('NavBar', function($scope, features, auth, pubsub) {
 
     $scope.btn_applications = function() {
       pubsub.publish('view',['Applications'])
     }
 
-    if (configuration.account_enabled) {
+    if (features.account) {
       $scope.btn_account = function() {
         pubsub.publish('view',['Account'])
       }
@@ -64,8 +64,8 @@
   })
 
 
-  account_controllers.controller('Account', function($scope, configuration, auth, pubsub, fileUpload) {
-    if (!configuration.account_enabled) {
+  account_controllers.controller('Account', function($scope, features, auth, pubsub, fileUpload) {
+    if (!features.account) {
       return;
     }
 

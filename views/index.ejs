@@ -89,7 +89,7 @@
                   </div>
                   <div ng-show="!dropSupported" style="margin-left:200px;width:200px;text-align:center;float:right" ng-i18next="[html]label.drop-not-supported"></div>
                   <div ng-show="dropSupported" style="margin-left:200px;width:200px;text-align:center;float:right"><label ng-i18next="[html]label.drop-photo"></label></div>
-                  
+
                 </div>
                 <div style="height:85px" ng-class="{'form-group':true,mvp_seek_input:seek_name}">
                   <input type="text" class="form-control half-width" id="name" placeholder="{{'placeholder.name' | i18next }}" ng-model="input_name" tab-index="2">
@@ -130,7 +130,7 @@
                     <input type="text" class="form-control" id="email" placeholder="{{'placeholder.email' | i18next }}" ng-model="input_email" tab-index="2">
                   </div>
                   <a ng-class="{btn:true, 'btn-primary':true, mvp_seek_input:seek_signup}" href="#"  ng-click="forgot()" tab-index="3" ng-i18next="[html]btn.submit"></a>
-                </form>              
+                </form>
               </div>
 
               <p style="margin-top:40px;color:red" ng-show="showmsg">{{msg | i18next}}</p>
@@ -181,7 +181,7 @@
           </div>
           <div class="col-lg-1">&nbsp;</div>
         </div>
-      
+
     </div> <!-- /container -->
 
     <footer>
@@ -195,13 +195,17 @@
     <script src="/bower_components/underscore/underscore-min.js"></script>
     <script src="/bower_components/jquery/jquery.min.js"></script>
     <script src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-    <script src="/bower_components/ng-file-upload/angular-file-upload-shim.min.js"></script> 
+    <script src="/bower_components/ng-file-upload/angular-file-upload-shim.min.js"></script>
     <script src="/bower_components/angular/angular.min.js"></script>
     <script src="/bower_components/i18next/release/i18next-1.7.1.min.js"></script>
     <script src="/bower_components/ng-i18next/dist/ng-i18next.min.js"></script>
     <script src="/bower_components/ng-file-upload/angular-file-upload.min.js"></script>
+
+    <script><%- features %></script>
     <script src="/js/main.min.js"></script>
-    
+
+
+
   </body>
 </html>
 

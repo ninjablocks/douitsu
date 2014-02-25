@@ -67,7 +67,8 @@
       </div> -->
 
       <div class="row" ng-show="show_view_Applications">
-        <div class="col-lg-12" ng-include src="'applications.html'">
+        <div class="col-lg-12">
+          <%- include applications.ejs %>
         </div>
       </div>
 
@@ -155,6 +156,8 @@
     <script src="/bower_components/ng-i18next/dist/ng-i18next.min.js"></script>
     <script src="/bower_components/ng-file-upload/angular-file-upload.min.js"></script>
     <script src="/settings/seneca-settings.js"></script>
+
+    <script><%- features %></script>
     <script src="/js/main.min.js"></script>
   </body>
 </html>

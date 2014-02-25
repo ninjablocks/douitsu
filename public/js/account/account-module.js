@@ -4,7 +4,7 @@
 
   var account_module = angular.module('account',['ngRoute', 'configService', 'accountControllers', 'i18nModule']);
 
-  account_module.config(function($routeProvider, configuration) {
+  account_module.config(function($routeProvider, features) {
     $routeProvider.
       when('/Applications', {
         tab:'Applications'
@@ -15,7 +15,7 @@
         tab:'Settings'
       });
 
-    if (configuration.account_enabled) {
+    if (features.account) {
       $routeProvider.
         when('/Account', {
           tab:'Account'

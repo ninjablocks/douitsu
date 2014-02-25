@@ -25,8 +25,8 @@
 
 	var home_controllers = angular.module('homeControllers', ['cookiesModule', 'configService', 'authService', 'fileUploadService']);
 
-	home_controllers.controller('Main', function($scope,$location,configuration) {
-	  var path = window.location.pathname
+	home_controllers.controller('Main', function($scope,$location,features) {
+	  var path = window.location.pathname;
 
 	  var page_login   = true
 	  var page_signup  = 0==path.indexOf('/signup')
@@ -34,7 +34,7 @@
 	  var page_reset   = 0==path.indexOf('/reset')
 	  var page_confirm = 0==path.indexOf('/confirm')
 
-	  if (page_signup && !configuration.signup_enabled) {
+	  if (page_signup && !features.signup) {
 	    return window.location.href = "/";
 	  }
 
@@ -49,9 +49,9 @@
 	  $scope.msg = "blank"
 	});
 
-	home_controllers.controller('Login', function($scope, $rootScope, auth, configuration) {
+	home_controllers.controller('Login', function($scope, $rootScope, auth, features) {
 
-    $scope.signup_enabled = configuration.signup_enabled;
+    $scope.signup_enabled = features.signup;
 
     function read() {
       return {

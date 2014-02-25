@@ -4,6 +4,7 @@
 var _       = require('underscore')
 var nid     = require('nid')
 var express = require('express')
+var expose  = require('express-expose')
 
 var seneca = require('seneca')()
 
@@ -123,6 +124,14 @@ seneca.ready(function(err){
 
   app.use( web )
 
+  app.expose(options.features, 'features', 'features');
+
+  app.get('/', function(req, res, next) {
+    res.render('index');
+  });
+  app.get('/account', function(req, res, next) {
+    res.render('account');
+  });
 
   var clientent = seneca.make('sys/project')
   var accesstokenent = seneca.make('accesstoken')
