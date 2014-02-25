@@ -1,4 +1,5 @@
 
+var LDAP_ENABLED = true;
 
 module.exports = {
 
@@ -18,11 +19,17 @@ module.exports = {
       updatefields: ['name','email','gravatar','image']
     },
     ldap:{
-      enabled: false,
+      enabled: LDAP_ENABLED,
       url: 'ldap://localhost:389',
       base: 'ou=people,dc=ec2,dc=internal',
       filter: '(&(ObjectClass=person)(uid=%s))'
     }
+  },
+
+  features: {
+    // signup and account are false by default if ldap is enabled
+    signup: true && !LDAP_ENABLED,
+    account: true && !LDAP_ENABLED
   },
 
   mysql: {
