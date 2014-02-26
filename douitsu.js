@@ -21,7 +21,7 @@ module.exports = function( options ) {
 
         done( null, {tokens:tokens})
       })
-    } 
+    }
     else return done(null,{tokens:[]})
   }
 
@@ -39,10 +39,10 @@ module.exports = function( options ) {
             done(null,{id:at.id})
           })
         } else {
-          done(null,{id:null})  
+          done(null,{id:null})
         }
       })
-    } 
+    }
     else return done(null,{id:null})
   }
 
@@ -51,7 +51,7 @@ module.exports = function( options ) {
     if (req.query.access_token)
       args.access_token = req.query.access_token
     act(args,respond)
-  }  
+  }
 
   seneca.act({role:'web',use:{
     prefix:'/api/user/',
@@ -72,6 +72,27 @@ module.exports = function( options ) {
       data.secret = nid(40);
 
     this.prior(args,done)
+  })
+
+  // Intercept update_user and check email is unique
+  // TODO Remove once update_user in seneca-auth is fixed, throws unknown error if email exists
+  seneca.add({role:'auth',cmd:'update_user'},function(args,done){
+    var instance = this;
+    var data = args.data;
+
+    if (!data.email) {
+      instance.prior(args, done);
+    }
+    else {
+      seneca.make("sys/user").load$({email:data.email}, function(err, user){
+        if(!user) {
+          instance.prior(args, done);
+        }
+        else {
+          return done(null, {ok: false, why: 'user-exists-email'});
+        }
+      })
+    }
   })
 
   // express needs a scalable session store if you want to deploy to more than one machine

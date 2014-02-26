@@ -78,6 +78,9 @@
       $scope.field_email = user.email
       $scope.field_gravatar = user.gravatar
       $scope.imageUrl = user.image
+
+      // Keep to check if email has changed when details are updated
+      $scope.email  = user.email
     })
 
     pubsub.subscribe('account',function(account){
@@ -112,6 +115,12 @@
 
     $scope.update_user = function() {
       var data = read_user()
+
+      // Do not send email to be updated if it is the same as before
+      if ($scope.email == data.email) {
+        delete data.email;
+      }
+
       auth.update_user(
         data,
         function( out ){
