@@ -10,7 +10,7 @@ var seneca = require('seneca')()
 
 var mysqlStore = require('seneca-mysql-store')
 
-var oauth2 = require('./oauth2')
+var oauth2 = require('./lib/oauth2')
 
 process.on('uncaughtException', function(err) {
   console.error('uncaughtException:', err.message)
@@ -50,7 +50,7 @@ if( 'production' == env ) {
 
   if (options.auth.ldap.enabled) {
     seneca.log.info('ldap', options.auth.ldap.url);
-    seneca.use('./ldap');
+    seneca.use('./lib/ldap');
   }
 }
 else {
@@ -68,7 +68,7 @@ seneca.use("fieldmap", {
   }
 });
 // Add updated field
-seneca.use("./store-extend", {
+seneca.use("./lib/store-extend", {
   map: {
       '-/sys/user': {
         alias: {
@@ -96,7 +96,7 @@ seneca.use('jsonrest-api',{
 })
 
 
-seneca.use('./douitsu')
+seneca.use('./lib/douitsu')
 
 seneca.ready(function(err){
   if( err ) return process.exit( !console.error(err) );
