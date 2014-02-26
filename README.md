@@ -10,7 +10,7 @@ cp options.example.js options.mine.js
 npm install
 ```
 
-Edit options.mine.js as needed.
+Edit options.mine.js as needed, including switching on/off feature flags.
 
 ## Run
 
@@ -70,14 +70,5 @@ bower install
 mysql -u douitsu -p douitsu < mysql/douitsu.ddl
 ```
 
-## Feature flags
-
-### Signup
-
-Edit signup_enabled in [public/js/config.js](https://github.com/ninjablocks/douitsu/blob/master/public/js/config.js) to enabled / disable signup.
-
-### Account details
-
-Edit account_enabled in [public/js/config.js](https://github.com/ninjablocks/douitsu/blob/master/public/js/config.js) to enabled / disable updating account details.
 
 
