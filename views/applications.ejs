@@ -2,7 +2,7 @@
 <div ng-controller="Applications">
 
   <h3 ng-show="show_applications_list" ng-i18next="[html]title.your-applications"></h3>
-  
+
 
   <div ng-show="show_applications_list">
     <br>
@@ -24,9 +24,9 @@
   <div ng-show="show_applications_list">
     <br>
     <ul class="selection-list nav nav-stacked nav-pills">
-      <li ng-repeat="token in tokens" class="application_item">
-        <span class="application_name" style="float:left; padding: 12px;">{{token.clientName}}</span>
-        <a ng-click="revoke_token(token.id)" class="btn btn-primary btn-item-action" style="float:right" ng-i18next="[html]btn.revoke"></a>
+      <li ng-repeat="user_application in user_applications" class="application_item">
+        <span class="application_name" style="float:left; padding: 12px;">{{user_application.clientName}}</span>
+        <a ng-click="revoke_user_application(user_application.clientID)" class="btn btn-primary btn-item-action" style="float:right" ng-i18next="[html]btn.revoke"></a>
       </li>
     </ul>
   </div>

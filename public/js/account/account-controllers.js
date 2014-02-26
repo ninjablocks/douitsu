@@ -221,7 +221,7 @@
 
     function load() {
       load_applications();
-      load_tokens();
+      load_user_applications();
     }
 
     function load_applications() {
@@ -232,9 +232,9 @@
       });
     }
 
-    function load_tokens() {
-      api.get('/api/user/token',function(out){
-        $scope.tokens = out.tokens
+    function load_user_applications() {
+      api.get('/api/user/application',function(out){
+        $scope.user_applications = out.applications
       })
     }
 
@@ -308,9 +308,9 @@
       }
     }
 
-    $scope.revoke_token = function( tokenid ) {
+    $scope.revoke_user_application = function( clientid ) {
       if( confirm('Are you sure?') ) {
-        api.del( '/api/user/token?access_token='+tokenid, function(){
+        api.del( '/api/user/application/'+clientid, function(){
           pubsub.publish('application.change',[])
         }, function( out ){
           $scope.token_msg = msgmap[out.why] || msgmap.unknown
