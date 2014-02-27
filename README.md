@@ -20,6 +20,10 @@ node app.js
 
 And open [localhost:3333](http://localhost:3333)
 
+### Admin
+
+Open [localhost:3333](http://localhost:3333), login with an admin user (admin credentials defined in options.mine.js) and go to [localhost:3333/admin](http://localhost:3333/admin).
+
 ### Testing OAuth Provider
 
 Follow README in [example-oauth2orize-consumer](https://github.com/chico/example-oauth2orize-consumer).

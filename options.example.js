@@ -12,6 +12,12 @@ module.exports = {
     port: 10101
   },
 
+  admin: {
+    email: "a1@example.com",
+    name: "admin",
+    password: "a1"
+  },
+
   auth: {
     // change to true if you want to send emails
     sendemail:false,
