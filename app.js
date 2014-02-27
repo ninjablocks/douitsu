@@ -232,7 +232,7 @@ function dev_fixtures() {
           appid:'123',
           secret:'456789',
           homeurl: 'http://example.com',
-          callback: 'http://example.com/oauth',
+          callback: 'http://localhost:3001/auth/example-oauth2orize/callback',
           desc: 'example app',
           image: 'https://pbs.twimg.com/profile_images/432897163673075713/7lcs7v8c.png'
         })
