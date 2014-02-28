@@ -23,7 +23,7 @@
     'only-images-allowed': 'msg.only-images-allowed'
   }
 
-	var home_controllers = angular.module('homeControllers', ['cookiesModule', 'configService', 'authService', 'fileUploadService']);
+	var home_controllers = angular.module('homeControllers', ['cookiesModule', 'configService', 'authService', 'fileUploadService', 'angular-md5']);
 
 	home_controllers.controller('Main', function($scope,$location,features) {
 	  var path = window.location.pathname;
@@ -222,7 +222,7 @@
     })
   })
 
-  home_controllers.controller('Signup', function($scope, $rootScope, auth, fileUpload) {
+  home_controllers.controller('Signup', function($scope, $rootScope, auth, fileUpload, features, md5) {
 
     auth.instance(function(out){
       if (out.user) {
@@ -252,13 +252,16 @@
       $scope.seek_send   = !state.email
     }
 
+    function gravatar(email) {
+      return (features.gravatar) ? "http://www.gravatar.com/avatar/" + md5.createHash(email.toLowerCase().trim()) + "?d=blank" + "&s=200" : null;
+    }
 
     function perform_signup() {
       auth.register({
         name:$scope.input_name,
         email:$scope.input_email,
         password:$scope.input_password,
-        image:$scope.imageUrl,
+        image:$scope.imageUrl || gravatar($scope.input_email),
         gravatar:$scope.input_gravatar
       }, null, function( out ){
         $scope.msg = msgmap[out.why] || msgmap.unknown

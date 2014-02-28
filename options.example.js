@@ -35,7 +35,8 @@ module.exports = {
   features: {
     // signup and account are false by default if ldap is enabled
     signup: true && !LDAP_ENABLED,
-    account: true && !LDAP_ENABLED
+    account: true && !LDAP_ENABLED,
+    gravatar: true
   },
 
   mysql: {
