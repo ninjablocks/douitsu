@@ -4,25 +4,6 @@
   function noop(){for(var i=0;i<arguments.length;i++)if('function'==typeof(arguments[i]))arguments[i]()}
   function empty(val) { return null == val || 0 == ''+val }
 
-  // Error messages defined in ../locales/
-  var msgmap = {
-    'unknown': 'msg.unknown',
-    'missing-fields': 'msg.missing-fields',
-    'weak-password': 'msg.weak-password',
-    'invalid-email': 'msg.invalid-email',
-    'invalid-url': 'msg.invalid-url',
-    'mismatch-password': 'msg.mismatch-password',
-    'user-updated': 'msg.user-updated',
-    'user-exists-email': 'msg.user-exists-email',
-    'user-exists-nick': 'msg.user-exists-nick',
-    'password-updated': 'msg.password-updated',
-    'org-updated': 'msg.org-updated',
-    'application-updated': 'msg.application-updated',
-    'application-deleted': 'msg.application-deleted',
-    'token-deleted': 'msg.token-deleted',
-    'only-images-allowed': 'msg.only-images-allowed'
-  }
-
   var account_controllers = angular.module('accountControllers',['ngRoute', 'cookiesModule', 'configService', 'senecaSettingsModule', 'authService', 'apiService', 'pubsubService', 'fileUploadService', 'validatorService']);
 
   account_controllers.controller('Main', function($scope, features, auth, pubsub) {
@@ -152,20 +133,20 @@
           auth.update_user(
             data,
             function( out ){
-              $scope.details_msg = msgmap['user-updated']
+              $scope.details_msg = 'msg.user-updated'
               pubsub.publish('user',[out.user])
             },
             function( out ){
-              $scope.details_msg = msgmap[out.why] || msgmap.unknown
+              $scope.details_msg = (out.why) ? 'msg.' + out.why : 'msg.unknown';
             }
           )
         }
         else {
-          $scope.details_msg = msgmap['invalid-email'];
+          $scope.details_msg = 'msg.invalid-email';
         }
       }
       else {
-        $scope.details_msg = msgmap['missing-fields'];
+        $scope.details_msg = 'msg.missing-fields';
       }
     }
 
@@ -177,19 +158,19 @@
           auth.change_password(
             data,
             function( out ){
-              $scope.password_msg = msgmap['password-updated']
+              $scope.password_msg = 'msg.password-updated'
             },
             function( out ){
-              $scope.password_msg = msgmap[out.why] || msgmap.unknown
+              $scope.password_msg = (out.why) ? 'msg.' + out.why : 'msg.unknown';
             }
           )
         }
         else {
-          $scope.password_msg = msgmap["mismatch-password"];
+          $scope.password_msg = "msg.mismatch-password";
         }
       }
       else {
-        $scope.password_msg = msgmap["weak-password"];
+        $scope.password_msg = "msg.weak-password";
       }
     }
 
@@ -199,11 +180,11 @@
       auth.update_org(
         data,
         function( out ){
-          $scope.org_msg = msgmap['org-updated']
+          $scope.org_msg = 'msg.org-updated'
           pubsub.publish('account',[out.account])
         },
         function( out ){
-          $scope.org_msg = msgmap[out.why] || msgmap.unknown
+          $scope.org_msg = (out.why) ? 'msg.' + out.why : 'msg.unknown';
         }
       )
     }
@@ -218,11 +199,11 @@
               $scope.imageUrl = data.url;
             }
             else {
-              $scope.details_msg = msgmap['upload-failed'];
+              $scope.details_msg = 'msg.upload-failed';
             }
           });
         } else {
-          $scope.details_msg = msgmap['only-images-allowed'];
+          $scope.details_msg = 'msg.only-images-allowed';
         }
       }
     };
@@ -365,16 +346,16 @@
 
           api.post( '/api/rest/application', $scope.application, function( out ){
             $scope.show_application(out)
-            $scope.application_msg = msgmap['application-updated']
+            $scope.application_msg = 'msg.application-updated'
             pubsub.publish('application.change',[out])
           }, function( out ){
-            $scope.application_msg = msgmap[out.why] || msgmap.unknown
+            $scope.application_msg = (out.why) ? 'msg.' + out.why : 'msg.unknown';
           })
         } else {
-          $scope.application_msg = msgmap["invalid-url"];
+          $scope.application_msg = "msg.invalid-url";
         }
       } else {
-        $scope.application_msg = msgmap["missing-fields"];
+        $scope.application_msg = "msg.missing-fields";
       }
     }
 
@@ -382,10 +363,10 @@
     $scope.delete_application = function( applicationid ) {
       if( confirm('Are you sure?') ) {
         api.del( '/api/rest/application/'+applicationid, function(){
-          $scope.application_msg = msgmap['application-deleted']
+          $scope.application_msg = 'msg.application-deleted'
           pubsub.publish('application.change',[])
         }, function( out ){
-          $scope.application_msg = msgmap[out.why] || msgmap.unknown
+          $scope.application_msg = (out.why) ? 'msg.' + out.why : 'msg.unknown';
         })
       }
     }
@@ -395,7 +376,7 @@
         api.del( '/api/user/application/'+clientid, function(){
           pubsub.publish('application.change',[])
         }, function( out ){
-          $scope.token_msg = msgmap[out.why] || msgmap.unknown
+          $scope.token_msg = (out.why) ? 'msg.' + out.why : 'msg.unknown';
         })
       }
     }
@@ -410,11 +391,11 @@
               $scope.imageUrl = data.url;
             }
             else {
-              $scope.application_msg = msgmap['upload-failed'];
+              $scope.application_msg = 'msg.upload-failed';
             }
           });
         } else {
-          $scope.application_msg = msgmap['only-images-allowed'];
+          $scope.application_msg = 'msg.only-images-allowed';
         }
       }
     };

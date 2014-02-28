@@ -5,26 +5,6 @@
 	function noop(){for(var i=0;i<arguments.length;i++)if('function'==typeof(arguments[i]))arguments[i]()}
   function empty(val) { return null == val || 0 == ''+val }
 
-	// Error messages defined in ../locales/
-  var msgmap = {
-    'unknown': 'msg.unknown',
-    'missing-fields': 'msg.missing-fields',
-    'user-not-found': 'msg.user-not-found',
-    'invalid-email': 'msg.invalid-email',
-    'weak-password': 'msg.weak-password',
-    'invalid-password': 'msg.invalid-password',
-    'mismatch-password': 'msg.mismatch-password',
-    'email-exists': 'msg.email-exists',
-    'nick-exists': 'msg.nick-exists',
-    'reset-sent': 'msg.reset-sent',
-    'activate-reset': 'msg.activate-reset',
-    'invalid-reset': 'msg.invalid-reset',
-    'reset-done': 'msg.reset-done',
-    'confirmed': 'msg.confirmed',
-    'invalid-confirm-code': 'msg.invalid-confirm-code',
-    'only-images-allowed': 'msg.only-images-allowed'
-  }
-
 	var home_controllers = angular.module('homeControllers', ['cookiesModule', 'configService', 'authService', 'fileUploadService', 'angular-md5', 'validatorService']);
 
 	home_controllers.controller('Main', function($scope,$location,features) {
@@ -75,28 +55,12 @@
     }
 
 
-    /*
-    function perform_signup() {
-      auth.register({
-        name:$scope.input_name,
-        email:$scope.input_email,
-        password:$scope.input_password
-      }, null, function( out ){
-        $scope.msg = msgmap[out.why] || msgmap.unknown
-        if( 'email-exists' == out.why ) $scope.seek_email = true;
-        if( 'nick-exists'  == out.why ) $scope.seek_email = true;
-        $scope.showmsg = true
-      })
-    }
-     */
-
-
     function perform_signin() {
       auth.login({
         email:$scope.input_email,
         password:$scope.input_password
       }, null, function( out ){
-        $scope.msg = msgmap[out.why] || msgmap.unknown
+        $scope.msg = (out.why) ? 'msg.' + out.why : 'msg.unknown';
         $scope.showmsg = true
         if( 'user-not-found' == out.why ) $scope.seek_email = true;
         if( 'invalid-password' == out.why ) $scope.seek_password = true;
@@ -110,39 +74,15 @@
 
       }, function(){
         $scope.cancel()
-        $scope.msg = msgmap['reset-sent']
+        $scope.msg = 'msg.reset-sent'
         $scope.showmsg = true
 
       }, function( out ){
-        $scope.msg = msgmap[out.why] || msgmap.unknown
+        $scope.msg = (out.why) ? 'msg.' + out.why : 'msg.unknown';
         $scope.showmsg = true
         if( 'user-not-found' == out.why ) $scope.seek_email = true;
       })
     }
-
-/*
-    $scope.signup = function(){
-      if( 'signup' != $scope.mode ) {
-        show({name:true,password:true,signup:true,signin:false,cancel:true,send:false})
-      }
-      $scope.showmsg = false
-
-      var state = read()
-      markinput(state)
-
-      if( state.name && state.email && state.password ) {
-        perform_signup()
-      }
-      else {
-        $scope.msg = msgmap['missing-fields']
-        $scope.showmsg = true
-      }
-
-      $scope.signup_hit = true
-      $scope.mode = 'signup'
-    }
-*/
-
 
     $scope.signin = function() {
       $scope.showmsg = false
@@ -154,7 +94,7 @@
         perform_signin()
       }
       else {
-        $scope.msg = msgmap['missing-fields']
+        $scope.msg = 'msg.missing-fields'
         $scope.showmsg = true
       }
 
@@ -274,7 +214,7 @@
         image:$scope.imageUrl || gravatar($scope.input_email),
         gravatar:$scope.input_gravatar
       }, null, function( out ){
-        $scope.msg = msgmap[out.why] || msgmap.unknown
+        $scope.msg = (out.why) ? 'msg.' + out.why : 'msg.unknown';
         if( 'email-exists' == out.why ) $scope.seek_email = true;
         if( 'nick-exists'  == out.why ) $scope.seek_email = true;
         $scope.showmsg = true
@@ -294,18 +234,18 @@
         if (state.email_valid && state.password_valid && ($scope.input_password == $scope.input_verify_password)) {
           perform_signup()
         } else if (!state.email_valid) {
-          $scope.msg = msgmap['invalid-email']
+          $scope.msg = 'msg.invalid-email'
           $scope.showmsg = true
         } else if (!state.password_valid) {
-          $scope.msg = msgmap['weak-password']
+          $scope.msg = 'msg.weak-password'
           $scope.showmsg = true
         } else {
-          $scope.msg = msgmap['mismatch-password']
+          $scope.msg = 'msg.mismatch-password'
           $scope.showmsg = true
         }
       }
       else {
-        $scope.msg = msgmap['missing-fields']
+        $scope.msg = 'msg.missing-fields'
         $scope.showmsg = true
       }
 
@@ -323,12 +263,12 @@
 	        		$scope.imageUrl = data.url;
 	        	}
 	        	else {
-	        		$scope.msg = msgmap['upload-failed'];
+	        		$scope.msg = 'msg.upload-failed';
 	        		$scope.showmsg = true;
 	        	}
 	        });
         } else {
-        	$scope.msg = msgmap['only-images-allowed'];
+        	$scope.msg = 'msg.only-images-allowed';
         	$scope.showmsg = true;
       	}
       }
@@ -384,11 +324,11 @@
         email:$scope.input_email,
 
       }, function(){
-        $scope.msg = msgmap['reset-sent']
+        $scope.msg = 'msg.reset-sent'
         $scope.showmsg = true
 
       }, function( out ){
-        $scope.msg = msgmap[out.why] || msgmap.unknown
+        $scope.msg = (out.why) ? 'msg.' + out.why : 'msg.unknown';
         $scope.showmsg = true
         if( 'user-not-found' == out.why ) $scope.seek_email = true;
       })
@@ -404,7 +344,7 @@
         perform_send()
       }
       else {
-        $scope.msg = msgmap['missing-fields']
+        $scope.msg = 'msg.missing-fields'
         $scope.showmsg = true
       }
 
@@ -438,12 +378,12 @@
       token:token
 
     }, function( out ){
-      $scope.msg = msgmap['activate-reset']
+      $scope.msg = 'msg.activate-reset'
       $scope.nick = out.nick
       $scope.show_reset = true
 
     }, function( out ){
-      $scope.msg = msgmap['invalid-reset']
+      $scope.msg = 'msg.invalid-reset'
     })
 
 
@@ -459,16 +399,16 @@
           repeat:   $scope.input_repeat,
 
         }, function( out ){
-          $scope.msg = msgmap['reset-done']
+          $scope.msg = 'msg.reset-done'
           $scope.show_gohome = true
           $scope.show_resetpass = false
 
         }, function( out ){
-          $scope.msg = msgmap['invalid-reset']
+          $scope.msg = 'msg.invalid-reset'
         })
       }
       else {
-        $scope.msg = msgmap['missing-fields']
+        $scope.msg = 'msg.missing-fields'
       }
     }
 
@@ -496,10 +436,10 @@
       code:code
 
     }, function( out ){
-      $scope.msg = msgmap['confirmed']
+      $scope.msg = 'msg.confirmed'
 
     }, function( out ){
-      $scope.msg = msgmap['invalid-confirm-code']
+      $scope.msg = 'msg.invalid-confirm-code'
     })
 
     $scope.gohome = function() {
