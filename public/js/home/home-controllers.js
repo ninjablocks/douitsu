@@ -251,7 +251,9 @@
         $scope['seek_'+field] = !full
       })
 
-      $scope.seek_email = !$scope.seek_email || !state.email_valid;
+      if (!state.email_valid)
+        $scope.seek_email = true
+
       $scope.seek_signup = !state.email || !state.password
       $scope.seek_send   = !state.email
     }

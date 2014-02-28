@@ -81,20 +81,25 @@ div.mvp_seek_input input {
     color: red;
 }
 
+div.mvp_seek_input textarea {
+    border-color: red;
+    color: red;
+}
+
 a.mvp_seek_input:hover {
     background-color:red;
     color:black;
 }
-div.mvp_seek_input input::-webkit-input-placeholder { /* WebKit browsers */
+div.mvp_seek_input *::-webkit-input-placeholder { /* WebKit browsers */
     color:    red;
 }
-div.mvp_seek_input input:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+div.mvp_seek_input *:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
     color:    red;
 }
-div.mvp_seek_input input::-moz-placeholder { /* Mozilla Firefox 19+ */
+div.mvp_seek_input *::-moz-placeholder { /* Mozilla Firefox 19+ */
     color:    red;
 }
-div.mvp_seek_input input:-ms-input-placeholder { /* Internet Explorer 10+ */
+div.mvp_seek_input *:-ms-input-placeholder { /* Internet Explorer 10+ */
     color:    red;
 }
 
@@ -122,7 +127,7 @@ p.account_msg {
 
 span.not-your-acc {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-    font-weight: 200;    
+    font-weight: 200;
     font-size: 24px;
 }
 
@@ -207,7 +212,7 @@ table#seneca-settings td:nth-child(2) {
 
 h2.login_head {
     margin:100px 0px 50px 0px;
-    text-align:center;   
+    text-align:center;
 }
 
 a.btn-primary {

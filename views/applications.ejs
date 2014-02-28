@@ -50,22 +50,22 @@
     <p ng-if="application.appid">{{'label.client-id' | i18next }}: {{application.appid}}</p>
     <p ng-if="application.secret">{{'label.client-secret' | i18next }}: {{application.secret}}</p>
 
-    <div class="form-group">
+    <div ng-class="{'form-group':true,mvp_seek_input:seek_name}">
       <input type="text" class="form-control half-width" id="field_name" ng-model="field_name" placeholder="{{'placeholder.application-name' | i18next }}">
       <label ng-i18next="label.users-trust"><label>
     </div>
 
-    <div class="form-group">
+    <div ng-class="{'form-group':true,mvp_seek_input:seek_homeurl}">
       <input type="text" class="form-control half-width" id="field_homeurl" ng-model="field_homeurl" placeholder="{{'placeholder.homepage-url' | i18next }}">
       <label ng-i18next="label.homepage-url"><label>
     </div>
 
-    <div class="form-group">
+    <div ng-class="{'form-group':true,mvp_seek_input:seek_callback}">
       <input type="text" class="form-control half-width" id="field_callback" ng-model="field_callback" placeholder="{{'placeholder.auth-callback-url' | i18next }}">
       <label ng-i18next="label.auth-callback-url"><label>
     </div>
 
-    <div class="form-group">
+    <div ng-class="{'form-group':true,mvp_seek_input:seek_desc}">
       <textarea class="form-control" id="field_desc" ng-model="field_desc" placeholder="{{'placeholder.application-desc' | i18next }}"></textarea>
       <label ng-i18next="label.application-desc"><label>
     </div>
