@@ -4,7 +4,6 @@
 
 	function noop(){for(var i=0;i<arguments.length;i++)if('function'==typeof(arguments[i]))arguments[i]()}
   function empty(val) { return null == val || 0 == ''+val }
-  function email(email) {return /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(email);}
 
 	// Error messages defined in ../locales/
   var msgmap = {
@@ -25,7 +24,7 @@
     'only-images-allowed': 'msg.only-images-allowed'
   }
 
-	var home_controllers = angular.module('homeControllers', ['cookiesModule', 'configService', 'authService', 'fileUploadService', 'angular-md5']);
+	var home_controllers = angular.module('homeControllers', ['cookiesModule', 'configService', 'authService', 'fileUploadService', 'angular-md5', 'validatorService']);
 
 	home_controllers.controller('Main', function($scope,$location,features) {
 	  var path = window.location.pathname;
@@ -224,7 +223,7 @@
     })
   })
 
-  home_controllers.controller('Signup', function($scope, $rootScope, auth, fileUpload, features, md5) {
+  home_controllers.controller('Signup', function($scope, $rootScope, auth, fileUpload, features, md5, validator) {
 
     auth.instance(function(out){
       if (out.user) {
@@ -237,7 +236,7 @@
       return {
         name:     !empty($scope.input_name),
         email:    !empty($scope.input_email),
-        email_valid: email($scope.input_email),
+        email_valid: validator.email($scope.input_email),
         password: !empty($scope.input_password),
         verify_password: !empty($scope.input_verify_password)
         //, gravatar: !empty($scope.input_gravatar)
