@@ -8,6 +8,7 @@
   var msgmap = {
     'unknown': 'msg.unknown',
     'missing-fields': 'msg.missing-fields',
+    'weak-password': 'msg.weak-password',
     'invalid-email': 'msg.invalid-email',
     'invalid-url': 'msg.invalid-url',
     'mismatch-password': 'msg.mismatch-password',
@@ -170,20 +171,25 @@
 
 
     $scope.change_pass = function() {
-      if ($scope.field_password == $scope.field_repeat) {
-        var data = read_pass()
-        auth.change_password(
-          data,
-          function( out ){
-            $scope.password_msg = msgmap['password-updated']
-          },
-          function( out ){
-            $scope.password_msg = msgmap[out.why] || msgmap.unknown
-          }
-        )
+      if (validator.password($scope.field_password)) {
+        if ($scope.field_password == $scope.field_repeat) {
+          var data = read_pass()
+          auth.change_password(
+            data,
+            function( out ){
+              $scope.password_msg = msgmap['password-updated']
+            },
+            function( out ){
+              $scope.password_msg = msgmap[out.why] || msgmap.unknown
+            }
+          )
+        }
+        else {
+          $scope.password_msg = msgmap["mismatch-password"];
+        }
       }
       else {
-        $scope.password_msg = msgmap["mismatch-password"];
+        $scope.password_msg = msgmap["weak-password"];
       }
     }
 
