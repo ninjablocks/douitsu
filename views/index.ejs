@@ -43,10 +43,10 @@
             <div>
               <form role="form">
                 <div style="height:85px" ng-class="{'form-group':true,mvp_seek_input:seek_email}">
-                  <input type="text" class="form-control" id="email" placeholder="{{'placeholder.email' | i18next }}" ng-model="input_email" tab-index="2">
+                  <input type="text" class="form-control" id="email" data-i18n="[placeholder]placeholder.email" ng-model="input_email" tab-index="2">
                 </div>
                 <div style="height:85px" ng-class="{'form-group':true,mvp_seek_input:seek_password}">
-                  <input type="password" class="form-control" id="password" placeholder="{{'placeholder.password' | i18next }}" ng-model="input_password" tab-index="3">
+                  <input type="password" class="form-control" id="password" data-i18n="[placeholder]placeholder.password" ng-model="input_password" tab-index="3">
                 </div>
                 <a ng-class="{btn:true, 'btn-primary':true, mvp_seek_input:seek_signin}" href="#"  ng-click="signin()" tab-index="5" ng-i18next="[html]btn.submit"></a>
               </form>
@@ -92,19 +92,19 @@
 
                 </div>
                 <div style="height:85px" ng-class="{'form-group':true,mvp_seek_input:seek_name}">
-                  <input type="text" class="form-control half-width" id="name" placeholder="{{'placeholder.name' | i18next }}" ng-model="input_name" tab-index="2">
+                  <input type="text" class="form-control half-width" id="name" data-i18n="[placeholder]placeholder.name" ng-model="input_name" tab-index="2">
                 </div>
                 <div style="height:85px" ng-class="{'form-group':true,mvp_seek_input:seek_email}">
-                  <input type="text" class="form-control half-width" id="email" placeholder="{{'placeholder.email' | i18next }}" ng-model="input_email" tab-index="3">
+                  <input type="text" class="form-control half-width" id="email" data-i18n="[placeholder]placeholder.email" ng-model="input_email" tab-index="3">
                 </div>
                 <div style="height:85px" ng-class="{'form-group':true,mvp_seek_input:seek_password}">
-                  <input type="password" class="form-control half-width" id="password" placeholder="{{'placeholder.password' | i18next }}" ng-model="input_password" tab-index="4">
+                  <input type="password" class="form-control half-width" id="password" data-i18n="[placeholder]placeholder.password" ng-model="input_password" tab-index="4">
                 </div>
                 <div style="height:85px" ng-class="{'form-group':true,mvp_seek_input:seek_verify_password}">
-                  <input type="password" class="form-control half-width" id="verify_password" placeholder="{{'placeholder.verify-password' | i18next }}" ng-model="input_verify_password" tab-index="5">
+                  <input type="password" class="form-control half-width" id="verify_password" data-i18n="[placeholder]placeholder.verify-password" ng-model="input_verify_password" tab-index="5">
                 </div>
                 <!-- <div style="height:85px" ng-class="{'form-group':true,mvp_seek_input:seek_gravatar}">
-                  <input type="text" class="form-control half-width" id="gravatar" placeholder="{{'placeholder.gravatar' | i18next }}" ng-model="input_gravatar" tab-index="6">
+                  <input type="text" class="form-control half-width" id="gravatar" data-i18n="[placeholder]placeholder.gravatar" ng-model="input_gravatar" tab-index="6">
                 </div> -->
                 <a ng-class="{btn:true, 'btn-primary':true, mvp_seek_input:seek_signup}" href="#"  ng-click="signup()" tab-index="7" ng-i18next="[html]btn.submit"></a>
               </form>
@@ -127,7 +127,7 @@
               <div>
                 <form role="form">
                   <div style="height:85px" ng-class="{'form-group':true,mvp_seek_input:seek_email}">
-                    <input type="text" class="form-control" id="email" placeholder="{{'placeholder.email' | i18next }}" ng-model="input_email" tab-index="2">
+                    <input type="text" class="form-control" id="email" data-i18n="[placeholder]placeholder.email" ng-model="input_email" tab-index="2">
                   </div>
                   <a ng-class="{btn:true, 'btn-primary':true, mvp_seek_input:seek_signup}" href="#"  ng-click="forgot()" tab-index="3" ng-i18next="[html]btn.submit"></a>
                 </form>
@@ -147,11 +147,11 @@
             <form role="form" ng-show="show_reset">
               <div ng-class="{'form-group':true,mvp_seek_input:seek_password}">
                 <label for="password" ng-i18next="[html]label.password"></label>
-                <input type="password" class="form-control" id="password" placeholder="{{'placeholder.password' | i18next }}" ng-model="input_password" tab-index="1">
+                <input type="password" class="form-control" id="password" data-i18n="[placeholder]placeholder.password" ng-model="input_password" tab-index="1">
               </div>
               <div ng-class="{'form-group':true,mvp_seek_input:seek_repeat}">
                 <label for="repeat" ng-i18next="[html]label.verify-password"></label>
-                <input type="password" class="form-control" id="repeat" placeholder="{{'placeholder.verify-password' | i18next }}" ng-model="input_repeat" tab-index="2">
+                <input type="password" class="form-control" id="repeat" data-i18n="[placeholder]placeholder.verify-password" ng-model="input_repeat" tab-index="2">
               </div>
 
               <a ng-class="{btn:true, 'btn-primary':true, mvp_seek_input:seek_reset}" ng-show="show_resetpass" href="#" ng-click="reset()" ng-i18next="[html]btn.reset-password"></a>
