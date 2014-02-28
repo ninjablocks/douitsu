@@ -11,6 +11,7 @@
     'missing-fields': 'msg.missing-fields',
     'user-not-found': 'msg.user-not-found',
     'invalid-email': 'msg.invalid-email',
+    'weak-password': 'msg.weak-password',
     'invalid-password': 'msg.invalid-password',
     'mismatch-password': 'msg.mismatch-password',
     'email-exists': 'msg.email-exists',
@@ -238,6 +239,7 @@
         email:    !empty($scope.input_email),
         email_valid: validator.email($scope.input_email),
         password: !empty($scope.input_password),
+        password_valid: validator.password($scope.input_password),
         verify_password: !empty($scope.input_verify_password)
         //, gravatar: !empty($scope.input_gravatar)
       }
@@ -252,6 +254,9 @@
 
       if (!state.email_valid)
         $scope.seek_email = true
+
+      if (!state.password_valid)
+        $scope.seek_password = true
 
       $scope.seek_signup = !state.email || !state.password
       $scope.seek_send   = !state.email
@@ -286,10 +291,13 @@
       markinput(state)
 
       if( state.name && state.email && state.password && state.verify_password) {
-        if (state.email_valid && ($scope.input_password == $scope.input_verify_password)) {
+        if (state.email_valid && state.password_valid && ($scope.input_password == $scope.input_verify_password)) {
           perform_signup()
         } else if (!state.email_valid) {
           $scope.msg = msgmap['invalid-email']
+          $scope.showmsg = true
+        } else if (!state.password_valid) {
+          $scope.msg = msgmap['weak-password']
           $scope.showmsg = true
         } else {
           $scope.msg = msgmap['mismatch-password']

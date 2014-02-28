@@ -80,6 +80,7 @@
     , "user-not-found": "That email address is not recognized."
     , "invalid-email": "That is not a valid email address"
     , "invalid-url": "That is not a valid URL"
+    , "weak-password": "That password is too weak."
     , "invalid-password": "That password is incorrect."
     , "signin-failed": "Sign in failed."
     , "mismatch-password": "Password mismatch."
