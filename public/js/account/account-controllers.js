@@ -8,7 +8,9 @@
   var msgmap = {
     'unknown': 'msg.unknown',
     'missing-fields': 'msg.missing-fields',
+    'invalid-email': 'msg.invalid-email',
     'invalid-url': 'msg.invalid-url',
+    'mismatch-password': 'msg.mismatch-password',
     'user-updated': 'msg.user-updated',
     'user-exists-email': 'msg.user-exists-email',
     'user-exists-nick': 'msg.user-exists-nick',
@@ -66,7 +68,7 @@
   })
 
 
-  account_controllers.controller('Account', function($scope, features, auth, pubsub, fileUpload) {
+  account_controllers.controller('Account', function($scope, features, auth, pubsub, fileUpload, validator) {
     if (!features.account) {
       return;
     }
@@ -89,6 +91,24 @@
       $scope.field_org_name  = account.name
       $scope.field_org_web   = account.web
     })
+
+    function read_user_state() {
+      return {
+        name: !empty($scope.field_name),
+        email: !empty($scope.field_email),
+        email_valid: validator.email($scope.field_email)
+      }
+    }
+
+    function markinput(state,exclude) {
+      _.each( state, function( full, field ){
+        if( exclude && exclude[field] ) return;
+        $scope['seek_'+field] = !full
+      })
+
+      if (!state.email_valid)
+        $scope.seek_email = true
+    }
 
 
     function read_user() {
@@ -116,37 +136,55 @@
 
 
     $scope.update_user = function() {
-      var data = read_user()
+      var state = read_user_state()
+      markinput(state)
 
-      // Do not send email to be updated if it is the same as before
-      if ($scope.email == data.email) {
-        delete data.email;
-      }
+      if( state.name && state.email) {
+        if( state.email_valid ) {
+          var data = read_user()
 
-      auth.update_user(
-        data,
-        function( out ){
-          $scope.details_msg = msgmap['user-updated']
-          pubsub.publish('user',[out.user])
-        },
-        function( out ){
-          $scope.details_msg = msgmap[out.why] || msgmap.unknown
+          // Do not send email to be updated if it is the same as before
+          if ($scope.email == data.email) {
+            delete data.email;
+          }
+
+          auth.update_user(
+            data,
+            function( out ){
+              $scope.details_msg = msgmap['user-updated']
+              pubsub.publish('user',[out.user])
+            },
+            function( out ){
+              $scope.details_msg = msgmap[out.why] || msgmap.unknown
+            }
+          )
         }
-      )
+        else {
+          $scope.details_msg = msgmap['invalid-email'];
+        }
+      }
+      else {
+        $scope.details_msg = msgmap['missing-fields'];
+      }
     }
 
 
     $scope.change_pass = function() {
-      var data = read_pass()
-      auth.change_password(
-        data,
-        function( out ){
-          $scope.password_msg = msgmap['password-updated']
-        },
-        function( out ){
-          $scope.password_msg = msgmap[out.why] || msgmap.unknown
-        }
-      )
+      if ($scope.field_password == $scope.field_repeat) {
+        var data = read_pass()
+        auth.change_password(
+          data,
+          function( out ){
+            $scope.password_msg = msgmap['password-updated']
+          },
+          function( out ){
+            $scope.password_msg = msgmap[out.why] || msgmap.unknown
+          }
+        )
+      }
+      else {
+        $scope.password_msg = msgmap["mismatch-password"];
+      }
     }
 
 
