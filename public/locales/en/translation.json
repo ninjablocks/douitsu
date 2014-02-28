@@ -78,6 +78,7 @@
     "unknown": "Unable to perform your request at this time - please try again later."
     , "missing-fields": "Please enter the missing fields."
     , "user-not-found": "That email address is not recognized."
+    , "invalid-email": "That is not a valid email address"
     , "invalid-password": "That password is incorrect."
     , "signin-failed": "Sign in failed."
     , "mismatch-password": "Password mismatch."

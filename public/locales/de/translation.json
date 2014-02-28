@@ -77,7 +77,8 @@
   , "msg": {
     "unknown": "Kann nicht auf Ihre Anfrage zu diesem Zeitpunkt durchführen - bitte versuchen Sie es später erneut."
     , "missing-fields": "Bitte geben Sie die fehlenden Felder aus."
-    , "user-not-found": "Das E-Mail -Adresse wird nicht erkannt."
+    , "user-not-found": "Das E-Mail Adresse wird nicht erkannt."
+    , "invalid-email": "Das ist keine gültige E-Mail Adresse"
     , "invalid-password": "Das Passwort ist falsch."
     , "signin-failed": "Anmeldung fehlgeschlagen."
     , "mismatch-password": "Passwort stimmt nicht überein."

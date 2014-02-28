@@ -4,12 +4,14 @@
 
 	function noop(){for(var i=0;i<arguments.length;i++)if('function'==typeof(arguments[i]))arguments[i]()}
   function empty(val) { return null == val || 0 == ''+val }
+  function email(email) {return /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(email);}
 
 	// Error messages defined in ../locales/
   var msgmap = {
     'unknown': 'msg.unknown',
     'missing-fields': 'msg.missing-fields',
     'user-not-found': 'msg.user-not-found',
+    'invalid-email': 'msg.invalid-email',
     'invalid-password': 'msg.invalid-password',
     'mismatch-password': 'msg.mismatch-password',
     'email-exists': 'msg.email-exists',
@@ -235,6 +237,7 @@
       return {
         name:     !empty($scope.input_name),
         email:    !empty($scope.input_email),
+        email_valid: email($scope.input_email),
         password: !empty($scope.input_password),
         verify_password: !empty($scope.input_verify_password)
         //, gravatar: !empty($scope.input_gravatar)
@@ -248,6 +251,7 @@
         $scope['seek_'+field] = !full
       })
 
+      $scope.seek_email = !$scope.seek_email || !state.email_valid;
       $scope.seek_signup = !state.email || !state.password
       $scope.seek_send   = !state.email
     }
@@ -281,8 +285,11 @@
       markinput(state)
 
       if( state.name && state.email && state.password && state.verify_password) {
-        if ($scope.input_password == $scope.input_verify_password) {
+        if (state.email_valid && ($scope.input_password == $scope.input_verify_password)) {
           perform_signup()
+        } else if (!state.email_valid) {
+          $scope.msg = msgmap['invalid-email']
+          $scope.showmsg = true
         } else {
           $scope.msg = msgmap['mismatch-password']
           $scope.showmsg = true
