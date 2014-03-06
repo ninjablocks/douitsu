@@ -21,6 +21,16 @@ module.exports = {
   auth: {
     // change to true if you want to send emails
     sendemail:true,
+    email:{
+      subject:{
+        register:'Welcome!',
+        create_reset:'Password Reset'
+      },
+      content:{
+        resetlinkprefix:'http://localhost:3333/reset',
+        confirmlinkprefix:'http://localhost:3333/confirm'
+      }
+    },
     user: {
       updatefields: ['name','email','gravatar','image']
     },
