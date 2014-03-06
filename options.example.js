@@ -20,7 +20,7 @@ module.exports = {
 
   auth: {
     // change to true if you want to send emails
-    sendemail:false,
+    sendemail:true,
     user: {
       updatefields: ['name','email','gravatar','image']
     },
@@ -50,11 +50,7 @@ module.exports = {
   mail: {
     mail: {from:'youremail@example.com'},
     config:{
-      service: "Gmail",
-      auth: {
-        user: "youremail@example.com",
-        pass: "yourpass"
-      }
+      host: "localhost"
     }
   },
 
