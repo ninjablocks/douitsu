@@ -34,6 +34,7 @@
   account_controllers.controller('NavBar', function($scope, features, auth, pubsub) {
 
     $scope.btn_applications = function() {
+      pubsub.publish('application.change');
       pubsub.publish('view',['Applications'])
     }
 
