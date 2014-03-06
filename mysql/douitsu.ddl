@@ -33,7 +33,6 @@ CREATE TABLE sys_user (
   salt varchar(255) DEFAULT NULL,
   pass varchar(255) DEFAULT NULL,
   image varchar(255) DEFAULT NULL,
-  gravatar varchar(255) DEFAULT NULL,
   accounts varchar(4000) DEFAULT NULL,
   seneca varchar(255) DEFAULT NULL,
   PRIMARY KEY (id)

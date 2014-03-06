@@ -32,7 +32,7 @@ module.exports = {
       }
     },
     user: {
-      updatefields: ['name','email','gravatar','image']
+      updatefields: ['name','email','image']
     },
     ldap:{
       enabled: LDAP_ENABLED,

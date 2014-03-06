@@ -50,7 +50,6 @@
     , "email": "E-Mail Adresse"
     , "password": "Passwort"
     , "verify-password": "Passwort Bestätigen"
-    , "gravatar": "Gravatar E-Mail (Privat)"
     , "client-id": "Auftraggeber ID"
     , "client-secret": "Geheimnis"
     , "drop-photo": "D R A G / D R O P&nbsp;&nbsp;&nbsp;F O T O"
@@ -72,7 +71,6 @@
     , "homepage-url": "Homepage URL"
     , "auth-callback-url": "Autorisierung Callback URL"
     , "application-desc": "Anwendungsbeschreibung"
-    , "gravatar": "Gravatar E-Mail (Privat)"
   }
   , "msg": {
     "unknown": "Kann nicht auf Ihre Anfrage zu diesem Zeitpunkt durchführen - bitte versuchen Sie es später erneut."

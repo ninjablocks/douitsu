@@ -62,7 +62,6 @@
     pubsub.subscribe('user',function(user){
       $scope.field_name  = user.name
       $scope.field_email = user.email
-      $scope.field_gravatar = user.gravatar
       $scope.imageUrl = user.image
 
       // Keep to check if email has changed when details are updated
@@ -97,7 +96,6 @@
       return {
         name:  $scope.field_name,
         email: $scope.field_email,
-        gravatar: $scope.field_gravatar,
         image: $scope.imageUrl
       }
     }

@@ -50,7 +50,6 @@
     , "email": "Email Address"
     , "password": "Password"
     , "verify-password": "Verify Password"
-    , "gravatar": "Gravatar Email (Private)"
     , "client-id": "Client ID"
     , "client-secret": "Secret"
     , "drop-photo": "D R A G / D R O P&nbsp;&nbsp;&nbsp;P H O T O"
@@ -72,7 +71,6 @@
     , "homepage-url": "Homepage URL"
     , "auth-callback-url": "Authorization Callback URL"
     , "application-desc": "Application Description"
-    , "gravatar": "Gravatar Email (Private)"
   }
   , "msg": {
     "unknown": "Unable to perform your request at this time - please try again later."

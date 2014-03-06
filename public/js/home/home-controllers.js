@@ -181,7 +181,6 @@
         password: !empty($scope.input_password),
         password_valid: validator.password($scope.input_password),
         verify_password: !empty($scope.input_verify_password)
-        //, gravatar: !empty($scope.input_gravatar)
       }
     }
 
@@ -211,8 +210,7 @@
         name:$scope.input_name,
         email:$scope.input_email,
         password:$scope.input_password,
-        image:$scope.imageUrl || gravatar($scope.input_email),
-        gravatar:$scope.input_gravatar
+        image:$scope.imageUrl || gravatar($scope.input_email)
       }, null, function( out ){
         $scope.msg = (out.why) ? 'msg.' + out.why : 'msg.unknown';
         if( 'email-exists' == out.why ) $scope.seek_email = true;
@@ -281,17 +279,14 @@
     $scope.input_email = ''
     $scope.input_password = ''
     $scope.input_verify_password = ''
-    $scope.input_gravatar = ''
 
     $scope.$watch('input_email',function(){ $scope.seek_email=false})
     $scope.$watch('input_password',function(){ $scope.seek_password=false})
     $scope.$watch('input_verify_password',function(){ $scope.seek_verify_password=false})
-    $scope.$watch('input_gravatar',function(){ $scope.seek_gravatar=false})
 
     $scope.seek_email = false
     $scope.seek_password = false
     $scope.seek_verify_password = false
-    $scope.seek_gravatar = false
   })
 
   home_controllers.controller('Forgot', function($scope, $rootScope, auth) {
