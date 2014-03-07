@@ -67,7 +67,10 @@ module.exports = {
   // Set a different theme for a different look and feel
   theme: {
     // style: '/css/theme/dark.css',
-    // logo: 'http://cdn.shopify.com/s/files/1/0201/1862/t/2/assets/logo.png'
+    // logo: 'http://cdn.shopify.com/s/files/1/0201/1862/t/2/assets/logo.png',
+    page: {
+      // dialog: 'theme/example/dialog'
+    }
   },
 
   settings: {

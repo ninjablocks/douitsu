@@ -56,7 +56,7 @@ seneca.ready(function(err){
     next();
   })
 
-  var routes = require('./routes')({seneca:seneca, app:app});
+  var routes = require('./routes')({options:options, seneca:seneca, app:app});
 
   app.use( express.static(__dirname+options.main.public) )
 
