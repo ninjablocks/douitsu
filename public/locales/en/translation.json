@@ -1,6 +1,7 @@
 {
   "app": {
     "name": "Ninja Blocks"
+    , "copyright": "&copy; NinjaBlocks 2014"
   }
   , "blank": ""
   , "title": {
