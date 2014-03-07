@@ -25,7 +25,7 @@
     <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
     <link href="/css/ninjablocks.css" rel="stylesheet">
     <link href="/css/upload.css" rel="stylesheet">
-
+    <% if (theme.style) { %><link href="<%= theme.style %>" rel="stylesheet"><% } %>
   </head>
 
   <body class="account" ng-app="account" ng-controller="Main" ng-cloak>

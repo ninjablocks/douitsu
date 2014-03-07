@@ -23,6 +23,7 @@
     <link href="/css/bootstrap.css" rel="stylesheet">
     <link href="/css/animate.css" rel="stylesheet">
     <link href="/css/ninjablocks.css" rel="stylesheet">
+    <% if (theme.style) { %><link href="<%= theme.style %>" rel="stylesheet"><% } %>
   </head>
 
   <body ng-app="dialog" ng-controller="Main" ng-cloak>

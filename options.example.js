@@ -64,6 +64,11 @@ module.exports = {
     }
   },
 
+  theme: {
+    // Set a different theme for a different look and feel
+    // style: '/css/theme/dark.css'
+  },
+
   settings: {
     spec: {
       a:{"type":"text", "nice":"A", "help":"Example of text."},

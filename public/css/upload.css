@@ -1,6 +1,6 @@
 
 .dropzoneWrap {
-	background-color: #fff;
+	background-color: transparent;
 	padding-bottom: 20px;
 	padding-top: 20px;
 	float: right;
@@ -20,7 +20,7 @@
 }
 
 .dropbox.dragover {
-	border: 2px solid rgb(101, 174, 231);	
+	border: 2px solid rgb(101, 174, 231);
 	box-shadow: rgba(0, 0, 0, 0.0745098) 0px 1px 1px 0px inset, rgba(104, 174, 233, 0.596078) 0px 0px 8px 0px;
 	-webkit-box-shadow: rgba(0, 0, 0, 0.0745098) 0px 1px 1px 0px inset, rgba(104, 174, 233, 0.596078) 0px 0px 8px 0px;
 	-moz-box-shadow: rgba(0, 0, 0, 0.0745098) 0px 1px 1px 0px inset, rgba(104, 174, 233, 0.596078) 0px 0px 8px 0px;

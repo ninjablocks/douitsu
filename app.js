@@ -51,6 +51,11 @@ seneca.ready(function(err){
     next();
   })
 
+  app.use(function(req,res,next){
+    res.locals.theme = options.theme;
+    next();
+  })
+
   var routes = require('./routes')({seneca:seneca, app:app});
 
   app.use( express.static(__dirname+options.main.public) )
