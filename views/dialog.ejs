@@ -25,7 +25,7 @@
     <link href="/css/ninjablocks.css" rel="stylesheet">
   </head>
 
-  <body>
+  <body ng-app="dialog" ng-controller="Main" ng-cloak>
 
     <div id="wrap">
 
@@ -73,31 +73,43 @@
             <form id="dialogForm" action="/dialog/authorize/decision" method="post">
 	            <input name="transaction_id" type="hidden" value="<%= transactionID %>">
 
-              <% if (!user) { %>
-              <div style="height:85px" class="form-group">
-              <h4 style="text-align: left" data-i18n="label.sign-in-allow-access"></h4>
-              <input type="text" class="form-control" style="width: 80%; margin-left: 50px;" name="email" id="email" tab-index="2" data-i18n="[placeholder]placeholder.email">
+              <div ng-show="show_signin">
+                <div style="height:85px" ng-class="{'form-group':true,mvp_seek_input:seek_email}">
+                <h4 style="text-align: left" data-i18n="label.sign-in-allow-access"></h4>
+                <input type="text" class="form-control" style="width: 80%; margin-left: 50px;" name="email" id="email" ng-model="email" tab-index="2" data-i18n="[placeholder]placeholder.email">
+                </div>
+                <div style="height:53px" ng-class="{'form-group':true,mvp_seek_input:seek_password}">
+                <input type="password" class="form-control" style="width: 80%; margin-left: 50px;" name="password" id="password" ng-model="password" tab-index="3" data-i18n="[placeholder]placeholder.password">
+                </div>
+                <p style="color: red;">{{msg | i18next}}</p>
               </div>
-              <div style="height:85px" class="form-group">
-              <input type="password" class="form-control" style="width: 80%; margin-left: 50px;" name="password" id="password" tab-index="3" data-i18n="[placeholder]placeholder.password">
-              </div>
-              <p id="msg-missing-fields" class="msg" style="display:none; color: red;" data-i18n="msg.missing-fields"></p>
-              <p id="msg-user-not-found" class="msg" style="display:none; color: red;" data-i18n="msg.user-not-found"></p>
-              <p id="msg-invalid-password" class="msg" style="display:none; color: red;" data-i18n="msg.invalid-password"></p>
-              <p id="msg-signin-failed" class="msg" style="display:none; color: red;" data-i18n="msg.signin-failed"></p>
-              <% } %>
 
-	            <input type="submit" id="allow" class="btn btn-primary btn-inline" data-i18n="[value]btn.allow">
+              <div ng-show="show_signup">
+                <div style="height:85px" ng-class="{'form-group':true,mvp_seek_input:seek_name}">
+                <h4 style="text-align: left" data-i18n="label.sign-up-allow-access"></h4>
+                <input type="text" class="form-control" style="width: 80%; margin-left: 50px;" name="name" id="name" ng-model="name" tab-index="2" data-i18n="[placeholder]placeholder.name">
+                </div>
+                <div style="height:53px" ng-class="{'form-group':true,mvp_seek_input:seek_email}">
+                <input type="text" class="form-control" style="width: 80%; margin-left: 50px;" name="email" id="email" ng-model="email" tab-index="3" data-i18n="[placeholder]placeholder.email">
+                </div>
+                <div style="height:53px" ng-class="{'form-group':true,mvp_seek_input:seek_password}">
+                <input type="password" class="form-control" style="width: 80%; margin-left: 50px;" name="password" id="password" ng-model="password" tab-index="4" data-i18n="[placeholder]placeholder.password">
+                </div>
+                <div style="height:53px" ng-class="{'form-group':true,mvp_seek_input:seek_verifyPassword}">
+                <input type="password" class="form-control" style="width: 80%; margin-left: 50px;" name="verifyPassword" id="verifyPassword" ng-model="verifyPassword" tab-index="5" data-i18n="[placeholder]placeholder.verify-password">
+                </div>
+                <p style="color: red;">{{msg | i18next}}</p>
+              </div>
+
+	            <input type="submit" id="allow" class="btn btn-primary btn-inline" ng-click="btn_allow()" data-i18n="[value]btn.allow">
 	  			    <input type="submit" name="cancel" id="deny" class="btn btn-primary btn-inline" data-i18n="[value]btn.deny">
             </form>
           </div>
 
           <div class="row" style="text-align: center; margin-top: 20px;">
-            <% if (user) { %>
-            <span class="not-your-acc"><span data-i18n="label.not-your-account"></span> <a href="/" data-i18n="link.signin-diff-user"></a></span>
-            <% } else { %>
-            <span class="not-your-acc"><span data-i18n="label.no-account"></span> <a href="/signup" data-i18n="link.signup-user"></a></span>
-            <% } %>
+            <span class="not-your-acc" ng-show="!show_signin && !show_signup"><span data-i18n="label.not-your-account"></span> <a ng-click="btn_signin()" data-i18n="link.signin-diff-user"></a></span>
+            <span class="not-your-acc" ng-show="show_signin"><span data-i18n="label.no-account"></span> <a ng-click="btn_signup()" data-i18n="link.signup-user"></a></span>
+            <span class="not-your-acc" ng-show="show_signup"><span data-i18n="label.got-account"></span> <a ng-click="btn_signin()" data-i18n="link.signin"></a></span>
           </div>
         </div>
         <div class="col-lg-3">&nbsp;</div>
@@ -119,48 +131,11 @@
     <script src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="/bower_components/angular/angular.min.js"></script>
     <script src="/bower_components/i18next/release/i18next-1.7.1.min.js"></script>
+    <script src="/bower_components/ng-i18next/dist/ng-i18next.min.js"></script>
 
     <script><%- features %></script>
     <script><%- languages %></script>
     <script src="/js/main.min.js"></script>
-
-    <% if (!user) { %>
-    <script>
-      $(document).ready(function(){
-        $('#allow').on('click', function(e) {
-          $(".msg").each(function() {$(this).hide()});
-
-          // this code prevents form from actually being submitted
-          e.preventDefault();
-          e.returnValue = false;
-          var $form = $(this).closest('form');
-
-          if ($('#email').val().length < 1 || $('#password').val().length < 1) {
-            $("#msg-missing-fields").show();
-          } else {
-            var data = {email:$("#email").val(), password:$("#password").val()};
-            $.ajax({
-              type: 'post',
-              url: "/auth/login",
-              data: JSON.stringify(data),
-              contentType: "application/json",
-              dataType: "json",
-              success: function(data) {
-                $form.submit();
-              },
-              error: function(data) {
-                var msg = "signin-failed";
-                if (data.responseJSON && data.responseJSON.why) {
-                  msg = data.responseJSON.why;
-                }
-                $("#msg-" + msg).show();
-              }
-            });
-          }
-        });
-      });
-    </script>
-    <% } %>
 
   </body>
 </html>

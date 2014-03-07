@@ -42,6 +42,7 @@
     "forgot-password": "forgot password?"
     , "have-account": "already have an account?"
     , "create-application": "C R E A T E&nbsp;&nbsp;&nbsp;A P P L I C A T I O N"
+    , "signin": "Sign in."
     , "signin-diff-user": "Sign in as a different user."
     , "signup-user": "Sign up."
   }
@@ -60,7 +61,9 @@
     , "application-desc": "This text is displayed to all potential users of your application."
     , "not-your-account": "Not your account?"
     , "no-account": "Haven't got an account?"
+    , "got-account": "Have an account?"
     , "sign-in-allow-access": "Sign in and allow access:"
+    , "sign-up-allow-access": "Sign up and allow access:"
   }
   , "placeholder": {
     "name": "Name"
@@ -81,6 +84,7 @@
     , "weak-password": "That password is too weak."
     , "invalid-password": "That password is incorrect."
     , "signin-failed": "Sign in failed."
+    , "signup-failed": "Sign up failed."
     , "mismatch-password": "Password mismatch."
     , "email-exists": "That email address is already in use. Please login, or ask for a password reset."
     , "nick-exists": "That email address is already in use. Please login, or ask for a password reset."

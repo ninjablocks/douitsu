@@ -42,6 +42,7 @@
     "forgot-password": "Passwort vergessen?"
     , "have-account": "haben bereits ein Konto?"
     , "create-application": "A n w e n d u n g&nbsp;&nbsp;&nbsp;e r s t e l l e n"
+    , "signin": "Anmelden."
     , "signin-diff-user": "Melden Sie sich als ein anderer Benutzer."
     , "signup-user": "Registrieren."
   }
@@ -60,7 +61,9 @@
     , "application-desc": "Dieser Text wird an alle potenziellen Benutzer der Anwendung angezeigt."
     , "not-your-account": "Nicht Ihr Konto?"
     , "no-account": "Haben Sie nicht einen Account besitzt?"
+    , "got-account": "Haben Sie einen Account?"
     , "sign-in-allow-access": "Melden Sie sich:"
+    , "sign-up-allow-access": "Registrieren:"
   }
   , "placeholder": {
     "name": "Name"
@@ -81,6 +84,7 @@
     , "weak-password": "Das Passwort ist zu schwach."
     , "invalid-password": "Das Passwort ist falsch."
     , "signin-failed": "Anmeldung fehlgeschlagen."
+    , "signup-failed": "Registrieren fehl."
     , "mismatch-password": "Passwort stimmt nicht überein."
     , "email-exists": "Das E-Mail -Adresse wird bereits verwendet Bitte anmelden, oder fragen Sie nach einem Passwort-Reset."
     , "nick-exists": "Das E-Mail- Adresse bereits in Verwendung Bitte anmelden, oder fragen Sie nach einem Passwort-Reset."
