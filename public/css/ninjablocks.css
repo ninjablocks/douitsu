@@ -226,6 +226,9 @@ a.btn-primary {
     height: 60px;
     padding: 20px;
 }
+a.btn-primary:hover {
+    background-color: #3498db !important;
+}
 
 button.btn-primary {
     border-radius: 0px;
@@ -237,6 +240,9 @@ button.btn-primary {
     font-size: 20px;
     height: 60px;
     padding: 20px;
+}
+button.btn-primary:hover {
+    background-color: #3498db !important;
 }
 
 a.forgot-password {
