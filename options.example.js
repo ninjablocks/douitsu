@@ -64,9 +64,10 @@ module.exports = {
     }
   },
 
+  // Set a different theme for a different look and feel
   theme: {
-    // Set a different theme for a different look and feel
-    // style: '/css/theme/dark.css'
+    // style: '/css/theme/dark.css',
+    // logo: 'http://cdn.shopify.com/s/files/1/0201/1862/t/2/assets/logo.png'
   },
 
   settings: {
