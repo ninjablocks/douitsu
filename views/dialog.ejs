@@ -1,30 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Ninja Blocks</title>
-
-    <style>
-      @font-face {
-      font-family: 'Raleway';
-      font-style: normal;
-      font-weight: 700;
-      src: local('Raleway Bold'), local('Raleway-Bold'), url(/css/JbtMzqLaYbbbCL9X6EvaI73hpw3pgy2gAi-Ip7WPMi0.woff) format('woff');
-      }
-
-      [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
-      display: none !important;
-      }
-    </style>
-
-    <link rel="shortcut icon" type="image/x-icon" href="http://cdn.shopify.com/s/files/1/0201/1862/t/2/assets/favicon.png?1871">
-    <link href="/css/bootstrap.css" rel="stylesheet">
-    <link href="/css/animate.css" rel="stylesheet">
-    <link href="/css/ninjablocks.css" rel="stylesheet">
-    <% if (theme.style) { %><link href="<%= theme.style %>" rel="stylesheet"><% } %>
-  </head>
+  <%- include head.ejs %>
 
   <body ng-app="dialog" ng-controller="Main" ng-cloak>
 
@@ -118,25 +95,11 @@
 
     </div> <!-- /container -->
 
-    <footer>
-      <div class="container" style="text-align:right;">
-        <p ng-i18next="[html]app.copyright"></p>
-      </div>
-    </footer>
+    <%- include footer.ejs %>
 
     </div> <!-- /wrap -->
 
-
-    <script src="/bower_components/underscore/underscore-min.js"></script>
-    <script src="/bower_components/jquery/jquery.min.js"></script>
-    <script src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-    <script src="/bower_components/angular/angular.min.js"></script>
-    <script src="/bower_components/i18next/release/i18next-1.7.1.min.js"></script>
-    <script src="/bower_components/ng-i18next/dist/ng-i18next.min.js"></script>
-
-    <script><%- features %></script>
-    <script><%- languages %></script>
-    <script src="/js/main.min.js"></script>
+    <%- include scripts.ejs %>
 
   </body>
 </html>
