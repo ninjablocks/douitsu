@@ -1,10 +1,16 @@
 
-module.exports = function (options) {
+module.exports = function (args) {
 
-  var seneca = options.seneca;
-  var app = options.app;
+  var seneca = args.seneca;
+  var app = args.app;
+  var opts = args.options;
 
-  var oauth2routes = require('./lib/oauth2-routes')(options);
+  var oauth2routes = require('./lib/oauth2-routes')(args);
+
+  function render(res, pageName) {
+    var page = (opts.theme && opts.theme.page && opts.theme.page[pageName]) ? opts.theme.page[pageName] : pageName;
+    res.render(page);
+  }
 
   // Upload files
   app.post('/upload', function(req, res, next) {
@@ -12,10 +18,10 @@ module.exports = function (options) {
   });
 
   app.get('/', function(req, res, next) {
-    res.render('index');
+    render(res, 'index');
   });
   app.get('/account', function(req, res, next) {
-    res.render('account');
+    render(res, 'account');
   });
 
   app.use( function( req, res, next ){
@@ -24,7 +30,7 @@ module.exports = function (options) {
         0 == req.url.indexOf('/reset') ||
         0 == req.url.indexOf('/confirm') )
     {
-      res.render('index');
+      render(res, 'index');
     }
     else {
       next();
