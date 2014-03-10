@@ -12,6 +12,17 @@ npm install
 
 Edit options.mine.js as needed, including switching on/off feature flags.
 
+## Environment variables
+
+The following environment variables override what's defined in options.mine.js if they are set.
+
+Environment variable | Description | Example
+--- | ---
+NODE_ENV | Platform environment | production
+DB_URL | Database URL | mysql://douitsu:douitsu@localhost:3306/douitsu
+CACHE_URL | Redis URL | redis://localhost
+LDAP_URL | LDAP URL | ldap://localhost/dc=ec2,dc=internal
+
 ## Run
 
 ```bash
@@ -44,10 +55,16 @@ npm i -g gulp
 
 ### Run
 
-Make sure to run gulp in the background when making JavaScript changes.
+Make sure to run gulp in the background when making file changes:
 
 ```bash
 gulp
+```
+
+To build without watching for file changes:
+
+```bash
+gulp build
 ```
 
 ## Bower
