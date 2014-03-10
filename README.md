@@ -12,7 +12,7 @@ npm install
 
 Edit options.mine.js as needed, including switching on/off feature flags.
 
-## Environment variables
+### Environment variables
 
 The following environment variables override what's defined in options.mine.js if they are set.
 
