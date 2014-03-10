@@ -17,7 +17,7 @@ Edit options.mine.js as needed, including switching on/off feature flags.
 The following environment variables override what's defined in options.mine.js if they are set.
 
 Environment variable | Description | Example
---- | ---
+--- | --- | ---
 NODE_ENV | Platform environment | production
 DB_URL | Database URL | mysql://douitsu:douitsu@localhost:3306/douitsu
 CACHE_URL | Redis URL | redis://localhost
