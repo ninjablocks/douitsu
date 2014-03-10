@@ -26,7 +26,7 @@ gulp.task('scripts', function () {
 });
 
 gulp.task('clean', function () {
-	// Clean up build directories, eg: 
+	// Clean up build directories, eg:
     // return gulp.src(['./dist'], {read: false}).pipe($.clean());
 });
 
@@ -35,10 +35,12 @@ gulp.task('build', ['jshint', 'scripts']);
 
 // Default task
 gulp.task('default', ['clean'], function () {
-    gulp.start('build');
+    gulp.start('build', function() {
+        console.log("\nWatching for file changes. Press Ctrl+C to exit.")
 
-    // watch for JS changes
-    gulp.watch(paths.publicJsFiles, function() {
-        gulp.run('scripts');
+        // watch for JS changes
+        gulp.watch(paths.publicJsFiles, function() {
+            gulp.run('scripts');
+        });
     });
 });
