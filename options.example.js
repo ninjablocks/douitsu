@@ -1,6 +1,4 @@
 
-var LDAP_ENABLED = true;
-
 module.exports = {
 
   main: {
@@ -35,7 +33,8 @@ module.exports = {
       updatefields: ['name','email','image']
     },
     ldap:{
-      enabled: LDAP_ENABLED,
+      enabled: false,
+      // LDAP_URL environment variable overrides the url setting if it is set
       url: 'ldap://localhost:389',
       base: 'ou=people,dc=ec2,dc=internal',
       filter: '(&(ObjectClass=person)(uid=%s))'
@@ -43,18 +42,25 @@ module.exports = {
   },
 
   features: {
-    // signup and account are false by default if ldap is enabled
-    signup: true && !LDAP_ENABLED,
-    account: true && !LDAP_ENABLED,
+    // signup and account features will be disabled if LDAP is enabled (regardless of their settings here)
+    signup: true,
+    account: true,
     gravatar: true
   },
 
+  // DB_URL environment variable overrides these settings if it is set
   mysql: {
     name:'douitsu',
     host:'localhost',
     user:'douitsu',
     password:'douitsu',
     port:3306
+  },
+
+  // CACHE_URL environment variable overrides these settings if it is set
+  redis: {
+    host:'localhost',
+    port:6379
   },
 
   mail: {

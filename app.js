@@ -43,6 +43,11 @@ seneca.ready(function(err){
 
   app.use( web )
 
+  // Disable signup and account features if LDAP is enabled
+  if (options.auth.ldap.enabled) {
+    options.features.signup = false;
+    options.features.account = false;
+  }
   app.expose(options.features, 'features', 'features');
 
   app.use(function(req,res,next){
