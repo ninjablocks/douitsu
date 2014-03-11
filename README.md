@@ -37,14 +37,14 @@ When not running in production mode then the mem store will be used and the fixt
 
 ### MySQL and Redis
 
-When running in production mode then MySQL and Redis will be used.
-
 #### Install schema
 
 ```bash
 mysql -u douitsu -p douitsu < mysql/douitsu.ddl
 ```
 #### Running with MySQL and Redis
+
+When running in production mode then MySQL and Redis will be used.
 
 ```bash
 NODE_ENV=production node app.js
