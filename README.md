@@ -35,10 +35,25 @@ And open [localhost:3333](http://localhost:3333)
 
 When not running in production mode then the mem store will be used and the fixture data defined in [fixtures.js](https://github.com/ninjablocks/douitsu/blob/master/lib/fixtures.js) will be applied.
 
-Run the following to use MySQL and Redis instead of the mem store and also apply the fixture data:
+### MySQL and Redis
+
+When running in production mode then MySQL and Redis will be used.
+
+#### Install schema
 
 ```bash
-node app.js --env=production --fixtures
+mysql -u douitsu -p douitsu < mysql/douitsu.ddl
+```
+#### Running with MySQL and Redis
+
+```bash
+NODE_ENV=production node app.js
+```
+
+Run with --fixtures to apply the fixture data defined in [fixtures.js](https://github.com/ninjablocks/douitsu/blob/master/lib/fixtures.js).
+
+```bash
+NODE_ENV=production node app.js --fixtures
 ```
 
 ### Admin
@@ -92,14 +107,3 @@ Front-end dependencies are defined in [bower.js](https://github.com/ninjablocks/
 ```bash
 bower install
 ```
-
-## MySQL
-
-### Install schema
-
-```bash
-mysql -u douitsu -p douitsu < mysql/douitsu.ddl
-```
-
-
-
