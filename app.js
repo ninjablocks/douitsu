@@ -73,6 +73,6 @@ seneca.ready(function(err){
   else
     seneca.listen();
 
-  seneca.export('douitsu/fixtures')(options);
+  seneca.export('douitsu/init-store')();
 
 })
