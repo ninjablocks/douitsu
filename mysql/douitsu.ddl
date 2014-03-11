@@ -66,9 +66,8 @@ CREATE TABLE sys_account (
   PRIMARY KEY (id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-CREATE TABLE sys_project (
+CREATE TABLE application (
   id varchar(255) NOT NULL,
-  kind varchar(255) DEFAULT NULL,
   account varchar(255) DEFAULT NULL,
   name varchar(255) DEFAULT NULL,
   appid varchar(255) DEFAULT NULL,

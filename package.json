@@ -21,7 +21,6 @@
     "underscore": "~1.5.2",
     "seneca-account": "~0.1.5",
     "seneca-user": "~0.2.7",
-    "seneca-project": "~0.1.3",
     "seneca-admin": "~0.1.2",
     "seneca-settings": "~0.1.2",
     "seneca-redis-store": "git://github.com/chico/seneca-redis-store.git",
