@@ -33,16 +33,9 @@ And open [localhost:3333](http://localhost:3333)
 
 ### Mem store and fixture data
 
-When not running in production mode then the mem store will be used and the following fixture data will be applied:
+When not running in production mode then the mem store will be used and the fixture data defined in [fixtures.js](https://github.com/ninjablocks/douitsu/blob/master/lib/fixtures.js) will be applied.
 
-Entity | Value
---- | ---
-User | u1@example.com with password u1
-User | u2@example.com with password u2
-Application | Application app1 by u1@example.com
-Access token | Token i1afk49ulwybf46j4cwkhe7ejt121m3no1r0d3eg for app1 authorized by u1@example.com
-
-Run the following to use MySQL and Redis locally and apply the above fixture data:
+Run the following to use MySQL and Redis instead of the mem store and also apply the fixture data:
 
 ```bash
 node app.js --env=production --fixtures
