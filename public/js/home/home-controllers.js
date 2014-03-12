@@ -15,7 +15,8 @@
 	  var page_confirm = 0===path.indexOf('/confirm');
 
 	  if (page_signup && !features.signup) {
-	    return window.location.href = '/';
+	    window.location.href = '/';
+      return;
 	  }
 
 	  page_login = !page_signup && !page_forgot && !page_confirm && !page_reset;
@@ -253,18 +254,18 @@
 
     $scope.onFileSelect = function($files) {
       $scope.showmsg = false;
+      var dataUploaded = function(data) {
+        if (data) {
+          $scope.imageUrl = data.url;
+        }
+        else {
+          $scope.details_msg = 'msg.upload-failed';
+        }
+      };
       for (var i = 0; i < $files.length; i++) {
         var file = $files[i];
         if (fileUpload.isImage(file)) {
-          $scope.upload = fileUpload.upload(file, function(data) {
-            if (data) {
-              $scope.imageUrl = data.url;
-            }
-            else {
-              $scope.msg = 'msg.upload-failed';
-              $scope.showmsg = true;
-            }
-	        });
+          $scope.upload = fileUpload.upload(file, dataUploaded);
         } else {
           $scope.msg = 'msg.only-images-allowed';
           $scope.showmsg = true;

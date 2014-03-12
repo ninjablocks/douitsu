@@ -190,17 +190,18 @@
 
     $scope.onFileSelect = function($files) {
       $scope.details_msg = 'blank';
+      var dataUploaded = function(data) {
+        if (data) {
+          $scope.imageUrl = data.url;
+        }
+        else {
+          $scope.details_msg = 'msg.upload-failed';
+        }
+      };
       for (var i = 0; i < $files.length; i++) {
         var file = $files[i];
         if (fileUpload.isImage(file)) {
-          $scope.upload = fileUpload.upload(file, function(data) {
-            if (data) {
-              $scope.imageUrl = data.url;
-            }
-            else {
-              $scope.details_msg = 'msg.upload-failed';
-            }
-          });
+          $scope.upload = fileUpload.upload(file, dataUploaded);
         } else {
           $scope.details_msg = 'msg.only-images-allowed';
         }
@@ -386,17 +387,18 @@
 
     $scope.onFileSelect = function($files) {
       $scope.application_msg = 'blank';
+      var dataUploaded = function(data) {
+        if (data) {
+          $scope.imageUrl = data.url;
+        }
+        else {
+          $scope.details_msg = 'msg.upload-failed';
+        }
+      };
       for (var i = 0; i < $files.length; i++) {
         var file = $files[i];
         if (fileUpload.isImage(file)) {
-          $scope.upload = fileUpload.upload(file, function(data) {
-            if (data) {
-              $scope.imageUrl = data.url;
-            }
-            else {
-              $scope.application_msg = 'msg.upload-failed';
-            }
-          });
+          $scope.upload = fileUpload.upload(file, dataUploaded);
         } else {
           $scope.application_msg = 'msg.only-images-allowed';
         }

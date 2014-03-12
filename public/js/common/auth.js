@@ -11,7 +11,8 @@
         $http({method:'POST', url: '/auth/login', data:creds, cache:false}).
           success(function(data) {
             if( win ) {return win(data);}
-            return $window.location.href='/account';
+            $window.location.href='/account';
+            return;
           }).
           error(function(data) {
             if( fail ) {return fail(data);}
@@ -22,7 +23,8 @@
         $http({method:'POST', url: '/auth/register', data:details, cache:false}).
           success(function(data) {
             if( win ) {return win(data);}
-            return $window.location.href='/account';
+            $window.location.href='/account';
+            return;
           }).
           error(function(data) {
             if( fail ) {return fail(data);}
@@ -83,7 +85,8 @@
         $http({method:'POST', url: '/auth/logout', cache:false}).
           success(function(data) {
             if( win ) {return win(data);}
-            return $window.location.href='/';
+            $window.location.href='/';
+            return;
           }).
           error(function(data) {
             if( fail ) {return fail(data);}
