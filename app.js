@@ -9,7 +9,7 @@ process.on('uncaughtException', function(err) {
   console.error('uncaughtException:', err.message);
   console.error(err.stack);
   process.exit(1);
-})
+});
 
 seneca.use('options', argv.options || 'options.mine.js');
 var options = seneca.export('options');
@@ -17,7 +17,7 @@ var options = seneca.export('options');
 seneca.use('./lib/douitsu', options);
 
 seneca.ready(function(err){
-  if( err ) { return process.exit( !console.error(err) ) };
+  if( err ) { return process.exit( !console.error(err) ); }
 
   var web = seneca.export('web');
 
@@ -52,12 +52,12 @@ seneca.ready(function(err){
     var lang = req.acceptedLanguages || ['en'];
     res.expose(lang, 'languages', 'languages');
     next();
-  })
+  });
 
   app.use(function(req,res,next){
     res.locals.theme = options.theme;
     next();
-  })
+  });
 
   require('./routes')({options:options, seneca:seneca, app:app});
 
@@ -75,4 +75,4 @@ seneca.ready(function(err){
 
   seneca.export('douitsu/init-store')();
 
-})
+});

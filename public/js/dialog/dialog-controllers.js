@@ -1,8 +1,8 @@
 'use strict';
 
 (function(){
-  function noop(){for(var i=0;i<arguments.length;i++)if('function'==typeof(arguments[i]))arguments[i]()}
-  function empty(val) { return null == val || 0 == ''+val }
+  function noop(){for(var i=0;i<arguments.length;i++){if('function'===typeof(arguments[i])){arguments[i]();}}}
+  function empty(val) { return null === val || 0 === ''+val; }
 
   var dialog_controllers = angular.module('dialogControllers',['authService', 'validatorService']);
 
@@ -17,7 +17,7 @@
       else {
         $scope.show_signin = true;
       }
-    })
+    });
 
     function resetScope() {
       $scope.msg = 'blank';
@@ -39,13 +39,13 @@
       resetScope();
       $scope.show_signin = true;
       $scope.show_signup = false;
-    }
+    };
 
     $scope.btn_signup = function() {
       resetScope();
       $scope.show_signin = false;
       $scope.show_signup = true;
-    }
+    };
 
     // Prevents form from automatically being submitted when allow is clicked
     $('#allow').on('click', function(e) {
@@ -112,12 +112,12 @@
           }).
           error(function(data, status) {
             $scope.msg = (data.why) ? 'msg.' + data.why : "msg.signup-failed";
-          })
+          });
 
         }
       }
 
-    }
-  })
+    };
+  });
 
 })();

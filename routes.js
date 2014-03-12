@@ -36,6 +36,6 @@ module.exports = function (args) {
     else {
       next();
     }
-  })
+  });
 
-}
+};
