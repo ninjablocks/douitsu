@@ -1,8 +1,8 @@
 
 'use strict';
 
-;(function(){
+(function(){
 
-  var home_module = angular.module('home', ['homeControllers', 'i18nModule']);
+  angular.module('home', ['homeControllers', 'i18nModule']);
 
 })();

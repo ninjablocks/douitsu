@@ -1,7 +1,7 @@
 'use strict';
 
-;(function(){
+(function(){
 
-  var dialog_module = angular.module('dialog',['dialogControllers', 'i18nModule']);
+  angular.module('dialog',['dialogControllers', 'i18nModule']);
 
 })();

@@ -1,7 +1,7 @@
 
 'use strict';
 
-;(function(){
+(function(){
 
 	var api_module = angular.module('apiService', []);
 

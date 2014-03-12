@@ -1,7 +1,7 @@
 
 'use strict';
 
-;(function(){
+(function(){
 
   var fileupload_module = angular.module('fileUploadService', ['angularFileUpload']);
 

@@ -1,7 +1,7 @@
 
 'use strict';
 
-;(function(){
+(function(){
 
 	var validator_module = angular.module('validatorService', []);
 

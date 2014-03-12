@@ -16,7 +16,7 @@ i18n.init(
 	}
 );
 
-;(function(){
+(function(){
 
   var i18n_module = angular.module('i18nModule',['jm.i18next']);
 

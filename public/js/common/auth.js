@@ -1,7 +1,7 @@
 
 'use strict';
 
-;(function(){
+(function(){
 
 	var auth_module = angular.module('authService', []);
 

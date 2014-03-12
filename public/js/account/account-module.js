@@ -1,6 +1,6 @@
 'use strict';
 
-;(function(){
+(function(){
 
   var account_module = angular.module('account',['ngRoute', 'configService', 'accountControllers', 'i18nModule']);
 

@@ -1,6 +1,6 @@
 'use strict';
 
-;(function(){
+(function(){
 
 	function noop(){for(var i=0;i<arguments.length;i++)if('function'==typeof(arguments[i]))arguments[i]()}
   function empty(val) { return null == val || 0 == ''+val }

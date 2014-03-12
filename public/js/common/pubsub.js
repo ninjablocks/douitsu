@@ -1,7 +1,7 @@
 
 'use strict';
 
-;(function(){
+(function(){
 
 	var pubsub_module = angular.module('pubsubService', []);
 
