@@ -10,8 +10,8 @@ i18n.init(
     useLocalStorage: false,
     resGetPath: '/locales/__lng__/__ns__.json',
     fallbackLng: 'en'
-  }
-	, function() {
+  },
+	function() {
 		$('.container').i18n();
 	}
 );

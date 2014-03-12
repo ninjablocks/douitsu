@@ -18,5 +18,5 @@
     "trailing": true,
     "smarttabs": true,
     "jquery": true,
-    "predef": ["_", "angular", "features", "languages"]
+    "predef": ["_", "angular", "features", "languages", "describe", "it", "confirm", "i18n"]
 }

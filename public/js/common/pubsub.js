@@ -24,7 +24,7 @@
 
       unsubscribe: function(handle) {
         var t = handle[0];
-        cache[t] && d.each(cache[t], function(idx){
+        cache[t] && $.each(cache[t], function(idx){
           if(this === handle[1]){
             cache[t].splice(idx, 1);
           }

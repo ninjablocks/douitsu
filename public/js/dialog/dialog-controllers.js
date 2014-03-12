@@ -7,6 +7,15 @@
 
   dialog_controllers.controller('Main', function($scope, $http, auth, validator) {
 
+    function resetScope() {
+      $scope.msg = 'blank';
+      $scope.name = '';
+      $scope.email = '';
+      $scope.password = '';
+      $scope.verifyPassword = '';
+      resetSeek();
+    }
+
     resetScope();
 
     auth.instance(function(out){
@@ -17,15 +26,6 @@
         $scope.show_signin = true;
       }
     });
-
-    function resetScope() {
-      $scope.msg = 'blank';
-      $scope.name = '';
-      $scope.email = '';
-      $scope.password = '';
-      $scope.verifyPassword = '';
-      resetSeek();
-    }
 
     function resetSeek() {
       $scope.seek_name = false;
@@ -68,8 +68,8 @@
           $scope.msg = 'msg.missing-fields';
         } else {
 
-          var details = {email:$scope.email, password:$scope.password};
-          $http({method:'POST', url: '/auth/login', data:details, cache:false}).
+          var signinDetails = {email:$scope.email, password:$scope.password};
+          $http({method:'POST', url: '/auth/login', data:signinDetails, cache:false}).
           success(function() {
             $('#dialogForm').submit();
           }).
@@ -103,9 +103,8 @@
 
         } else {
 
-          var details = {name:$scope.name, email:$scope.email, password:$scope.password};
-
-          $http({method:'POST', url: '/auth/register', data:details, cache:false}).
+          var signupDetails = {name:$scope.name, email:$scope.email, password:$scope.password};
+          $http({method:'POST', url: '/auth/register', data:signupDetails, cache:false}).
           success(function() {
             $('#dialogForm').submit();
           }).
