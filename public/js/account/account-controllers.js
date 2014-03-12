@@ -1,7 +1,6 @@
 'use strict';
 
 (function(){
-  function noop(){for(var i=0;i<arguments.length;i++){if('function'===typeof(arguments[i])){arguments[i]();}}}
   function empty(val) { return null === val || 0 === ''+val; }
 
   var account_controllers = angular.module('accountControllers',['ngRoute', 'cookiesModule', 'configService', 'senecaSettingsModule', 'authService', 'apiService', 'pubsubService', 'fileUploadService', 'validatorService']);
@@ -157,7 +156,7 @@
           var data = read_pass();
           auth.change_password(
             data,
-            function( out ){
+            function(){
               $scope.password_msg = 'msg.password-updated';
             },
             function( out ){
@@ -194,7 +193,7 @@
       for (var i = 0; i < $files.length; i++) {
         var file = $files[i];
         if (fileUpload.isImage(file)) {
-          $scope.upload = fileUpload.upload(file, function(data, err) {
+          $scope.upload = fileUpload.upload(file, function(data) {
             if (data) {
               $scope.imageUrl = data.url;
             }
@@ -390,7 +389,7 @@
       for (var i = 0; i < $files.length; i++) {
         var file = $files[i];
         if (fileUpload.isImage(file)) {
-          $scope.upload = fileUpload.upload(file, function(data, err) {
+          $scope.upload = fileUpload.upload(file, function(data) {
             if (data) {
               $scope.imageUrl = data.url;
             }

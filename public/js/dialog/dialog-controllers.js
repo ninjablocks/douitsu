@@ -1,7 +1,6 @@
 'use strict';
 
 (function(){
-  function noop(){for(var i=0;i<arguments.length;i++){if('function'===typeof(arguments[i])){arguments[i]();}}}
   function empty(val) { return null === val || 0 === ''+val; }
 
   var dialog_controllers = angular.module('dialogControllers',['authService', 'validatorService']);
@@ -71,10 +70,10 @@
 
           var details = {email:$scope.email, password:$scope.password};
           $http({method:'POST', url: '/auth/login', data:details, cache:false}).
-          success(function(data, status) {
+          success(function() {
             $('#dialogForm').submit();
           }).
-          error(function(data, status) {
+          error(function(data) {
             $scope.msg = (data.why) ? 'msg.' + data.why : 'msg.signin-failed';
           });
 
@@ -107,10 +106,10 @@
           var details = {name:$scope.name, email:$scope.email, password:$scope.password};
 
           $http({method:'POST', url: '/auth/register', data:details, cache:false}).
-          success(function(data, status) {
+          success(function() {
             $('#dialogForm').submit();
           }).
-          error(function(data, status) {
+          error(function(data) {
             $scope.msg = (data.why) ? 'msg.' + data.why : 'msg.signup-failed';
           });
 

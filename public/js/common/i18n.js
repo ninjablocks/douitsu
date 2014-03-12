@@ -11,7 +11,7 @@ i18n.init(
     resGetPath: '/locales/__lng__/__ns__.json',
     fallbackLng: 'en'
   }
-	, function(t) {
+	, function() {
 		$('.container').i18n();
 	}
 );

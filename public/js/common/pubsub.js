@@ -5,7 +5,7 @@
 
 	var pubsub_module = angular.module('pubsubService', []);
 
-	pubsub_module.service('pubsub', function($http,$window) {
+	pubsub_module.service('pubsub', function() {
     var cache = {};
     return {
       publish: function(topic, args) {

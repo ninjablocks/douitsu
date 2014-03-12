@@ -2,11 +2,10 @@
 
 module.exports = function (args) {
 
-  var seneca = args.seneca;
   var app = args.app;
   var opts = args.options;
 
-  var oauth2routes = require('./lib/oauth2-routes')(args);
+  require('./lib/oauth2-routes')(args);
 
   function render(res, pageName) {
     var page = (opts.theme && opts.theme.page && opts.theme.page[pageName]) ? opts.theme.page[pageName] : pageName;
@@ -14,14 +13,14 @@ module.exports = function (args) {
   }
 
   // Upload files
-  app.post('/upload', function(req, res, next) {
+  app.post('/upload', function(req, res) {
     res.end(JSON.stringify({url:'/uploads/' + req.files.file.path.split('/').pop()}));
   });
 
-  app.get('/', function(req, res, next) {
+  app.get('/', function(req, res) {
     render(res, 'index');
   });
-  app.get('/account', function(req, res, next) {
+  app.get('/account', function(req, res) {
     render(res, 'account');
   });
 

@@ -47,7 +47,7 @@ describe('douitsu', function() {
                                 userID: tmp.u1.id,
                                 clientID: clientID,
                                 clientName: clientName})
-            .save$(function(err,out){
+            .save$(function(err){
               assert.ok(null===err);
 
               si.act('role:douitsu, cmd:get_user_applications', {user:tmp.u1}, function(err,out){
