@@ -18,7 +18,7 @@ gulp.task('jshint', function () {
 
 gulp.task('scripts', function () {
     return gulp.src(paths.publicJsFiles)
-        .pipe($.concat("main.min.js"))
+        .pipe($.concat('main.min.js'))
         .pipe($.ngmin())
         .pipe($.uglify())
         .pipe($.size())
@@ -36,7 +36,7 @@ gulp.task('build', ['jshint', 'scripts']);
 // Default task
 gulp.task('default', ['clean'], function () {
     gulp.start('build', function() {
-        console.log("\nWatching for file changes. Press Ctrl+C to exit.");
+        console.log('\nWatching for file changes. Press Ctrl+C to exit.');
 
         // watch for JS changes
         gulp.watch(paths.publicJsFiles, function() {

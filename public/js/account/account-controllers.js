@@ -165,11 +165,11 @@
           );
         }
         else {
-          $scope.password_msg = "msg.mismatch-password";
+          $scope.password_msg = 'msg.mismatch-password';
         }
       }
       else {
-        $scope.password_msg = "msg.weak-password";
+        $scope.password_msg = 'msg.weak-password';
       }
     };
 
@@ -189,7 +189,7 @@
     };
 
     $scope.onFileSelect = function($files) {
-      $scope.details_msg = "blank";
+      $scope.details_msg = 'blank';
       for (var i = 0; i < $files.length; i++) {
         var file = $files[i];
         if (fileUpload.isImage(file)) {
@@ -231,7 +231,7 @@
     };
 
     $scope.$on(
-      "$routeChangeSuccess",
+      '$routeChangeSuccess',
       function(event,route){
         if( route.tab && $scope.curtab != route.tab ) {
           $scope.tabview( route.tab );
@@ -290,7 +290,7 @@
       $scope.show_applications_list   = false;
       $scope.show_application_details = true;
 
-      $scope.application_msg = "blank";
+      $scope.application_msg = 'blank';
     };
 
     $scope.close_application = function() {
@@ -351,10 +351,10 @@
             $scope.application_msg = (out.why) ? 'msg.' + out.why : 'msg.unknown';
           });
         } else {
-          $scope.application_msg = "msg.invalid-url";
+          $scope.application_msg = 'msg.invalid-url';
         }
       } else {
-        $scope.application_msg = "msg.missing-fields";
+        $scope.application_msg = 'msg.missing-fields';
       }
     };
 
@@ -381,7 +381,7 @@
     };
 
     $scope.onFileSelect = function($files) {
-      $scope.application_msg = "blank";
+      $scope.application_msg = 'blank';
       for (var i = 0; i < $files.length; i++) {
         var file = $files[i];
         if (fileUpload.isImage(file)) {

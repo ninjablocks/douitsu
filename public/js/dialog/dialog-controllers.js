@@ -75,7 +75,7 @@
             $('#dialogForm').submit();
           }).
           error(function(data, status) {
-            $scope.msg = (data.why) ? 'msg.' + data.why : "msg.signin-failed";
+            $scope.msg = (data.why) ? 'msg.' + data.why : 'msg.signin-failed';
           });
 
         }
@@ -111,7 +111,7 @@
             $('#dialogForm').submit();
           }).
           error(function(data, status) {
-            $scope.msg = (data.why) ? 'msg.' + data.why : "msg.signup-failed";
+            $scope.msg = (data.why) ? 'msg.' + data.why : 'msg.signup-failed';
           });
 
         }

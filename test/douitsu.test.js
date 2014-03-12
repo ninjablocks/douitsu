@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 // mocha douitsu.test.js
 
@@ -33,7 +33,7 @@ describe('douitsu', function() {
     si.ready(function(){
       si.act('role:douitsu, cmd:get_user_applications', function(err,out){
         assert.ok(null==err);
-        assert.equal( "{ applications: [] }", util.inspect(out));
+        assert.equal( '{ applications: [] }', util.inspect(out));
 
         var u = si.pin({role:'user',cmd:'*'});
         u.register({nick:'u1',name:'nu1',email:'u1@example.com',password:'u1',active:true}, function(err,out){
@@ -77,7 +77,7 @@ describe('douitsu', function() {
     si.ready(function(){
       si.act('role:douitsu, cmd:del_user_application', function(err,out){
         assert.ok(null==err);
-        assert.equal( "{ ok: true }", util.inspect(out));
+        assert.equal( '{ ok: true }', util.inspect(out));
 
         var u = si.pin({role:'user',cmd:'*'});
         u.register({nick:'u1',name:'nu1',email:'u1@example.com',password:'u1',active:true}, function(err,out){
@@ -93,7 +93,7 @@ describe('douitsu', function() {
               assert.ok(null==err);
               si.act('role:douitsu, cmd:del_user_application', {user:tmp.u1, clientid:out.clientID}, function(err,out){
                 assert.ok(null==err);
-                assert.equal( "{ ok: true }", util.inspect(out));
+                assert.equal( '{ ok: true }', util.inspect(out));
 
                 fin();
               });

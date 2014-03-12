@@ -15,7 +15,7 @@ module.exports = function (args) {
 
   // Upload files
   app.post('/upload', function(req, res, next) {
-    res.end(JSON.stringify({url:"/uploads/" + req.files.file.path.split('/').pop()}));
+    res.end(JSON.stringify({url:'/uploads/' + req.files.file.path.split('/').pop()}));
   });
 
   app.get('/', function(req, res, next) {

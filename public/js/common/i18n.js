@@ -8,11 +8,11 @@ i18n.init(
     lng: languages[0],
     useCookie: false,
     useLocalStorage: false,
-    resGetPath: "/locales/__lng__/__ns__.json",
+    resGetPath: '/locales/__lng__/__ns__.json',
     fallbackLng: 'en'
   }
 	, function(t) {
-		$(".container").i18n();
+		$('.container').i18n();
 	}
 );
 
