@@ -3,7 +3,7 @@
 var gulp = require('gulp');
 
 // Load plugins
-var $ = require('gulp-load-plugins')({camelize: true});
+var plugin = require('gulp-load-plugins')({camelize: true});
 
 var paths = {
     jsFiles: ['./**/*.js', '!./**/*min.js', '!./public/bower_components/**/*.js', '!./node_modules/**/*.js'],
@@ -12,22 +12,22 @@ var paths = {
 
 gulp.task('jshint', function () {
   return gulp.src(paths.jsFiles)
-    .pipe($.jshint('.jshintrc'))
-    .pipe($.jshint.reporter('default'));
+    .pipe(plugin.jshint('.jshintrc'))
+    .pipe(plugin.jshint.reporter('default'));
 });
 
 gulp.task('scripts', function () {
     return gulp.src(paths.publicJsFiles)
-        .pipe($.concat('main.min.js'))
-        .pipe($.ngmin())
-        .pipe($.uglify())
-        .pipe($.size())
+        .pipe(plugin.concat('main.min.js'))
+        .pipe(plugin.ngmin())
+        .pipe(plugin.uglify())
+        .pipe(plugin.size())
         .pipe(gulp.dest('./public/js'));
   });
 
 gulp.task('clean', function () {
 	// Clean up build directories, eg:
-    // return gulp.src(['./dist'], {read: false}).pipe($.clean());
+    // return gulp.src(['./dist'], {read: false}).pipe(plugin.clean());
 });
 
 // Build

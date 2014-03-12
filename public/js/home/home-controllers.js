@@ -101,6 +101,37 @@
       $scope.mode = 'signin';
     };
 
+    var visible = {
+      name:true,
+      email:true,
+      password:true,
+      forgot:true,
+      signup:true,
+      signin:true,
+      cancel:false,
+    };
+
+    function show(fademap) {
+      _.each( fademap, function(active,name){
+        $scope['hide_'+name]=!active;
+
+        if( active && !visible[name] ) {
+          visible[name]           = true;
+          $scope['fadeout_'+name] = false;
+          $scope['fadein_'+name]  = true;
+        }
+
+        if( !active && visible[name] ) {
+          visible[name]           = false;
+          $scope['fadein_'+name]  = false;
+          $scope['fadeout_'+name] = true;
+        }
+      });
+
+      if( fademap.cancel ) {
+        $scope.float_cancel = $scope.fadein_signup ? 'right' : 'left';
+      }
+    }
 
     $scope.send = function() {
       if( 'send' !== $scope.mode ) {

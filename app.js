@@ -1,9 +1,9 @@
 'use strict';
 
 var express = require('express');
-var expose  = require('express-expose');
 var argv    = require('optimist').argv;
 var seneca  = require('seneca')();
+require('express-expose');
 
 process.on('uncaughtException', function(err) {
   console.error('uncaughtException:', err.message);
