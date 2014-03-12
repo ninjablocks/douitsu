@@ -9,7 +9,7 @@
     return {
       isImage: function(file) {
         var fileExtension = ['jpeg', 'jpg', 'png', 'gif', 'bmp'];
-        return $.inArray(file.name.split('.').pop().toLowerCase(), fileExtension) != -1;
+        return $.inArray(file.name.split('.').pop().toLowerCase(), fileExtension) !== -1;
       },
       upload: function(file, callback) {
         return $upload.upload({

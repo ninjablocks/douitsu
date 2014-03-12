@@ -57,7 +57,7 @@
     }
 
     pubsub.subscribe('view',function(view){
-      if( 'Account' != view ) return;
+      if( 'Account' !== view ) {return;}
     });
 
     pubsub.subscribe('user',function(user){
@@ -84,12 +84,13 @@
 
     function markinput(state,exclude) {
       _.each( state, function( full, field ){
-        if( exclude && exclude[field] ) return;
+        if( exclude && exclude[field] ) {return;}
         $scope['seek_'+field] = !full;
       });
 
-      if (!state.email_valid)
+      if (!state.email_valid) {
         $scope.seek_email = true;
+      }
     }
 
 
@@ -125,7 +126,7 @@
           var data = read_user();
 
           // Do not send email to be updated if it is the same as before
-          if ($scope.email == data.email) {
+          if ($scope.email === data.email) {
             delete data.email;
           }
 
@@ -152,7 +153,7 @@
 
     $scope.change_pass = function() {
       if (validator.password($scope.field_password)) {
-        if ($scope.field_password == $scope.field_repeat) {
+        if ($scope.field_password === $scope.field_repeat) {
           var data = read_pass();
           auth.change_password(
             data,
@@ -213,13 +214,13 @@
   account_controllers.controller('TabView', function($scope, $route, $location, pubsub) {
     var views = ['Dashboard','Applications','Settings','Account'];
 
-    $scope.views = _.filter(views,function(n){return n!='Account';});
+    $scope.views = _.filter(views,function(n){return n!=='Account';});
 
     pubsub.subscribe('view',function(name){
       console.log('fired:'+name);
 
       _.each(views,function(v){
-        $scope['show_view_'+v] = (name==v);
+        $scope['show_view_'+v] = (name===v);
       });
       $scope.curtab = name;
 
@@ -233,7 +234,7 @@
     $scope.$on(
       '$routeChangeSuccess',
       function(event,route){
-        if( route.tab && $scope.curtab != route.tab ) {
+        if( route.tab && $scope.curtab !== route.tab ) {
           $scope.tabview( route.tab );
         }
       });
@@ -268,12 +269,14 @@
     $scope.new_application = function(){ $scope.open_application(); };
 
     $scope.open_application = function( applicationid ) {
-      if( void 0 != applicationid ) {
+      if( void 0 !== applicationid ) {
         api.get( '/api/rest/application/'+applicationid, function( out ){
           $scope.show_application(out);
         });
       }
-      else $scope.show_application();
+      else {
+        $scope.show_application();
+      }
     };
 
     $scope.show_application = function( application ) {
@@ -311,15 +314,17 @@
 
     function markinput(state,exclude) {
       _.each( state, function( full, field ){
-        if( exclude && exclude[field] ) return;
+        if( exclude && exclude[field] ) {return;}
         $scope['seek_'+field] = !full;
       });
 
-      if (!state.homeurl_valid)
+      if (!state.homeurl_valid) {
         $scope.seek_homeurl = true;
+      }
 
-      if (!state.callback_valid)
+      if (!state.callback_valid) {
         $scope.seek_callback = true;
+      }
     }
 
     function read_application() {

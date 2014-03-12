@@ -26,10 +26,10 @@ module.exports = function (args) {
   });
 
   app.use( function( req, res, next ){
-    if( 0 == req.url.indexOf('/signup') ||
-        0 == req.url.indexOf('/forgot') ||
-        0 == req.url.indexOf('/reset') ||
-        0 == req.url.indexOf('/confirm') )
+    if( 0 === req.url.indexOf('/signup') ||
+        0 === req.url.indexOf('/forgot') ||
+        0 === req.url.indexOf('/reset') ||
+        0 === req.url.indexOf('/confirm') )
     {
       render(res, 'index');
     }

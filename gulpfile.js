@@ -8,7 +8,7 @@ var $ = require('gulp-load-plugins')({camelize: true});
 var paths = {
     jsFiles: ['./**/*.js', '!./**/*min.js', '!./public/bower_components/**/*.js', '!./node_modules/**/*.js'],
     publicJsFiles: ['./public/**/*.js', '!./public/**/*min.js', '!./public/bower_components/**/*.js']
-};
+  };
 
 gulp.task('jshint', function () {
   return gulp.src(paths.jsFiles)
@@ -23,7 +23,7 @@ gulp.task('scripts', function () {
         .pipe($.uglify())
         .pipe($.size())
         .pipe(gulp.dest('./public/js'));
-});
+  });
 
 gulp.task('clean', function () {
 	// Clean up build directories, eg:
@@ -39,8 +39,6 @@ gulp.task('default', ['clean'], function () {
         console.log('\nWatching for file changes. Press Ctrl+C to exit.');
 
         // watch for JS changes
-        gulp.watch(paths.publicJsFiles, function() {
-            gulp.run('scripts');
-        });
-    });
-});
+        gulp.watch(paths.publicJsFiles, function() {gulp.run('scripts');});
+      });
+  });
