@@ -201,7 +201,7 @@
       for (var i = 0; i < $files.length; i++) {
         var file = $files[i];
         if (fileUpload.isImage(file)) {
-          $scope.upload = fileUpload.upload(file, dataUploaded);
+          $scope.upload = fileUpload.upload($scope, file, dataUploaded);
         } else {
           $scope.details_msg = 'msg.only-images-allowed';
         }
@@ -398,7 +398,7 @@
       for (var i = 0; i < $files.length; i++) {
         var file = $files[i];
         if (fileUpload.isImage(file)) {
-          $scope.upload = fileUpload.upload(file, dataUploaded);
+          $scope.upload = fileUpload.upload($scope, file, dataUploaded);
         } else {
           $scope.application_msg = 'msg.only-images-allowed';
         }

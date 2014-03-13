@@ -61,6 +61,7 @@
             <div class="form-group" style="width:45%;float:right;text-align:right">
               <div class="dropzoneWrap">
                 <div ng-show="dropSupported" class="dropbox" ng-file-drop="onFileSelect($files);" ng-file-drop-available="dropSupported=true">
+                  <div ng-show="show_progress" class="progress"><div class="bar" ng-style="{'width':progress}"></div></div>
                   <img ng-show="imageUrl" ng-src="{{imageUrl}}" width="200px">
                 </div>
               </div>

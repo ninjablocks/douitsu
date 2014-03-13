@@ -17,6 +17,27 @@
 	overflow: hidden;
 	text-align: center;
 	width: 200px;
+	position: relative;
+}
+
+.dropbox .progress {
+	position: absolute;
+	top: 90px;
+	width: 180px;
+	background: black;
+	height: 20px;
+	margin: 0 5px 0 8px;
+	-webkit-border-radius: 0px;
+	-moz-border-radius: 0px;
+	border-radius: 0px;
+}
+
+.dropbox .progress .bar {
+	background: #3498db;
+	height: 100%;
+	position: relative;
+	overflow: hidden;
+	width: 0%;
 }
 
 .dropbox.dragover {
