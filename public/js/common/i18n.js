@@ -1,6 +1,6 @@
 'use strict';
 
-// languages[0] is set in ejs views
+// locale['namespace'] and languages[0] is set in ejs views
 
 // i18n works directly with data-i18n html attributes when rendering ejs templates
 i18n.init(
@@ -9,7 +9,8 @@ i18n.init(
     useCookie: false,
     useLocalStorage: false,
     resGetPath: '/locales/__lng__/__ns__.json',
-    fallbackLng: 'en'
+    fallbackLng: 'en',
+    ns: locale['namespace'] || 'translation'
   },
 	function() {
 		$('.container').i18n();
@@ -28,7 +29,8 @@ i18n.init(
       useCookie: false,
       useLocalStorage: false,
       resGetPath: '../locales/__lng__/__ns__.json',
-      fallbackLng: 'en'
+      fallbackLng: 'en',
+      ns: locale['namespace'] || 'translation'
     };
 
   }]);

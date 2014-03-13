@@ -47,6 +47,7 @@ seneca.ready(function(err){
     options.features.account = false;
   }
   app.expose(options.features, 'features', 'features');
+  app.expose(options.theme.locale, 'locale', 'locale');
 
   app.use(function(req,res,next){
     var lang = req.acceptedLanguages || ['en'];
