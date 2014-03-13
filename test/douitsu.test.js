@@ -3,104 +3,130 @@
 // mocha douitsu.test.js
 
 
-var seneca  = require('seneca');
-
+var seneca  = require('seneca')();
 
 var assert = require('assert');
 var util   = require('util');
 
+function empty(val) { return null === val || 0 === ''+val; }
 
 describe('douitsu', function() {
 
   var tmp = {};
+  var fixtures;
+  var accesstokenent;
 
-  it('load_plugin', function(fin) {
-    var si = seneca();
-    si.use('user');
-    si.use('../lib/douitsu');
-    si.ready(fin());
-  });
+  function ready(cb) {
+    seneca.use('../lib/douitsu');
+    seneca.use('../test/test-fixtures');
+    seneca.export('douitsu/init-store')();
+    fixtures = seneca.export('test-fixtures/fixtures');
+    accesstokenent = seneca.make('accesstoken');
 
+    seneca.ready(function() {
+      var userent = seneca.make('sys/user');
+      userent.load$({email:'u1@example.com'}, function(err, user){
+        assert.ok(null===err);
+        tmp.u1 = user;
+        cb();
+      });
+    });
+  }
 
   it('cmd_get_user_applications', function(fin) {
 
-    var si = seneca();
-    si.use('user');
-    si.use('../lib/douitsu');
+    ready(function(){
 
-    var accesstokenent = si.make('accesstoken');
-
-    si.ready(function(){
-      si.act('role:douitsu, cmd:get_user_applications', function(err,out){
+      seneca.act('role:douitsu, cmd:get_user_applications', {user:tmp.u1}, function(err,out){
         assert.ok(null===err);
-        assert.equal( '{ applications: [] }', util.inspect(out));
-
-        var u = si.pin({role:'user',cmd:'*'});
-        u.register({nick:'u1',name:'nu1',email:'u1@example.com',password:'u1',active:true}, function(err,out){
-          assert.ok(null===err);
-          tmp.u1 = out.user;
-          var at = '123';
-          var clientID = '456';
-          var clientName = 'app1';
-
-          accesstokenent.make$({id$:at,
-                                userID: tmp.u1.id,
-                                clientID: clientID,
-                                clientName: clientName})
-            .save$(function(err){
-              assert.ok(null===err);
-
-              si.act('role:douitsu, cmd:get_user_applications', {user:tmp.u1}, function(err,out){
-                assert.ok(null===err);
-                assert.equal( 1, out.applications.length);
-                assert.equal( tmp.u1.id, out.applications[0].userID);
-                assert.equal( clientID, out.applications[0].clientID);
-                assert.equal( clientName, out.applications[0].clientName);
-
-                fin();
-              });
-            });
-        });
+        assert.equal( 1, out.applications.length);
+        assert.equal( tmp.u1.id, out.applications[0].userID);
+        assert.equal( '123', out.applications[0].clientID);
+        assert.equal( 'app1', out.applications[0].clientName);
+        fin();
       });
+
     });
   });
 
 
   it('cmd_del_user_application', function(fin) {
 
-    var si = seneca();
-    si.use('user');
-    si.use('../lib/douitsu');
+    ready(function(){
 
-    var accesstokenent = si.make('accesstoken');
-
-    si.ready(function(){
-      si.act('role:douitsu, cmd:del_user_application', function(err,out){
+      var accesstoken = fixtures.accesstoken(tmp.u1);
+      accesstokenent.make$(accesstoken).save$(function(err,out){
         assert.ok(null===err);
-        assert.equal( '{ ok: true }', util.inspect(out));
-
-        var u = si.pin({role:'user',cmd:'*'});
-        u.register({nick:'u1',name:'nu1',email:'u1@example.com',password:'u1',active:true}, function(err,out){
+        seneca.act('role:douitsu, cmd:del_user_application', {user:tmp.u1, clientid:out.clientID}, function(err,out){
           assert.ok(null===err);
-          tmp.u1 = out.user;
-          var at = '123';
-
-          accesstokenent.make$({id$:at,
-                                userID:tmp.u1.id,
-                                clientID:'123',
-                                clientName: 'app1'})
-            .save$(function(err,out){
-              assert.ok(null===err);
-              si.act('role:douitsu, cmd:del_user_application', {user:tmp.u1, clientid:out.clientID}, function(err,out){
-                assert.ok(null===err);
-                assert.equal( '{ ok: true }', util.inspect(out));
-
-                fin();
-              });
-            });
+          assert.equal( '{ ok: true }', util.inspect(out));
+          fin();
         });
       });
+
     });
+
+  });
+
+  it('save_application', function(fin) {
+
+    var app = fixtures.application();
+    seneca.act('role:jsonrest-api,prefix:/api/rest/,method:post,name:application', {data:app}, function(err, out){
+      assert.ok(null===err);
+      assert.equal(app.name, out.name);
+      assert.equal(app.homeurl, out.homeurl);
+      assert.equal(app.callback, out.callback);
+      assert.equal(app.description, out.description);
+      assert.equal(app.image, out.image);
+      assert.ok(!empty(app.appid));
+      assert.ok(!empty(app.secret));
+      assert.ok(app.active);
+      fin();
+    });
+
+  });
+
+  it('del_application', function(fin) {
+
+    // Make new application
+    var app = fixtures.application();
+    seneca.act('role:jsonrest-api,prefix:/api/rest/,method:post,name:application', {data:app}, function(err, app$){
+      assert.ok(null===err);
+      assert.ok(!empty(app$.id));
+
+      // Make new access token for tmp.u1 authorizing app$
+      var accesstoken = fixtures.accesstoken(tmp.u1);
+      accesstoken.clientID = app$.appid;
+      accesstokenent.make$(accesstoken).save$(function(err,accesstoken$){
+        assert.ok(null===err);
+        assert.ok(!empty(accesstoken$.id));
+
+        // Delete application
+        seneca.act('role:jsonrest-api,prefix:/api/rest/,method:delete,name:application', {id:app$.id}, function(err, deletedapp$){
+          assert.ok(null===err);
+          assert.equal( '{ id: \'' + app$.id + '\' }', util.inspect(deletedapp$));
+
+          // Assert that access token has also been deleted
+          accesstokenent.load$(accesstoken$.id, function(err,out){
+            assert.ok(null===err);
+            assert.ok(null===out);
+            fin();
+          });
+        });
+
+      });
+    });
+
+  });
+
+  it('update_user_with_existing_email', function(fin) {
+
+    seneca.act('role:auth,cmd:update_user', {data:{email:'u1@example.com'}}, function(err, out){
+      assert.ok(null===err);
+      assert.equal(out.why, 'user-exists-email');
+      fin();
+    });
+
   });
 
 });
