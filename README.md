@@ -112,7 +112,7 @@ bower install
 
 ### Style
 
-Create your custom stylesheet under /css/theme, for example [dark.css](https://github.com/ninjablocks/douitsu/blob/master/public/css/theme/dark.css) and edit options.mine.js.
+Create your custom stylesheet under /css/theme, for example [dark.css](https://github.com/ninjablocks/douitsu/blob/master/public/css/theme/dark.css), and edit options.mine.js.
 
 ```bash
 theme {
@@ -132,7 +132,7 @@ theme {
 
 ### Locale
 
-Create your custom locales under /public/locales/{language}, for example [/en/example.json](https://github.com/ninjablocks/douitsu/blob/master/public/locales/en/example.json) and edit options.mine.js.
+Create your custom locales under /public/locales/{language}, for example [/en/example.json](https://github.com/ninjablocks/douitsu/blob/master/public/locales/en/example.json), and edit options.mine.js.
 
 ```bash
 theme {
@@ -144,7 +144,7 @@ theme {
 
 ### Locale
 
-Create your custom pages under /views/theme, for example [dialog.ejs](https://github.com/ninjablocks/douitsu/blob/master/views/theme/example/dialog.ejs) and edit options.mine.js.
+Create your custom pages under /views/theme, for example [dialog.ejs](https://github.com/ninjablocks/douitsu/blob/master/views/theme/example/dialog.ejs), and edit options.mine.js.
 
 ```bash
 theme {
