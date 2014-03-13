@@ -142,7 +142,7 @@ theme {
 }
 ```
 
-### Locale
+### Custom Pages
 
 Create your custom pages under /views/theme, for example [dialog.ejs](https://github.com/ninjablocks/douitsu/blob/master/views/theme/example/dialog.ejs), and edit options.mine.js.
 
