@@ -284,8 +284,8 @@
     };
 
     $scope.removeImage = function() {
-      $scope.imageUrl = "";
-    }
+      $scope.imageUrl = '';
+    };
 
     $scope.onFileSelect = function($files) {
       $scope.showmsg = false;

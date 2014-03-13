@@ -3,8 +3,7 @@
 
 var nid    = require('nid');
 
-module.exports = function( options ) {
-  var seneca = this;
+module.exports = function() {
   var plugin = 'test-fixtures';
 
   function Fixtures() {

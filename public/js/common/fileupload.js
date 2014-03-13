@@ -18,7 +18,7 @@
             url: '/upload',
             file: file,
           }).progress(function(evt) {
-            $scope.progress = parseInt(100.0 * evt.loaded / evt.total) + "%";
+            $scope.progress = parseInt(100.0 * evt.loaded / evt.total) + '%';
           }).success(function(data) {
             $scope.show_progress = false;
             $scope.progress = '0%';

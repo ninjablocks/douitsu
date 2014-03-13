@@ -189,8 +189,8 @@
     };
 
     $scope.removeImage = function() {
-      $scope.imageUrl = "";
-    }
+      $scope.imageUrl = '';
+    };
 
     $scope.onFileSelect = function($files) {
       $scope.details_msg = 'blank';
@@ -390,8 +390,8 @@
     };
 
     $scope.removeImage = function() {
-      $scope.imageUrl = "";
-    }
+      $scope.imageUrl = '';
+    };
 
     $scope.onFileSelect = function($files) {
       $scope.application_msg = 'blank';

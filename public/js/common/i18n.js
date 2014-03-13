@@ -10,7 +10,7 @@ i18n.init(
     useLocalStorage: false,
     resGetPath: '/locales/__lng__/__ns__.json',
     fallbackLng: 'en',
-    ns: locale['namespace'] || 'translation'
+    ns: locale.namespace || 'translation'
   },
 	function() {
 		$('.container').i18n();
@@ -30,7 +30,7 @@ i18n.init(
       useLocalStorage: false,
       resGetPath: '../locales/__lng__/__ns__.json',
       fallbackLng: 'en',
-      ns: locale['namespace'] || 'translation'
+      ns: locale.namespace || 'translation'
     };
 
   }]);
