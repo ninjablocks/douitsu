@@ -46,6 +46,7 @@
     , "signin": "Anmelden."
     , "signin-diff-user": "Melden Sie sich als ein anderer Benutzer."
     , "signup-user": "Registrieren."
+    , "remove-image": "entfernen"
   }
   , "label": {
     "name": "Name"

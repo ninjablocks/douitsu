@@ -283,6 +283,10 @@
       $scope.mode = 'signup';
     };
 
+    $scope.removeImage = function() {
+      $scope.imageUrl = "";
+    }
+
     $scope.onFileSelect = function($files) {
       $scope.showmsg = false;
       var dataUploaded = function(data) {

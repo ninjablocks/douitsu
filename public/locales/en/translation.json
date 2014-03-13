@@ -46,6 +46,7 @@
     , "signin": "Sign in."
     , "signin-diff-user": "Sign in as a different user."
     , "signup-user": "Sign up."
+    , "remove-image": "remove"
   }
   , "label": {
     "name": "Name"

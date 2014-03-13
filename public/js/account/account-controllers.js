@@ -188,6 +188,10 @@
       );
     };
 
+    $scope.removeImage = function() {
+      $scope.imageUrl = "";
+    }
+
     $scope.onFileSelect = function($files) {
       $scope.details_msg = 'blank';
       var dataUploaded = function(data) {
@@ -384,6 +388,10 @@
         });
       }
     };
+
+    $scope.removeImage = function() {
+      $scope.imageUrl = "";
+    }
 
     $scope.onFileSelect = function($files) {
       $scope.application_msg = 'blank';
