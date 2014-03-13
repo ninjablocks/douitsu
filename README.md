@@ -107,3 +107,51 @@ Front-end dependencies are defined in [bower.js](https://github.com/ninjablocks/
 ```bash
 bower install
 ```
+
+## Themes
+
+### Style
+
+Create your custom stylesheet under /css/theme, for example [dark.css](https://github.com/ninjablocks/douitsu/blob/master/public/css/theme/dark.css) and edit options.mine.js.
+
+```bash
+theme {
+	style: '/css/theme/dark.css'
+}
+```
+
+### Logo
+
+Edit options.mine.js.
+
+```bash
+theme {
+	logo: 'http://cdn.shopify.com/s/files/1/0201/1862/t/2/assets/logo.png'
+}
+```
+
+### Locale
+
+Create your custom locales under /public/locales/{language}, for example [/en/example.json](https://github.com/ninjablocks/douitsu/blob/master/public/locales/en/example.json) and edit options.mine.js.
+
+```bash
+theme {
+	locale: {
+      namespace: 'example'
+  }
+}
+```
+
+### Locale
+
+Create your custom pages under /views/theme, for example [dialog.ejs](https://github.com/ninjablocks/douitsu/blob/master/views/theme/example/dialog.ejs) and edit options.mine.js.
+
+```bash
+theme {
+	page: {
+      dialog: 'theme/example/dialog'
+  }
+}
+```
+
+
