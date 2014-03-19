@@ -234,7 +234,7 @@
     }
 
     function gravatar(email) {
-      return (features.gravatar) ? 'http://www.gravatar.com/avatar/' + md5.createHash(email.toLowerCase().trim()) + '?d=blank' + '&s=200' : null;
+      return (features.gravatar) ? 'https://www.gravatar.com/avatar/' + md5.createHash(email.toLowerCase().trim()) + '?d=blank' + '&s=200' : null;
     }
 
     function perform_signup() {
