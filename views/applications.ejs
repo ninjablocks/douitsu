@@ -32,7 +32,7 @@
   </div>
 
 
-  <h3 ng-show="show_application_details" ng-i18next="[html]title.application-details"></h3>
+  <h3 ng-show="show_application_details"><span ng-i18next="[html]title.application-details"></span><span ng-show="dirty_indicator">*</span></h3>
 
   <form role="form" ng-show="show_application_details">
     <br>

@@ -66,12 +66,23 @@
 
       // Keep to check if email has changed when details are updated
       $scope.email  = user.email;
+
+      $scope.$watch('field_name', showDirtyIndicator);
+      $scope.$watch('field_email', showDirtyIndicator);
+      $scope.$watch('imageUrl', showDirtyIndicator);
     });
 
     pubsub.subscribe('account',function(account){
       $scope.field_org_name  = account.name;
       $scope.field_org_web   = account.web;
     });
+
+    $scope.dirty_indicator = false;
+    function showDirtyIndicator(newval, oldval) {
+      if (oldval !== newval) {
+        $scope.dirty_indicator = true;
+      }
+    }
 
     function read_user_state() {
       return {
@@ -132,6 +143,7 @@
           auth.update_user(
             data,
             function( out ){
+              $scope.dirty_indicator = false;
               $scope.details_msg = 'msg.user-updated';
               pubsub.publish('user',[out.user]);
             },
@@ -270,11 +282,39 @@
       });
     }
 
+    function watch() {
+      $scope.dirty_indicator = false;
+      // Called everytime application is opened so need to unwatch previous watches
+      unwatch();
+      $scope.unwatch = [];
+      $scope.unwatch.push($scope.$watch('field_name', showDirtyIndicator));
+      $scope.unwatch.push($scope.$watch('field_homeurl', showDirtyIndicator));
+      $scope.unwatch.push($scope.$watch('field_callback', showDirtyIndicator));
+      $scope.unwatch.push($scope.$watch('field_desc', showDirtyIndicator));
+      $scope.unwatch.push($scope.$watch('imageUrl', showDirtyIndicator));
+    }
+
+    function unwatch() {
+      $scope.dirty_indicator = false;
+      if (!$scope.unwatch) {return;}
+      for (var i = 0; i < $scope.unwatch.length; i++) {
+        $scope.unwatch[i]();
+      }
+    }
+
+    $scope.dirty_indicator = false;
+    function showDirtyIndicator(newval, oldval) {
+      if (oldval !== newval) {
+        $scope.dirty_indicator = true;
+      }
+    }
+
     $scope.new_application = function(){ $scope.open_application(); };
 
     $scope.open_application = function( applicationid ) {
       if( void 0 !== applicationid ) {
         api.get( '/api/rest/application/'+applicationid, function( out ){
+          $scope.dirty_indicator = false;
           $scope.show_application(out);
         });
       }
@@ -298,6 +338,8 @@
       $scope.show_application_details = true;
 
       $scope.application_msg = 'blank';
+
+      watch();
     };
 
     $scope.close_application = function() {
