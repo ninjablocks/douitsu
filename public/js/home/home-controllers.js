@@ -496,7 +496,7 @@
     };
   });
 
-  home_controllers.controller('DoConfirm', function($scope, $rootScope, auth) {
+  home_controllers.controller('DoConfirm', function($scope) {
     if( !$scope.show_doconfirm ) {return;}
 
     var path = window.location.pathname;
