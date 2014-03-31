@@ -13,19 +13,21 @@
 	  var page_forgot  = 0===path.indexOf('/forgot');
 	  var page_reset   = 0===path.indexOf('/reset');
 	  var page_confirm = 0===path.indexOf('/confirm');
+    var page_doconfirm = 0===path.indexOf('/doconfirm');
 
 	  if (page_signup && !features.signup) {
 	    window.location.href = '/';
       return;
 	  }
 
-	  page_login = !page_signup && !page_forgot && !page_confirm && !page_reset;
+	  page_login = !page_signup && !page_forgot && !page_confirm && !page_reset && !page_doconfirm;
 
 	  $scope.show_login   = page_login;
 	  $scope.show_signup  = page_signup;
 	  $scope.show_forgot  = page_forgot;
 	  $scope.show_reset   = page_reset;
 	  $scope.show_confirm = page_confirm;
+    $scope.show_doconfirm = page_doconfirm;
 
 	  $scope.msg = 'blank';
 	});
@@ -55,14 +57,20 @@
 
 
     function perform_signin() {
+      var email = $scope.input_email;
       auth.login({
-        email:$scope.input_email,
+        email:email,
         password:$scope.input_password
       }, null, function( out ){
-        $scope.msg = (out.why) ? 'msg.' + out.why : 'msg.unknown';
-        $scope.showmsg = true;
-        if( 'user-not-found' === out.why ) {$scope.seek_email = true;}
-        if( 'invalid-password' === out.why ) {$scope.seek_password = true;}
+        if ('user-not-confirmed' === out.why) {
+          window.location.href = '/doconfirm/' + email;
+        }
+        else {
+          $scope.msg = (out.why) ? 'msg.' + out.why : 'msg.unknown';
+          $scope.showmsg = true;
+          if( 'user-not-found' === out.why ) {$scope.seek_email = true;}
+          if( 'invalid-password' === out.why ) {$scope.seek_password = true;}
+        }
       });
     }
 
@@ -238,16 +246,22 @@
     }
 
     function perform_signup() {
+      var email = $scope.input_email;
       auth.register({
         name:$scope.input_name,
-        email:$scope.input_email,
+        email:email,
         password:$scope.input_password,
         image:$scope.imageUrl || gravatar($scope.input_email)
       }, null, function( out ){
-        $scope.msg = (out.why) ? 'msg.' + out.why : 'msg.unknown';
-        if( 'email-exists' === out.why ) {$scope.seek_email = true;}
-        if( 'nick-exists'  === out.why ) {$scope.seek_email = true;}
-        $scope.showmsg = true;
+        if ('user-not-confirmed' === out.why) {
+          window.location.href = '/doconfirm/' + email;
+        }
+        else {
+          $scope.msg = (out.why) ? 'msg.' + out.why : 'msg.unknown';
+          if( 'email-exists' === out.why ) {$scope.seek_email = true;}
+          if( 'nick-exists'  === out.why ) {$scope.seek_email = true;}
+          $scope.showmsg = true;
+        }
       });
     }
 
@@ -480,6 +494,14 @@
     $scope.goaccount = function() {
       window.location.href='/account';
     };
+  });
+
+  home_controllers.controller('DoConfirm', function($scope, $rootScope, auth) {
+    if( !$scope.show_doconfirm ) {return;}
+
+    var path = window.location.pathname;
+    $scope.email = path.replace(/^\/doconfirm\//,'');
+
   });
 
 })();

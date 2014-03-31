@@ -18,6 +18,7 @@
     , "change-password": "P a s s w o r t&nbsp;&nbsp;&nbsp;Ä n d e r u n g "
     , "application-auth": "Anwendungsautorisierungs"
     , "use-your-account": "verwenden Sie Ihr Konto."
+    , "do-confirm": "Bitte bestätigen Sie Ihre E-Mail-Adresse."
   }
   , "nav": {
     "application": "Ihre Anwendungen"
@@ -38,6 +39,7 @@
     , "change": "ä n d e r n"
     , "allow": "e r l a u b e n"
     , "deny": "v e r w e i g e r n"
+    , "resend-confirm": "B e s t ä t i g u n g&nbsp;&nbsp;&nbsp;e r n e u t&nbsp;&nbsp;&nbsp;s e n d e n"
   }
   , "link": {
     "forgot-password": "Passwort vergessen?"
@@ -66,6 +68,7 @@
     , "got-account": "Haben Sie einen Account?"
     , "sign-in-allow-access": "Melden Sie sich:"
     , "sign-up-allow-access": "Registrieren:"
+    , "confirm-sent-to": "Eine Bestätigungs-Nachricht wurde an"
   }
   , "placeholder": {
     "name": "Name"
@@ -106,5 +109,6 @@
     , "application-updated": "Anwendung aktualisiert."
     , "application-deleted": "Anwendung gelöscht."
     , "token-deleted": "Token gelöscht."
+    , "user-not-confirmed": "Bitte bestätigen Sie Ihre E-Mail Adresse."
   }
 }

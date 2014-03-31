@@ -28,7 +28,8 @@ module.exports = function (args) {
     if( 0 === req.url.indexOf('/signup') ||
         0 === req.url.indexOf('/forgot') ||
         0 === req.url.indexOf('/reset') ||
-        0 === req.url.indexOf('/confirm') )
+        0 === req.url.indexOf('/confirm') ||
+        0 === req.url.indexOf('/doconfirm'))
     {
       render(res, 'index');
     }

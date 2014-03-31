@@ -19,6 +19,8 @@ module.exports = {
   auth: {
     // change to true if you want to send emails
     sendemail:true,
+    // change to true if user is NOT allowed to sign in before confirming their email
+    confirm: false,
     email:{
       subject:{
         register:'Welcome!',

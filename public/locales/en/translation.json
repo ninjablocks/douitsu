@@ -18,6 +18,7 @@
     , "change-password": "C H A N G E&nbsp;&nbsp;&nbsp;Y O U R&nbsp;&nbsp;&nbsp;P A S S W O R D"
     , "application-auth": "APPLICATION AUTHORIZATION"
     , "use-your-account": "would like to use your Ninja account."
+    , "do-confirm": "Confirm your email address."
   }
   , "nav": {
     "application": "Your Applications"
@@ -38,6 +39,7 @@
     , "change": "C H A N G E"
     , "allow": "A L L O W"
     , "deny": "D E N Y"
+    , "resend-confirm": "R E S E N D&nbsp;&nbsp;&nbsp;C O N F I R M A T I O N"
   }
   , "link": {
     "forgot-password": "forgot password?"
@@ -66,6 +68,7 @@
     , "got-account": "Have an account?"
     , "sign-in-allow-access": "Sign in and allow access:"
     , "sign-up-allow-access": "Sign up and allow access:"
+    , "confirm-sent-to": "A confirmation message was sent to"
   }
   , "placeholder": {
     "name": "Name"
@@ -106,6 +109,7 @@
     , "application-updated": "Application updated."
     , "application-deleted": "Application deleted."
     , "token-deleted": "Token deleted."
+    , "user-not-confirmed": "Please confirm your email address."
   }
 
 }
