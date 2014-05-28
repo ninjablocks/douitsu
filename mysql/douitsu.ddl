@@ -1,4 +1,4 @@
-CREATE TABLE sys_entity (
+CREATE TABLE IF NOT EXISTS sys_entity (
   id varchar(255) NOT NULL,
   zone varchar(255) DEFAULT NULL,
   base varchar(255) DEFAULT NULL,
@@ -8,7 +8,7 @@ CREATE TABLE sys_entity (
   PRIMARY KEY (id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-CREATE TABLE sys_settings (
+CREATE TABLE IF NOT EXISTS sys_settings (
   id varchar(255) NOT NULL,
   kind varchar(255) DEFAULT NULL,
   spec varchar(255) DEFAULT NULL,
@@ -19,7 +19,7 @@ CREATE TABLE sys_settings (
   PRIMARY KEY (id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-CREATE TABLE sys_user (
+CREATE TABLE IF NOT EXISTS sys_user (
   id varchar(255) NOT NULL,
   nick varchar(255) DEFAULT NULL,
   name varchar(255) DEFAULT NULL,
@@ -38,7 +38,7 @@ CREATE TABLE sys_user (
   PRIMARY KEY (id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-CREATE TABLE sys_login (
+CREATE TABLE IF NOT EXISTS sys_login (
   id varchar(255) NOT NULL,
   nick varchar(255) DEFAULT NULL,
   email varchar(255) DEFAULT NULL,
@@ -54,7 +54,7 @@ CREATE TABLE sys_login (
   PRIMARY KEY (id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-CREATE TABLE sys_account (
+CREATE TABLE IF NOT EXISTS sys_account (
   id varchar(255) NOT NULL,
   name varchar(255) DEFAULT NULL,
   orignick varchar(255) DEFAULT NULL,
@@ -66,7 +66,7 @@ CREATE TABLE sys_account (
   PRIMARY KEY (id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-CREATE TABLE application (
+CREATE TABLE IF NOT EXISTS application (
   id varchar(255) NOT NULL,
   account varchar(255) DEFAULT NULL,
   name varchar(255) DEFAULT NULL,
@@ -80,7 +80,7 @@ CREATE TABLE application (
   PRIMARY KEY (id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-CREATE TABLE authcode (
+CREATE TABLE IF NOT EXISTS authcode (
   id varchar(255) NOT NULL,
   code varchar(255) NOT NULL,
   clientID varchar(255) NOT NULL,
@@ -89,7 +89,7 @@ CREATE TABLE authcode (
   PRIMARY KEY (id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-CREATE TABLE accesstoken (
+CREATE TABLE IF NOT EXISTS accesstoken (
   id varchar(255) NOT NULL,
   userID varchar(255) NOT NULL,
   clientID varchar(255) NOT NULL,
