@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <%- include head.ejs %>
+
+  <body class="account" ng-app="account" ng-controller="Main" ng-cloak>
+
+    <div id="wrap">
+
+    <header class="navbar navbar-inverse navbar-fixed-top" ng-controller="NavBar">
+      <div class="container">
+        <div class="navbar-header">
+            <button class="navbar-toggle" type="button" data-toggle="collapse" id="menu-toggler">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/"><img src="/css/theme/sphere/logo.png" alt="" width="200" /></a>
+        </div>
+        <div class="navbar-collapse collapse">
+          <ul class="nav navbar-nav navbar-right">
+            <li class="dropdown">
+              <a class="dropdown-toggle" data-toggle="dropdown">{{user.email}}<b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <li><a ng-click="btn_applications()" ng-i18next="nav.application"></a></li>
+                <li ng-show="show_account"><a ng-click="btn_account()" ng-i18next="nav.account"></a></li>
+                <li><a ng-click="btn_signout()" ng-i18next="nav.signout"></a></li>
+              </ul>
+            </li>
+          </ul>
+        </div><!--/.navbar-collapse -->
+      </div>
+    </header>
+
+    <%- include sidebar.ejs %>
+
+    <div class="content" style="margin-top:50px" ng-controller="TabView">
+
+      <!-- <ul class="nav nav-tabs">
+        <li ng-repeat="name in views" ng-class="{active:name==curtab}"><a href="" ng-click="tabview(name)">{{name}}</a></li>
+      </ul> -->
+
+      <!-- <div class="row" ng-show="show_view_Dashboard">
+        <div class="col-lg-12">
+          <h2>Dashboard</h2>
+          <p>Your content.</p>
+        </div>
+      </div> -->
+      <div id="pad-wrapper">
+
+        <div class="row" ng-show="show_view_Applications">
+          <div class="col-lg-12">
+            <%- include applications.ejs %>
+          </div>
+        </div>
+
+        <!-- <div class="row" ng-show="show_view_Settings">
+          <div class="col-lg-12">
+            <h2>Settings</h2>
+            <div seneca-settings kind="user"></div>
+          </div>
+        </div> -->
+
+        <div class="row" ng-show="show_view_Account" ng-controller="Account">
+          <div class="col-lg-12">
+            <form role="form">
+              <div class="form-group" style="width:240px;float:right;text-align:right">
+                <div class="dropzoneWrap">
+                  <div ng-show="dropSupported" class="dropbox" ng-file-drop="onFileSelect($files);" ng-file-drop-available="dropSupported=true">
+                    <div ng-show="show_progress" class="progress"><div class="bar" ng-style="{'width':progress}"></div></div>
+                    <img ng-show="imageUrl" ng-src="{{imageUrl}}" width="200px">
+                  </div>
+                  <a ng-show="imageUrl" style="color: #ccc;" ng-click="removeImage()" ng-i18next="[html]link.remove-image"></a>
+                </div>
+                <div ng-show="!dropSupported" style="margin-left:200px;width:200px;text-align:center;float:right" ng-i18next="[html]label.drop-not-supported"></div>
+                <div ng-show="dropSupported" style="margin-left:200px;width:200px;text-align:center;float:right"><label ng-i18next="[html]label.drop-photo"></label></div>
+              </div>
+
+              <div style="float: left; width: 50%">
+                <h2><span ng-i18next="[html]title.your-details"></span><span ng-show="dirty_indicator">*</span></h2>
+                <div ng-class="{'form-group':true,mvp_seek_input:seek_name}">
+                  <label for="field_name" ng-i18next="label.name"></label>
+                  <input type="text" class="form-control half-width" id="field_name" ng-model="field_name">
+                </div>
+                <div ng-class="{'form-group':true,mvp_seek_input:seek_email}">
+                  <label for="field_email" ng-i18next="label.email"></label>
+                  <input type="text" class="form-control half-width" id="field_email" ng-model="field_email">
+                </div>
+
+                <button type="submit" class="btn btn-primary" style="width:50%" ng-click="update_user()" ng-i18next="[html]btn.update"></button>
+
+                <p class="account_msg">
+                  {{details_msg | i18next}}
+                </p>
+              </div>
+            </form>
+
+            <div style="float: left; width: 50%;">
+              <br>
+              <h2 ng-i18next="[html]title.change-password"></h2>
+              <form role="form">
+                <div class="form-group">
+                  <label for="field_password" ng-i18next="label.password"></label>
+                  <input type="password" class="form-control half-width" id="field_password" ng-model="field_password">
+                </div>
+                <div class="form-group">
+                  <label for="field_repeat" ng-i18next="label.verify-password"></label>
+                  <input type="password" class="form-control half-width" id="field_repeat" ng-model="field_repeat">
+                </div>
+
+                <button type="submit" class="btn btn-primary" style="width:50%" ng-click="change_pass()" ng-i18next="[html]btn.change"></button>
+
+                <p class="account_msg">
+                  {{password_msg | i18next}}
+                </p>
+              </form>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div> <!-- /container -->
+
+    </div>
+
+    <%- include footer.ejs %>
+
+    <%- include scripts.ejs %>
+
+  </body>
+</html>

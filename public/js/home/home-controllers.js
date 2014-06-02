@@ -97,7 +97,7 @@
       var state = read();
       markinput(state,{});
 
-      if( state.email && state.password ) {
+      if($scope.frmSignin.$valid) {
         perform_signin();
       }
       else {

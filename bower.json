@@ -15,6 +15,7 @@
     "ng-file-upload": "~1.2.7",
     "i18next": "~1.7.1",
     "ng-i18next": "~0.2.9",
-    "angular-md5": "~0.1.7"
+    "angular-md5": "~0.1.7",
+    "ngDialog": "~0.1.7"
   }
 }

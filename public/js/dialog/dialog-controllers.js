@@ -3,7 +3,27 @@
 (function(){
   function empty(val) { return null === val || 0 === ''+val; }
 
-  var dialog_controllers = angular.module('dialogControllers',['authService', 'validatorService']);
+  var dialog_controllers = angular.module('dialogControllers',['authService', 'validatorService', 'pubsubService']);
+
+  dialog_controllers.controller('NavBar', function($scope, auth, pubsub) {
+
+    $scope.btn_applications = function() {
+      pubsub.publish('application.change');
+      pubsub.publish('view',['Applications']);
+    };
+
+    if (features.account) {
+      $scope.btn_account = function() {
+        pubsub.publish('view',['Account']);
+      };
+    }
+
+    $scope.btn_signout = function() {
+      auth.logout();
+    };
+
+  });
+
 
   dialog_controllers.controller('Main', function($scope, $http, auth, validator) {
 

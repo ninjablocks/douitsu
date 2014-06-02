@@ -49,6 +49,26 @@
 
   });
 
+  account_controllers.controller('SideBar', function($scope, features, auth, pubsub) {
+
+    $scope.btn_applications = function() {
+      pubsub.publish('application.change');
+      pubsub.publish('view',['Applications']);
+    };
+
+    if (features.account) {
+      $scope.btn_account = function() {
+        pubsub.publish('view',['Account']);
+      };
+    }
+
+    $scope.btn_signout = function() {
+      auth.logout();
+    };
+
+  });
+
+
 
   account_controllers.controller('Account', function($scope, features, auth, pubsub, fileUpload, validator) {
     if (!features.account) {
