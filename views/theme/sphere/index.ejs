@@ -27,7 +27,7 @@
         <div class="box" ng-controller="Signup">
             <div class="content-wrap">
                 <h6>Create an Account</h6>
-                  <form role="form">
+                  <form name="frmSignup" role="form" ng-submit="signup()">
                   <input id="email" ng-model="input_email" ng-required="true" class="form-control" type="text" data-i18n="[placeholder]placeholder.email" placeholder="Email Address">
                   <input id="name" ng-model="input_name" ng-required="true" class="form-control" type="text" name="name" data-i18n="[placeholder]placeholder.name" placeholder="Full Name">
                   <input id="password" ng-model="input_password" ng-required="true" class="form-control" type="password" data-i18n="[placeholder]placeholder.password" placeholder="Password">
