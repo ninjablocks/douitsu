@@ -1,12 +1,12 @@
 {
   "app": {
-    "name": "Ninja Sphere"
-    , "copyright": "&copy; NinjaBlocks 2014"
+    "name": "Nettalk"
+    , "copyright": "&copy; Nettalk 2014"
   }
   , "blank": ""
   , "title": {
     "signin": "Sign In"
-    , "not-a-ninja": "Not a Ninja?"
+    , "not-a-ninja": "Not a Nettalk user?"
     , "create-account": "Create Account"
     , "forgot-password": "Forgot Password"
     , "password-reset": "Password Reset"
@@ -17,7 +17,7 @@
     , "application-details": "Application Details"
     , "change-password": "Change Password"
     , "application-auth": "Application Authorization"
-    , "use-your-account": "would like to use your Ninja account."
+    , "use-your-account": "would like to use your Nettalk account."
     , "do-confirm": "Confirm your email address."
   }
   , "nav": {
