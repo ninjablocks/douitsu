@@ -1,0 +1,69 @@
+
+
+@import "compass/css3";
+@import "css/bootstrap/bootstrap.min.css";
+@import "css/bootstrap/bootstrap-overrides.css";
+@import "css/lib/font-awesome.css";
+
+@import "/bower_components/ngDialog/css/ngDialog.min.css";
+
+@import "css/scss/_layout";
+@import "css/scss/_elements";
+@import "css/scss/_icons";
+
+@import "angular";
+@import "animate";
+@import "upload";
+@import "font";
+
+
+a {
+  cursor: pointer;
+}
+
+
+// Overrides
+.login-wrapper {
+
+  .box {
+    vertical-align: top;
+    display: inline-block;
+    margin: auto 1em 1em !important;
+  }
+}
+
+
+.account {
+  .dropbox {
+    @include border-radius(8em);
+  }
+
+  #sidebar-nav {
+    li {
+      cursor: pointer;
+    }
+  }
+}
+
+
+.dialog {
+
+  .auth-app {
+
+    > div {
+      display: inline-block;
+      vertical-align: top;
+    }
+
+    img {
+      display: inline-block;
+      width: 150px;
+      height: 150px;
+      border: 2px solid black;
+      border: 5px solid rgba(0,0,0,0.3);
+      margin: 0 1em 1em;
+      @include border-radius(8em);
+    }
+
+  }
+}
