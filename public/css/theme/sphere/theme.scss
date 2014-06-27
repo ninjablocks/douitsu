@@ -10,6 +10,7 @@
 @import "css/scss/_layout";
 @import "css/scss/_elements";
 @import "css/scss/_icons";
+@import "css/scss/_form-wizard";
 
 @import "angular";
 @import "animate";
@@ -22,6 +23,10 @@ a {
 }
 
 
+.alert-msg {
+  color: rgb(199, 57, 57);
+}
+
 // Overrides
 .login-wrapper {
 
@@ -29,6 +34,11 @@ a {
     vertical-align: top;
     display: inline-block;
     margin: auto 1em 1em !important;
+  }
+
+  .alert-msg {
+    display: block;
+    margin-bottom: 1em;
   }
 }
 

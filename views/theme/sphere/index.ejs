@@ -14,11 +14,14 @@
             <div class="content-wrap">
                 <h6 ng-i18next="[html]title.signin">Sign in</h6>
                 <form name="frmSignin" role="form" ng-submit="signin()">
+
                   <input id="email" ng-model="input_email" ng-required="true" class="form-control" type="text" data-i18n="[placeholder]placeholder.email" placeholder="E-mail address">
+                  <span class="alert-msg" ng-if="seek_email"><i class="icon-remove-sign"></i> Please enter an email address</span>
                   <input id="password" ng-model="input_password" ng-required="true" class="form-control" type="password" data-i18n="[placeholder]placeholder.password" placeholder="Your password">
+                  <span class="alert-msg" ng-if="seek_password"><i class="icon-remove-sign"></i> Invalid password<br></span>
                   <a href="#" ng-click="forgot()" ng-i18next="[html]link.forgot-password" class="forgot">Forgot password?</a>
                   <div class="action">
-                    <a class="btn-glow primary signup" ng-click="signin()">Log in</a>
+                    <input type="submit" value="login" class="btn-glow primary signup" ng-click="signin()"></input>
                   </div>
                 </form>
             </div>
