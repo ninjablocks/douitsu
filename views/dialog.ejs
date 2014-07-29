@@ -50,6 +50,7 @@
           	<div class="col-lg-1">&nbsp;</div>
             <form id="dialogForm" action="/dialog/authorize/decision" method="post">
 	            <input name="transaction_id" type="hidden" value="<%= transactionID %>">
+              <input name="scope" type="hidden" value="<%= scope %>">
 
               <div ng-show="show_signin">
                 <div style="height:85px" ng-class="{'form-group':true,mvp_seek_input:seek_email}">

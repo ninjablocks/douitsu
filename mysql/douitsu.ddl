@@ -86,6 +86,7 @@ CREATE TABLE IF NOT EXISTS authcode (
   clientID varchar(255) NOT NULL,
   redirectURI varchar(255) NOT NULL,
   userID varchar(255) NOT NULL,
+  scope varchar(255) NOT NULL DEFAULT '',
   PRIMARY KEY (id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -94,7 +95,19 @@ CREATE TABLE IF NOT EXISTS accesstoken (
   userID varchar(255) NOT NULL,
   clientID varchar(255) NOT NULL,
   clientName varchar(255) NOT NULL,
+  type varchar(255) NOT NULL DEFAULT 'application',
   PRIMARY KEY (id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+CREATE TABLE IF NOT EXISTS accesstoken_scope (
+  id varchar(255) NOT NULL,
+  accesstoken varchar(255) NOT NULL,
+  scope_domain varchar(255) NOT NULL,
+  scope_item varchar(255) NOT NULL,
+  PRIMARY KEY (id),
+  UNIQUE KEY `scope_specific` (accesstoken, scope_domain, scope_item),
+  FOREIGN KEY (accesstoken) REFERENCES accesstoken (id) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+-- ALTER TABLE accesstoken ADD COLUMN type varchar(255) NOT NULL DEFAULT 'application';
+-- ALTER TABLE authcode ADD COLUMN scope varchar(255) NOT NULL DEFAULT '';
