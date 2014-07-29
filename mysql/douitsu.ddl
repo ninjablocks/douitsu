@@ -77,6 +77,7 @@ CREATE TABLE IF NOT EXISTS application (
   `desc` varchar(255) DEFAULT NULL,
   image varchar(255) DEFAULT NULL,
   active tinyint(1) DEFAULT NULL,
+  is_ninja_official tinyint(1) NOT NULL DEFAULT 0,
   PRIMARY KEY (id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -111,3 +112,4 @@ CREATE TABLE IF NOT EXISTS accesstoken_scope (
 
 -- ALTER TABLE accesstoken ADD COLUMN type varchar(255) NOT NULL DEFAULT 'application';
 -- ALTER TABLE authcode ADD COLUMN scope varchar(255) NOT NULL DEFAULT '';
+-- ALTER TABLE application ADD COLUMN is_ninja_official tinyint(1) NOT NULL DEFAULT 0;
