@@ -110,6 +110,16 @@ CREATE TABLE IF NOT EXISTS accesstoken_scope (
   FOREIGN KEY (accesstoken) REFERENCES accesstoken (id) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- ALTER TABLE accesstoken ADD COLUMN type varchar(255) NOT NULL DEFAULT 'application';
--- ALTER TABLE authcode ADD COLUMN scope varchar(255) NOT NULL DEFAULT '';
--- ALTER TABLE application ADD COLUMN is_ninja_official tinyint(1) NOT NULL DEFAULT 0;
+-- add support for different types of access tokens
+--   ALTER TABLE accesstoken ADD COLUMN type varchar(255) NOT NULL DEFAULT 'application';
+
+-- add support for passing through the scope parameter from the initial request
+--   ALTER TABLE authcode ADD COLUMN scope varchar(255) NOT NULL DEFAULT '';
+
+-- add support for "official" applications that don't require prompting for auth
+--   ALTER TABLE application ADD COLUMN is_ninja_official tinyint(1) NOT NULL DEFAULT 0;
+
+-- add support for the unique and small mqtt_client_id that mqtt-proxy will use for node tokens - Theo, 12 Aug 2014
+--   ALTER TABLE accesstoken ADD COLUMN `mqtt_client_id` int(20) NOT NULL AUTO_INCREMENT UNIQUE;
+--   ALTER TABLE accesstoken ADD COLUMN `node_id` varchar(64) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL;
+
