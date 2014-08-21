@@ -123,3 +123,10 @@ CREATE TABLE IF NOT EXISTS accesstoken_scope (
 --   ALTER TABLE accesstoken ADD COLUMN `mqtt_client_id` int(20) NOT NULL AUTO_INCREMENT UNIQUE;
 --   ALTER TABLE accesstoken ADD COLUMN `node_id` varchar(64) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL;
 
+
+-- for migrating from activation service tokens to douitsu node tokens:
+--   insert into accesstoken (id,userID,clientID,clientName,type,node_id) select nn.token, nn.user_id, '', '', 'node', nn.node_id from ninja.nodes nn;
+--   insert into accesstoken_scope (id, accesstoken, scope_domain, scope_item) select concat('scope_', sha1(concat('api_', at.id))), at.id, 'api', '*' from accesstoken at where at.type='node';
+--   insert into accesstoken_scope (id, accesstoken, scope_domain, scope_item) select concat('scope_', sha1(concat('mqtt_', at.id))), at.id, 'mqtt', '*' from accesstoken at where at.type='node';
+
+
