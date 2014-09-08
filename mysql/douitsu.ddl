@@ -78,6 +78,7 @@ CREATE TABLE IF NOT EXISTS application (
   image varchar(255) DEFAULT NULL,
   active tinyint(1) DEFAULT NULL,
   is_ninja_official tinyint(1) NOT NULL DEFAULT 0,
+  client_type enum('confidential', 'public') NOT NULL DEFAULT 'confidential',
   PRIMARY KEY (id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -129,4 +130,6 @@ CREATE TABLE IF NOT EXISTS accesstoken_scope (
 --   insert into accesstoken_scope (id, accesstoken, scope_domain, scope_item) select concat('scope_', sha1(concat('api_', at.id))), at.id, 'api', '*' from accesstoken at where at.type='node';
 --   insert into accesstoken_scope (id, accesstoken, scope_domain, scope_item) select concat('scope_', sha1(concat('mqtt_', at.id))), at.id, 'mqtt', '*' from accesstoken at where at.type='node';
 
+-- add support for public (aka not confidential) clients, eg mobile apps (8 sep 2014)
+--   ALTER TABLE application ADD COLUMN client_type enum('confidential', 'public') NOT NULL DEFAULT 'confidential';
 
