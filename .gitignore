@@ -9,3 +9,5 @@ node_modules
 npm-debug.log
 options.mine.js
 deploy.conf
+*-Dockerrun.aws.json
+*.zip

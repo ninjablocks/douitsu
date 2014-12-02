@@ -27,8 +27,9 @@ module.exports = {
         create_reset:'Password Reset'
       },
       content:{
-        resetlinkprefix:'http://localhost:3333/reset',
-        confirmlinkprefix:'http://localhost:3333/confirm'
+        // TODO make this configurable via ENV VARS
+        resetlinkprefix:'https://id.sphere.ninja/reset',
+        confirmlinkprefix:'http://id.sphere.ninja/confirm'
       }
     },
     user: {
