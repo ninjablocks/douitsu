@@ -8,7 +8,7 @@ CONFIG ?= configs/options.sphere.mine.js
 DOCKER_ARGS ?= -H dockerhost:5555
 SHA1 := $(shell git rev-parse --short HEAD | tr -d "\n")
 
-DOCKERRUN_FILE := ${SHA1}-Dockerrun.aws.json
+DOCKERRUN_FILE := Dockerrun.aws.json
 APP_FILE := ${SHA1}.zip
 
 all: build deploy

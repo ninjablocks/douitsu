@@ -11,3 +11,4 @@ options.mine.js
 deploy.conf
 *-Dockerrun.aws.json
 *.zip
+Dockerrun.aws.json
