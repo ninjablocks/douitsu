@@ -35,4 +35,8 @@ deploy:
 	aws elasticbeanstalk update-environment --environment-name ${APP_ENV} \
 	    --version-label ${SHA1}
 
-.PHONY: all build local deploy
+clean:
+	rm *.zip || true
+	rm ${DOCKERRUN_FILE} || true
+
+.PHONY: all build local deploy clean
