@@ -22,7 +22,7 @@
     "ejs": "~0.8.5",
     "ejs-locals": "~1.0.2",
     "express": "~3.4.8",
-    "express-expose": "~0.3.3",
+    "express-expose": "0.3.3",
     "ldapjs": "~0.7.0",
     "oauth2orize": "~1.0.1",
     "optimist": "~0.6.1",
