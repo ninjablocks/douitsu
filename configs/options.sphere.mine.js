@@ -67,9 +67,14 @@ module.exports = {
   },
 
   mail: {
-    mail: {from:'youremail@example.com'},
-    config:{
-      host: 'localhost'
+    mail: {from:'services@ninjablocks.com'},
+    config: {
+      host: 'smtp.sendgrid.net',
+      port: 587,
+      auth: {
+        user: 'XXX',
+        pass: 'XXX'
+      }
     }
   },
 
