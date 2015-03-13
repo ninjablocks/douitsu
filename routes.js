@@ -20,14 +20,24 @@ module.exports = function (args) {
   app.get('/', function(req, res) {
     render(res, 'index');
   });
+
   app.get('/account', function(req, res) {
     render(res, 'account');
+  });
+
+  // let the user enter an email and submit a post to reset -> /auth/create_reset {"email": "me@here.com"}
+  app.get('/reset', function(req, res) {
+    render(res, 'reset');
+  });
+
+  // accept the reset link and show password reset form which gets posted to /auth/execute_reset
+  app.get('/reset/:token', function(req, res) {
+    render(res, 'reset');
   });
 
   app.use( function( req, res, next ){
     if( 0 === req.url.indexOf('/signup') ||
         0 === req.url.indexOf('/forgot') ||
-        0 === req.url.indexOf('/reset') ||
         0 === req.url.indexOf('/confirm') ||
         0 === req.url.indexOf('/doconfirm'))
     {
