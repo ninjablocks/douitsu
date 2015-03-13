@@ -4,16 +4,85 @@
 
 <body ng-app="home" ng-controller="Main" ng-cloak>
     <link rel="stylesheet" href="/css/theme/sphere/css/compiled/signup.css" type="text/css" media="screen" />
+    <style type="text/css">
+
+      @media screen and (max-width: 480px) {
+        .login-wrapper {
+          width: 100%;
+          padding: 0px;
+        }
+
+        .login-wrapper .box {
+          width: 100%;
+          padding: 30px 0 30px;
+          margin: 0px !important;
+          border-radius: 0px;
+        }
+
+        .login-wrapper .content-wrap label {
+          width: 90% !important;
+        }
+      }
+
+    </style>
     <div class="header">
         <a href="index.html">
             <img src="/css/theme/sphere/logo.png" class="logo" alt="logo" width="200" />
         </a>
     </div>
     <div class="login-wrapper container" >
+      <div class="box" ng-controller="PasswordResetCtrl">
+        <div class="content-wrap">
+          <h6><span class="ng-scope">Reset Password</span></h6>
+          <form name="frmSignin" role="form" ng-submit="ResetPassword()" novalidate>
+            <label for="password" style="width:90%"><!-- New Password -->
+              <input id="password" ng-model="password" ng-required="true" class="form-control" type="password" placeholder="Password" required="required">
+            </label>
 
+            <label for="password_confirm" style="width:90%"><!-- Confirm New Password -->
+              <input id="password_confirm" ng-model="password_confirm" ng-required="true" class="form-control" type="password" placeholder="Confirm Password" required="required">
+            </label>
+            <div class="action">
+              <input type="submit" value="Save Password" class="btn-glow primary signup">
+            </div>
+          </form>
+        </div>
+      </div>
     </div>
 
+
   <%- include scripts.ejs %>
+
+    <script type="text/javascript">
+
+      angular.module('home').controller('PasswordResetCtrl', ['$scope', '$rootScope', '$http', function($scope, $rootScope, $http) {
+
+        $scope.password = '';
+        $scope.password_confirm = '';
+
+        $scope.ResetPassword = function() {
+          if ($scope.password !== $scope.password_confirm) {
+            alert('Password\'s must match');
+            return;
+          }
+
+          if ($scope.password === '') {
+            alert('Please enter a password');
+            return;
+          }
+          if (this.frmSignin.$valid) {
+            $http.post('/somewhere', { password: $scope.password }).success(function(data,status) {
+              console.log("success", data, status);
+            }).error(function(data,status) {
+              console.log("error", data, status);
+            })
+          } else {
+            alert('')
+          }
+        };
+
+      }]);
+    </script>
 
   </body>
 </html>
