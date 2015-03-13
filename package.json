@@ -30,7 +30,7 @@
     "seneca": "~0.5.15",
     "seneca-account": "~0.1.5",
     "seneca-admin": "~0.1.2",
-    "seneca-auth": "0.2.10",
+    "seneca-auth": "~0.2.10",
     "seneca-data-editor": "~0.1.4",
     "seneca-fieldmap": "~0.1.0",
     "seneca-jsonrest-api": "~0.2.1",
@@ -39,7 +39,7 @@
     "seneca-perm": "~0.1.2",
     "seneca-redis-store": "~0.0.5",
     "seneca-settings": "~0.1.2",
-    "seneca-user": "~0.2.7",
+    "seneca-user": "rjrodger/seneca-user",
     "underscore": "~1.5.2"
   },
   "devDependencies": {

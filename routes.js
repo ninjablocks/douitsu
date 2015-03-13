@@ -5,6 +5,8 @@ module.exports = function (args) {
   var app = args.app;
   var opts = args.options;
 
+  var userpin = args.seneca.pin({role:'user',cmd:'*'})
+
   require('./lib/oauth2-routes')(args);
 
   function render(res, pageName) {
@@ -32,7 +34,17 @@ module.exports = function (args) {
 
   // accept the reset link and show password reset form which gets posted to /auth/execute_reset
   app.get('/reset/:token', function(req, res) {
-    render(res, 'reset');
+    userpin.load_reset({
+      token: req.params.token
+    }, function (err, out) {
+      console.log('out', out)
+
+      if (out.ok !== true) {
+        return res.send(400, 'Reset token not found.')
+      }
+
+      res.render('reset_request', {token: req.params.token});
+    })
   });
 
   app.use( function( req, res, next ){

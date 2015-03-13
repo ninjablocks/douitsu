@@ -35,11 +35,15 @@
         <div class="content-wrap">
           <h6><span class="ng-scope">Reset Password</span></h6>
           <form name="frmSignin" role="form" ng-submit="ResetPassword()" novalidate>
-            <label for="email" style="width:90%"><!-- New Password -->
-              <input id="email" ng-model="email" ng-required="true" class="form-control" type="email" placeholder="Email" required="required">
+            <label for="password" style="width:90%"><!-- New Password -->
+              <input id="password" ng-model="password" ng-required="true" class="form-control" type="password" placeholder="Password" required="required">
+            </label>
+
+            <label for="password_confirm" style="width:90%"><!-- Confirm New Password -->
+              <input id="password_confirm" ng-model="password_confirm" ng-required="true" class="form-control" type="password" placeholder="Confirm Password" required="required">
             </label>
             <div class="action">
-              <input type="submit" value="Reset Password" class="btn-glow primary signup">
+              <input type="submit" value="Save Password" class="btn-glow primary signup">
             </div>
           </form>
         </div>
@@ -53,16 +57,21 @@
 
       angular.module('home').controller('PasswordResetCtrl', ['$scope', '$rootScope', '$http', function($scope, $rootScope, $http) {
 
-        $scope.email = '';
+        $scope.password = '';
+        $scope.password_confirm = '';
 
         $scope.ResetPassword = function() {
+          if ($scope.password !== $scope.password_confirm) {
+            alert('Password\'s must match');
+            return;
+          }
 
-          if ($scope.email === '') {
-            alert('Please enter an email address');
+          if ($scope.password === '') {
+            alert('Please enter a password');
             return;
           }
           if (this.frmSignin.$valid) {
-            $http.post('/auth/create_reset', { email: $scope.email }).success(function(data,status) {
+            $http.post('/auth/execute_reset', { password: $scope.password, token: "<%= token %>" }).success(function(data,status) {
               console.log("success", data, status);
             }).error(function(data,status) {
               console.log("error", data, status);
