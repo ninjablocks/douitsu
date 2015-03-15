@@ -91,7 +91,7 @@
           }
 
           if (this.frmSignin.$valid) {
-            $http.post('/auth/execute_reset', { password: this.password, token: '' }).success(function(data,status) {
+            $http.post('/auth/execute_reset', { password: this.password, token: $scope.tokenInfo.token }).success(function(data,status) {
               console.log("success", data, status);
               $scope.reset_success = true;
             }).error(function(data,status) {
