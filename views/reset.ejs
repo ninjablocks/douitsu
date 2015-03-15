@@ -32,9 +32,9 @@
     </div>
     <div class="login-wrapper container" >
       <div class="box" ng-controller="PasswordResetCtrl">
-        <div class="content-wrap">
-          <h6><span class="ng-scope">Reset Password</span></h6>
-          <form name="frmSignin" role="form" ng-submit="ResetPassword()" novalidate>
+        <div class="content-wrap" ng-if="!submitted">
+          <h6><span>Reset Password</span></h6>
+          <form name="frmSignin" ng-submit="ResetPassword()" novalidate>
             <label for="email" style="width:90%"><!-- New Password -->
               <input id="email" ng-model="email" ng-required="true" class="form-control" type="email" placeholder="Email" required="required">
             </label>
@@ -42,6 +42,9 @@
               <input type="submit" value="Reset Password" class="btn-glow primary signup">
             </div>
           </form>
+        </div>
+        <div class="content-wrap" ng-if="submitted">
+          <p>A password reset confirmation email has been sent to {{ email }}.</p>
         </div>
       </div>
     </div>
@@ -55,20 +58,27 @@
 
         $scope.email = '';
 
-        $scope.ResetPassword = function() {
+        $scope.submitted = false;
 
-          if ($scope.email === '') {
+        $scope.ResetPassword = function() {
+          // hack
+          $scope.email = this.email;
+
+
+          if (this.email === '') {
             alert('Please enter an email address');
             return;
           }
           if (this.frmSignin.$valid) {
-            $http.post('/auth/create_reset', { email: $scope.email }).success(function(data,status) {
-              console.log("success", data, status);
+            $http.post('/auth/create_reset', { email: this.email }).success(function(data,status) {
+              $scope.submitted = true;
+
             }).error(function(data,status) {
+              $scope.submitted = true;
               console.log("error", data, status);
             })
           } else {
-            alert('')
+            
           }
         };
 
