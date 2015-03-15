@@ -163,9 +163,8 @@
 
 
     $scope.forgot = function() {
-      window.location.href='/forgot';
+      window.location.href='/reset';
     };
-
 
 
     $scope.goaccount = function() {
