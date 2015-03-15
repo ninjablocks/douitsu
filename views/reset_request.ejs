@@ -22,6 +22,7 @@
         .login-wrapper .content-wrap label {
           width: 90% !important;
         }
+
       }
 
     </style>
@@ -32,7 +33,7 @@
     </div>
     <div class="login-wrapper container" >
       <div class="box" ng-controller="PasswordResetCtrl">
-        <div class="content-wrap" ng-if="tokeInfo.ok && !reset_success">
+        <div class="content-wrap" ng-if="tokenInfo.ok && !reset_success">
           <h6><span class="ng-scope">Reset Password</span></h6>
           <form name="frmSignin" role="form" ng-submit="ResetPassword()" novalidate>
             <label for="password" style="width:90%"><!-- New Password -->
@@ -47,13 +48,13 @@
             </div>
           </form>
         </div>
-        <div class="content-wrap" ng-if="tokeInfo.ok && reset_success">
+        <div class="content-wrap" ng-if="tokenInfo.ok && reset_success">
           <h6><span class="ng-scope">Reset Password</span></h6>
           <p>Your password successfully was reset</p>
         </div>
-        <div class="content-wrap" ng-if="!tokeInfo.ok">
+        <div class="content-wrap" ng-if="!tokenInfo.ok">
           <h6><span class="ng-scope">Reset Password</span></h6>
-          <p>Invalid reset request</p>
+          <p>Invalid request</p>
         </div>
       </div>
     </div>
@@ -72,19 +73,25 @@
         $scope.reset_success = false;
 
         $scope.ResetPassword = function() {
+          // debugger;
 
-          if ($scope.password === '') {
+          if (this.password === '') {
             alert('Please enter a password');
             return;
           }
 
-          if ($scope.password !== $scope.password_confirm) {
+          if (this.password.length < 6) {
+            alert('Password must be longer than 6 characters');
+            return;
+          }
+
+          if (this.password !== this.password_confirm) {
             alert('Password\'s must match');
             return;
           }
 
           if (this.frmSignin.$valid) {
-            $http.post('/auth/execute_reset', { password: $scope.password, token: '' }).success(function(data,status) {
+            $http.post('/auth/execute_reset', { password: this.password, token: '' }).success(function(data,status) {
               console.log("success", data, status);
               $scope.reset_success = true;
             }).error(function(data,status) {
