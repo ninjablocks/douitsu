@@ -57,6 +57,7 @@
 
       angular.module('home').controller('PasswordResetCtrl', ['$scope', '$rootScope', '$http', function($scope, $rootScope, $http) {
 
+        $scope.tokenInfo = <%- JSON.stringify(tokenInfo) %>;
         $scope.password = '';
         $scope.password_confirm = '';
 

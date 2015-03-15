@@ -37,13 +37,7 @@ module.exports = function (args) {
     userpin.load_reset({
       token: req.params.token
     }, function (err, out) {
-      console.log('out', out)
-
-      if (out.ok !== true) {
-        return res.send(400, 'Reset token not found.')
-      }
-
-      res.render('reset_request', {token: req.params.token});
+      res.render('reset_request', {tokenInfo: out});
     })
   });
 
