@@ -5,7 +5,7 @@
 <body ng-app="home" ng-controller="Main" ng-cloak>
     <link rel="stylesheet" href="/css/theme/sphere/css/compiled/signup.css" type="text/css" media="screen" />
     <div class="header">
-        <a href="index.html">
+        <a href="/">
             <img src="/css/theme/sphere/logo.png" class="logo" alt="logo" width="200" />
         </a>
     </div>
@@ -19,7 +19,7 @@
                   <span class="alert-msg" ng-if="seek_email"><i class="icon-remove-sign"></i> Invalid or unknown email address</span>
                   <input id="password" ng-model="input_password" ng-required="true" class="form-control" type="password" data-i18n="[placeholder]placeholder.password" placeholder="Your password">
                   <span class="alert-msg" ng-if="seek_password"><i class="icon-remove-sign"></i> Invalid password<br></span>
-                  <a href="#" ng-click="forgot()" ng-i18next="[html]link.forgot-password" class="forgot">Forgot password?</a>
+                  <a href="/reset" ng-i18next="[html]link.forgot-password" class="forgot">Forgot password?</a>
                   <div class="action">
                     <input type="submit" value="login" class="btn-glow primary signup" ng-click="signin()"></input>
                   </div>
