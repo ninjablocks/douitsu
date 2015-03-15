@@ -37,8 +37,8 @@ module.exports = function (args) {
     userpin.load_reset({
       token: req.params.token
     }, function (err, out) {
-      delete(out.user);
-      res.render('reset_request', {tokenInfo: out});
+      
+      res.render('reset_request', {tokenInfo: {ok: out.ok, why: out.why, token: req.params.token}});
     })
   });
 
