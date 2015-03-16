@@ -29,7 +29,7 @@ module.exports = {
       content:{
         // TODO make this configurable via ENV VARS
         resetlinkprefix:'https://id.sphere.ninja/reset',
-        confirmlinkprefix:'http://id.sphere.ninja/confirm'
+        confirmlinkprefix:'https://id.sphere.ninja/confirm'
       }
     },
     user: {
@@ -70,9 +70,10 @@ module.exports = {
     mail: {from:'services@ninjablocks.com'},
     config: {
       host: 'smtp.sendgrid.net',
-      port: 587,
+      port: 465,
+      secure: true,
       auth: {
-        user: 'XXX',
+        user: 'sphere-douitsu',
         pass: 'XXX'
       }
     }
