@@ -38,6 +38,14 @@ CREATE TABLE IF NOT EXISTS sys_user (
   PRIMARY KEY (id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+CREATE TABLE IF NOT EXISTS sys_reset (
+  id varchar(255) NOT NULL,
+  active tinyint(1) DEFAULT NULL,
+  nick varchar(255) DEFAULT NULL,
+  user varchar(255) DEFAULT NULL,
+  `when` datetime DEFAULT NULL
+)
+
 CREATE TABLE IF NOT EXISTS sys_login (
   id varchar(255) NOT NULL,
   nick varchar(255) DEFAULT NULL,
