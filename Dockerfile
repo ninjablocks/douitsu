@@ -1,11 +1,10 @@
-FROM nodesource/node:trusty
+FROM nodesource/trusty
 
 ADD . /app
 WORKDIR /app
 
 # install your application's dependencies
-RUN rm -r node_modules
-RUN npm install --production
+RUN npm rebuild
 
 # replace this with your application's default port
 EXPOSE 3333
