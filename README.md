@@ -181,3 +181,7 @@ To point to a docker in a vm use.
 ```
 export DOCKER_ARGS="-H crusty.local:5555"
 ```
+
+# Licensing
+
+douitsu is licensed under the MIT License. See LICENSE for the full license text.
