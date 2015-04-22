@@ -5,7 +5,7 @@
     "Key": "dockercfg"
   },
   "Image": {
-    "Name": "docker-registry.sphere.ninja/ninjablocks/douitsu:<TAG>",
+    "Name": "ninjasphere/douitsu:<TAG>",
     "Update": "true"
   },
   "Ports": [

@@ -5,7 +5,6 @@ APP_NAME ?= sphere-douitsu
 APP_ENV ?= sphere-douitsu-prod
 CONFIG ?= configs/options.sphere.mine.js
 
-DOCKER_ARGS ?= -H dockerhost:5555
 SHA1 := $(shell git rev-parse --short HEAD | tr -d "\n")
 
 DOCKERRUN_FILE := Dockerrun.aws.json
@@ -16,13 +15,15 @@ all: build deploy
 build:
 	# TODO not do this here.. needs to be configurable via env var
 	cp ${CONFIG} options.mine.js
-	docker ${DOCKER_ARGS} build -t "docker-registry.sphere.ninja/ninjablocks/${PROJECT}:${SHA1}" .
+	docker build -t "ninjasphere/${PROJECT}:${SHA1}" .
+
+push:
+	docker push "ninjasphere/${PROJECT}:${SHA1}"
 
 local:
-	docker ${DOCKER_ARGS} run -p 3333:3333 -t "docker-registry.sphere.ninja/ninjablocks/${PROJECT}:${SHA1}"
+	docker run -p 3333:3333 -t "ninjasphere/${PROJECT}:${SHA1}"
 
 deploy:
-	docker ${DOCKER_ARGS} push "docker-registry.sphere.ninja/ninjablocks/${PROJECT}:${SHA1}"
 	sed "s/<TAG>/${SHA1}/" < Dockerrun.aws.json.template > ${DOCKERRUN_FILE}
 	zip -r ${APP_FILE} ${DOCKERRUN_FILE} .ebextensions
 
