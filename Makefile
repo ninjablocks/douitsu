@@ -10,7 +10,7 @@ SHA1 := $(shell git rev-parse --short HEAD | tr -d "\n")
 DOCKERRUN_FILE := Dockerrun.aws.json
 APP_FILE := ${SHA1}.zip
 
-all: build deploy
+all: build
 
 build:
 	# TODO not do this here.. needs to be configurable via env var
