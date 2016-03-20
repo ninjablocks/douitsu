@@ -15,7 +15,8 @@ all: build
 build:
 	# TODO not do this here.. needs to be configurable via env var
 	cp ${CONFIG} options.mine.js
-	docker build -t "ninjasphere/${PROJECT}:${SHA1}" .
+	docker build ${BUILD_OPTS} -t "ninjasphere/${PROJECT}:${SHA1}" .
+	echo "built...${PROJECT}:${SHA1}"
 
 push:
 	docker push "ninjasphere/${PROJECT}:${SHA1}"

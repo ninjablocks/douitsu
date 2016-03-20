@@ -1,8 +1,9 @@
-FROM nodesource/trusty:0.12.12
+FROM nodesource/trusty:0.10.43
 
 ADD . /app
 WORKDIR /app
 
+RUN npm install
 # install your application's dependencies
 RUN npm rebuild
 
