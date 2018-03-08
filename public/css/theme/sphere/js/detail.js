@@ -88,7 +88,7 @@ $(function () {
   });
   $(window).resize(function() {
     $(this).width() > 769 && $('body.menu').removeClass('menu');
-  })
+  });
 
 
 	// build all tooltips from data-attributes
@@ -137,7 +137,7 @@ $(function () {
 
   	// toggle all checkboxes from a table when header checkbox is clicked
   	$('.table th input:checkbox').click(function () {
-  		$checks = $(this).closest('.table').find('tbody input:checkbox');
+  		var $checks = $(this).closest('.table').find('tbody input:checkbox');
   		if ($(this).is(':checked')) {
   			$checks.prop('checked', true);
   		} else {

@@ -5,7 +5,7 @@ module.exports = function (args) {
   var app = args.app;
   var opts = args.options;
 
-  var userpin = args.seneca.pin({role:'user',cmd:'*'})
+  var userpin = args.seneca.pin({role:'user',cmd:'*'});
 
   require('./lib/oauth2-routes')(args);
 
@@ -39,7 +39,7 @@ module.exports = function (args) {
     }, function (err, out) {
       
       res.render('reset_request', {tokenInfo: {ok: out.ok, why: out.why, token: req.params.token}});
-    })
+    });
   });
 
   app.use( function( req, res, next ){
