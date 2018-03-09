@@ -1,11 +1,15 @@
-FROM nodesource/trusty:0.10.43
+FROM mhart/alpine-node:0.12
 
 ADD . /app
 WORKDIR /app
 
-RUN npm install
-# install your application's dependencies
-RUN npm rebuild
+RUN apk add --no-cache make gcc g++ python git && \ 
+    npm install && \
+    npm rebuild && \
+    npm install gulp -g && \
+    gulp build && \
+    npm uninstall gulp -g && \
+    apk del make gcc g++ python git
 
 # replace this with your application's default port
 EXPOSE 3333
